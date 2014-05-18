@@ -1,5 +1,4 @@
 #include "engine.h"
-			}
 
 #include <math.h>
 
@@ -66,32 +65,32 @@ namespace JEngine {
 		systems.push_back(new HealthSystem(objects));
 		systems.push_back(new RenderSystem(objects, window));
 		
-		player = system->pushEntity(new Entity(100.0f, 100.0f, 0.0f));
+		player = objects->pushEntity(new Entity(100.0f, 100.0f, 0.0f));
 
-		system->attachComponent(player, new Shape({
+		objects->attachComponent(player, new Shape({
 			-16.0f, -16.0f, 0.0f,
 			16.0f, -16.0f, 0.0f,
 			16.0f, 16.0f, 0.0f,
 			-16.0f, 16.0f, 0.0f		
 		}));
 
-		system->attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
-		system->attachComponent(player, new Direction(1.0f, 0.0f, 0.0f));
-		system->attachComponent(player, new Collision(CollisionResponse::rigid_body));;
-		system->attachComponent(player, new Texture("assets/ship.png"));
-		system->attachComponent(player, new Health(100.0f));
+		objects->attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
+		objects->attachComponent(player, new Direction(1.0f, 0.0f, 0.0f));
+		objects->attachComponent(player, new Collision(CollisionResponse::rigid_body));;
+		objects->attachComponent(player, new Texture("assets/ship.png"));
+		objects->attachComponent(player, new Health(100.0f));
 
-		Entity* target = system->pushEntity(new Entity(200.0f, 200.0f, 0.0f));
+		Entity* target = objects->pushEntity(new Entity(200.0f, 200.0f, 0.0f));
 	
-		system->attachComponent(target, new Shape({
+		objects->attachComponent(target, new Shape({
 			-16.0f, -16.0f, 0.0f,
 			16.0f, -16.0f, 0.0f,
 			16.0f, 16.0f, 0.0f,
 			-16.0f, 16.0f, 0.0f,
 		}));
 	
-		system->attachComponent(target, new Collision(CollisionResponse::static_body));
-		system->attachComponent(target, new Health(100.0f));
+		objects->attachComponent(target, new Collision(CollisionResponse::static_body));
+		objects->attachComponent(target, new Health(100.0f));
 
 		std::cout << glGetString(GL_VERSION) << "\n";
 
@@ -188,24 +187,24 @@ namespace JEngine {
 
 				case SDLK_y:
 					Entity* t20;
-				   	t20	= system->pushEntity(new Entity(player->pos + glm::vec3(50.0f, 50.0f, 0.0f)));
+				   	t20	= objects->pushEntity(new Entity(player->pos + glm::vec3(50.0f, 50.0f, 0.0f)));
 				
-					system->attachComponent(t20, new Shape({
+					objects->attachComponent(t20, new Shape({
 						-16.0f, -16.0f, 0.0f,
 						16.0f, -16.0f, 0.0f,
 						16.0f, 16.0f, 0.0f,
 						-16.0f, 16.0f, 0.0f,
 					}));
 				
-					system->attachComponent(t20, new Collision(CollisionResponse::static_body));
-					system->attachComponent(t20, new Health(100.0f));
+					objects->attachComponent(t20, new Collision(CollisionResponse::static_body));
+					objects->attachComponent(t20, new Health(100.0f));
 					break;
 
 				case SDLK_f:
 					glm::vec3 rotation = glm::rotateZ(glm::vec3(1.0f, 0.0f, 0.0f), (float)(((Shape*) player->components[Component::SHAPE])->rotation - PI/2.0f));
 					glm::vec3 pos = player->pos + rotation*25.0f;
 
-					Entity* projectile = system->pushEntity(new Entity(pos));
+					Entity* projectile = objects->pushEntity(new Entity(pos));
 						
 				
 					Shape* p_shape = new Shape({
@@ -217,15 +216,15 @@ namespace JEngine {
 					});
 					p_shape->rotate(((Shape*) player->components[Component::SHAPE])->rotation);
 
-					system->attachComponent(projectile, p_shape);
+					objects->attachComponent(projectile, p_shape);
 
 				
 
-					system->attachComponent(projectile, new Velocity(rotation.x*1000, rotation.y*1000, 0.0f, 1.0f, 0.0f, 100.0f));
-					system->attachComponent(projectile, new Collision(CollisionResponse::projectile));
-					system->attachComponent(projectile, new Texture("assets/projectile.png"));
-					system->attachComponent(projectile, new Damage(40.0f));
-					system->attachComponent(projectile, new LifeTime(300));
+					objects->attachComponent(projectile, new Velocity(rotation.x*1000, rotation.y*1000, 0.0f, 1.0f, 0.0f, 100.0f));
+					objects->attachComponent(projectile, new Collision(CollisionResponse::projectile));
+					objects->attachComponent(projectile, new Texture("assets/projectile.png"));
+					objects->attachComponent(projectile, new Damage(40.0f));
+					objects->attachComponent(projectile, new LifeTime(300));
 				
 					break;
 			}

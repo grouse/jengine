@@ -16,12 +16,6 @@ namespace JEngine {
 
 			virtual void update(float);
 
-			Entity* pushEntity(Entity*);
-			Component* attachComponent(Entity*, Component*);
-
-			Entity* getEntity(int);
-			Component* getComponent(unsigned int, int);
-		
 		protected:
 			GameObjects* objects;
 			

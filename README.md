@@ -1,10 +1,5 @@
-Cookie Attack!
+JEngine!
 ====
-To further the development of JEngine, I take to space with asteroids-esque gameplay and movement system. The news for the engine as a result of this project are as follows:
-
-+ __Entity & Component System__: the engine now features a data-driven entity-component system, using sub-systems to handle the logic that couples the components together and make up the game mechanics.
-+ __Textures__: using the power of OpenGL and stb_image library, the engine now supports texture loading using the common image formats.
-+ __Improved Collision System__: the new and improved collision system handles collision between rotated bounding boxes.
 
 ## Dependencies
 The code is compiled using g++ -std=c++11 and requires installed OpenGL and SDL2.0 libraries.

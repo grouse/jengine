@@ -20,6 +20,24 @@ namespace JEngine {
 		trash.unique();
 	}
 
+	Entity* GameObjects::pushEntity(Entity* e) {
+		entities.push_back(e);
+		return e;
+	}
+
+	Component* GameObjects::attachComponent(Entity* e, Component* c) {
+		if (!c->canAttach(*e)) {
+			std::cout << "Failed to attach component: " << c->type << " to entity: " << e << "\n";
+			return 0;
+		}
+
+		components[c->type].push_back(c);
+		e->attach(c->type, c);
+		c->owner = e;
+
+		return c;
+	}
+
 	void GameObjects::processTrash() { 
 		for (auto it = trash.begin(); it != trash.end(); it++) {
 			Entity* e = (*it);

@@ -16,6 +16,9 @@ namespace JEngine {
 			std::list<Component*> components[Component::NUM_TYPES];
 			std::list<Entity*> entities;
 
+			Entity* pushEntity(Entity*);
+			Component* attachComponent(Entity*, Component*);
+
 			void trashEntity(Entity*);
 			void processTrash();
 
