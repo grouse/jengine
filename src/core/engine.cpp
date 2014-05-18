@@ -75,7 +75,6 @@ namespace JEngine {
 		}));
 
 		objects->attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
-		objects->attachComponent(player, new Direction(1.0f, 0.0f, 0.0f));
 		objects->attachComponent(player, new Collision(CollisionResponse::rigid_body));;
 		objects->attachComponent(player, new Texture("assets/ship.png"));
 		objects->attachComponent(player, new Health(100.0f));

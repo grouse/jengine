@@ -3,11 +3,12 @@
 
 #include <glm/glm.hpp>
 
-#include "system.h"
-#include "entity.h"
-#include "component.h"
-#include "velocity.h"
-#include "direction.h"
+#include "core/entity.h"
+#include "core/component.h"
+#include "core/system.h"
+#include "core/game_objects.h"
+
+#include "components/velocity.h"
 
 namespace JEngine {
 

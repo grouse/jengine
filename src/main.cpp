@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 
-#include "engine.h"
+#include "core/engine.h"
 
 int main(int argc, char* argv[]) {
 	JEngine::Engine engine;

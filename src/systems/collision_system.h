@@ -5,12 +5,14 @@
 
 #include <glm/glm.hpp>
 
-#include "system.h"
-#include "entity.h"
-#include "component.h"
-#include "collision.h"
-#include "shape.h"
-#include "game_objects.h"
+#include "core/entity.h"
+#include "core/component.h"
+#include "core/system.h"
+#include "core/game_objects.h"
+
+#include "components/collision.h"
+#include "components/shape.h"
+
 
 namespace JEngine {
 	class CollisionSystem : public System {

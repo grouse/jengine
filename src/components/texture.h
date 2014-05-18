@@ -4,8 +4,8 @@
 #include <stb_image.h>
 #include <SDL2/SDL_opengl.h>
 
-#include "entity.h"
-#include "component.h"
+#include "core/entity.h"
+#include "core/component.h"
 
 namespace JEngine {
 	class Texture : public Component {

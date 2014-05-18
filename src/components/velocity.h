@@ -5,8 +5,8 @@
 
 #include <glm/vec3.hpp>
 
-#include "entity.h"
-#include "component.h"
+#include "core/entity.h"
+#include "core/component.h"
 
 namespace JEngine {
 

@@ -3,10 +3,11 @@
 
 #include <list>
 
-#include "system.h"
-#include "entity.h"
-#include "component.h"
-#include "life_time.h"
+#include "core/entity.h"
+#include "core/component.h"
+#include "core/system.h"
+
+#include "components/life_time.h"
 
 namespace JEngine {
 	class LifeTimeSystem : public System {

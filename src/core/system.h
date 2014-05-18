@@ -4,9 +4,9 @@
 #include <vector>
 #include <list>
 
-#include "entity.h"
-#include "component.h"
-#include "game_objects.h"
+#include "core/entity.h"
+#include "core/component.h"
+#include "core/game_objects.h"
 
 namespace JEngine {
 	class System {

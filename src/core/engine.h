@@ -8,26 +8,25 @@
 #include <list>
 #include <vector>
 
-#include "entity.h"
-#include "component.h"
+#include "core/entity.h"
+#include "core/component.h"
+#include "core/system.h"
+#include "core/game_objects.h"
 
-#include "system.h"
-#include "movement_system.h"
-#include "collision_system.h"
-#include "render_system.h"
-#include "life_time_system.h"
-#include "health_system.h"
+#include "systems/movement_system.h"
+#include "systems/collision_system.h"
+#include "systems/render_system.h"
+#include "systems/life_time_system.h"
+#include "systems/health_system.h"
 
-#include "shape.h"
-#include "velocity.h"
-#include "direction.h"
-#include "collision.h"
-#include "life_time.h"
-#include "texture.h"
-#include "health.h"
-#include "damage.h"
+#include "components/shape.h"
+#include "components/velocity.h"
+#include "components/collision.h"
+#include "components/life_time.h"
+#include "components/texture.h"
+#include "components/health.h"
+#include "components/damage.h"
 
-#include "game_objects.h"
 
 namespace JEngine {
 	class Engine {

@@ -3,7 +3,7 @@
 
 #include <glm/vec3.hpp>
 
-#include "component.h"
+#include "core/component.h"
 
 namespace JEngine {
 	

@@ -1,8 +1,8 @@
 #ifndef HEALTH_H
 #define HEALTH_H
 
-#include "entity.h"
-#include "component.h"
+#include "core/entity.h"
+#include "core/component.h"
 
 namespace JEngine {
 	class Health : public Component {

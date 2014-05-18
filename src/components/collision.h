@@ -6,14 +6,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 
-#include "entity.h"
-#include "component.h"
+#include "core/entity.h"
+#include "core/component.h"
+#include "core/game_objects.h"
 
-#include "game_objects.h"
-
-#include "damage.h"
-#include "health.h"
-#include "velocity.h"
+#include "components/damage.h"
+#include "components/health.h"
+#include "components/velocity.h"
 
 namespace JEngine {
 	class CollisionSystem;

@@ -5,11 +5,13 @@
 
 #include <SDL2/SDL.h>
 
-#include "system.h"
-#include "entity.h"
-#include "component.h"
-#include "shape.h"
-#include "texture.h"
+#include "core/entity.h"
+#include "core/component.h"
+#include "core/system.h"
+#include "core/game_objects.h"
+
+#include "components/shape.h"
+#include "components/texture.h"
 
 namespace JEngine {
 	class RenderSystem : public System {

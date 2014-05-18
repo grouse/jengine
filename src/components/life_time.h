@@ -1,8 +1,8 @@
 #ifndef LIFE_TIME_H
 #define LIFE_TIME_H
 
-#include "entity.h"
-#include "component.h"
+#include "core/entity.h"
+#include "core/component.h"
 
 namespace JEngine {
 

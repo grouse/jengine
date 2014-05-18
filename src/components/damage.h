@@ -1,8 +1,8 @@
 #ifndef DAMAGE_H
 #define DAMAGE_H
 
-#include "entity.h"
-#include "component.h"
+#include "core/entity.h"
+#include "core/component.h"
 
 namespace JEngine {
 	class Damage : public Component {

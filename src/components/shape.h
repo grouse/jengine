@@ -6,8 +6,8 @@
 
 #include <SDL2/SDL_opengl.h>
 
-#include "component.h"
-#include "entity.h"
+#include "core/component.h"
+#include "core/entity.h"
 
 namespace JEngine {
 
