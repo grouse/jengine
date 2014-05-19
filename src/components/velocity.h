@@ -9,20 +9,21 @@
 #include "core/component.h"
 
 namespace JEngine {
+	namespace Components {
+		class Velocity : public Core::Component {
+			public:
+				Velocity(float, float, float, float, float, float);
+				virtual ~Velocity();
 
-	class Velocity : public Component {
-		public:
-			Velocity(float, float, float, float, float, float);
-			virtual ~Velocity();
+				glm::vec3 vec3;
 
-			glm::vec3 vec3;
+				virtual bool canAttach(Core::Entity&);
 
-			virtual bool canAttach(Entity&);
+				float rotation;
+				float acceleration, deacceleration, max_speed;
 
-			float rotation;
-			float acceleration, deacceleration, max_speed;
-
-	};
+		};
+	}
 }
 
 #endif

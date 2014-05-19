@@ -5,16 +5,17 @@
 #include "core/component.h"
 
 namespace JEngine {
+	namespace Components {
+		class LifeTime : public Core::Component {
+			public:
+				LifeTime(float);
+				virtual ~LifeTime();
 
-	class LifeTime : public Component {
-		public:
-			LifeTime(float);
-			virtual ~LifeTime();
+				virtual bool canAttach(Core::Entity&);
 
-			virtual bool canAttach(Entity&);
-
-			float remaining;
-	};
+				float remaining;
+		};
+	}
 }
 
 #endif

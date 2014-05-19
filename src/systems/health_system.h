@@ -10,13 +10,15 @@
 
 
 namespace JEngine {
-	class HealthSystem : public System {
-		public:
-			HealthSystem(GameObjects*);
-			virtual ~HealthSystem();
+	namespace Systems {
+		class HealthSystem : public Core::System {
+			public:
+				HealthSystem(Core::GameObjects*);
+				virtual ~HealthSystem();
 
-			virtual void update(float dt);
-	};
+				virtual void update(float dt);
+		};
+	}
 }
 
 #endif

@@ -29,40 +29,42 @@
 
 
 namespace JEngine {
-	class Engine {
-		public:
-			Engine();
-			virtual ~Engine();
+	namespace Core {
+		class Engine {
+			public:
+				Engine();
+				virtual ~Engine();
 
-			int init(const char*, int, int);
+				int init(const char*, int, int);
 
-			void handleInput(SDL_Event&);
-			void update(float);
+				void handleInput(SDL_Event&);
+				void update(float);
 
-			void quit();
-			bool isRunning();
+				void quit();
+				bool isRunning();
 
-			void deleteEntity(Entity*);
+				void deleteEntity(Entity*);
 
-		private:
-			SDL_Window* window;
-			SDL_GLContext glcontext;
+			private:
+				SDL_Window* window;
+				SDL_GLContext glcontext;
 
-			bool run;
+				bool run;
 
-			void initGL(int, int);
+				void initGL(int, int);
 
-			GameObjects* objects;
-			System* system;
-			std::list<System*> systems;
+				GameObjects* objects;
+				System* system;
+				std::list<System*> systems;
 
-			Entity* player;
-			
-			bool input_w = false, input_s = false, input_a = false, input_d = false;
+				Entity* player;
+				
+				bool input_w = false, input_s = false, input_a = false, input_d = false;
 
 
 
-	};
+		};
+	}
 }
 
 #endif

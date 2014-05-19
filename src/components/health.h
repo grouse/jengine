@@ -5,15 +5,17 @@
 #include "core/component.h"
 
 namespace JEngine {
-	class Health : public Component {
-		public:
-			Health(float);
-			virtual ~Health();
+	namespace Components {
+		class Health : public Core::Component {
+			public:
+				Health(float);
+				virtual ~Health();
 
-			virtual bool canAttach(Entity&);
-			
-			float health;
-	};
+				virtual bool canAttach(Core::Entity&);
+				
+				float health;
+		};
+	}
 }
 
 #endif

@@ -1,25 +1,18 @@
 #include "movement_system.h"
 
 namespace JEngine {
+	namespace Systems {
+		MovementSystem::MovementSystem(Core::GameObjects* objects) : Core::System(objects) {}
+		MovementSystem::~MovementSystem() {}
 
-	MovementSystem::MovementSystem(GameObjects* objects) : System(objects) {}
-	MovementSystem::~MovementSystem() {}
+		void MovementSystem::update(float dt) {
+			for (auto it = objects->components[Core::Component::VELOCITY].begin(); it != objects->components[Core::Component::VELOCITY].end(); it++) {
 
-	void MovementSystem::update(float dt) {
-		for (auto it = objects->components[Component::VELOCITY].begin(); it != objects->components[Component::VELOCITY].end(); it++) {
+				Components::Velocity* v = (Components::Velocity*) (*it);
+				Core::Entity* e = v->owner;;
 
-			Velocity* v = (Velocity*) (*it);
-			Entity* e = v->owner;;
-
-
-			
-			//Direction* d = (Direction*) e->components[Component::DIRECTION];
-
-			e->pos += v->vec3 * dt;
-
-			//e->x += v->x*dt;
-			//e->y += v->y*dt;
-			//v->z += v->z*dt;
+				e->pos += v->vec3 * dt;
+			}
 		}
 	}
 }

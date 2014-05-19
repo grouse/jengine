@@ -15,21 +15,21 @@
 #include "components/velocity.h"
 
 namespace JEngine {
-	class CollisionSystem;
+	namespace Components {
+		class Collision : public Core::Component {
+			public:
+				Collision(void (*response)(Core::Entity*, Core::Entity*, glm::vec3, Core::GameObjects*));
+				virtual ~Collision();
 
-	class Collision : public Component {
-		public:
-			Collision(void (*response)(Entity*, Entity*, glm::vec3, GameObjects*));
-			virtual ~Collision();
-
-			virtual bool canAttach(Entity&);
-			void (*response)(Entity*, Entity*, glm::vec3, GameObjects*);
-	};
+				virtual bool canAttach(Core::Entity&);
+				void (*response)(Core::Entity*, Core::Entity*, glm::vec3, Core::GameObjects*);
+		};
+	}
 
 	namespace CollisionResponse {
-		void rigid_body(Entity*, Entity*, glm::vec3,  GameObjects*);
-		void static_body(Entity*, Entity*, glm::vec3,  GameObjects*);
-		void projectile(Entity*, Entity*, glm::vec3, GameObjects*);
+		void rigid_body(Core::Entity*, Core::Entity*, glm::vec3,  Core::GameObjects*);
+		void static_body(Core::Entity*, Core::Entity*, glm::vec3,  Core::GameObjects*);
+		void projectile(Core::Entity*, Core::Entity*, glm::vec3, Core::GameObjects*);
 
 	}
 }

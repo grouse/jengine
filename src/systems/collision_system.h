@@ -15,22 +15,24 @@
 
 
 namespace JEngine {
-	class CollisionSystem : public System {
-		public:
-			CollisionSystem(GameObjects*);
-			virtual ~CollisionSystem();
+	namespace Systems {
+		class CollisionSystem : public Core::System {
+			public:
+				CollisionSystem(Core::GameObjects*);
+				virtual ~CollisionSystem();
 
-			virtual void update(float dt);
+				virtual void update(float dt);
 
-		private:
-			// collision functions
-			bool overlaps(glm::vec3, glm::vec3);
-			float getOverlap(glm::vec3, glm::vec3);
+			private:
+				// collision functions
+				bool overlaps(glm::vec3, glm::vec3);
+				float getOverlap(glm::vec3, glm::vec3);
 
-			bool contains(float, glm::vec3);
-			glm::vec3 project(glm::vec3*, glm::vec3);
-			glm::vec3 perp(glm::vec3);
-	};
+				bool contains(float, glm::vec3);
+				glm::vec3 project(glm::vec3*, glm::vec3);
+				glm::vec3 perp(glm::vec3);
+		};
+	}
 }
 
 #endif

@@ -7,24 +7,26 @@
 #include "core/component.h"
 
 namespace JEngine {
-	class GameObjects {
+	namespace Core {
+		class GameObjects {
 
-		public: 
-			GameObjects();
-			~GameObjects();
+			public: 
+				GameObjects();
+				~GameObjects();
 
-			std::list<Component*> components[Component::NUM_TYPES];
-			std::list<Entity*> entities;
+				std::list<Component*> components[Component::NUM_TYPES];
+				std::list<Entity*> entities;
 
-			Entity* pushEntity(Entity*);
-			Component* attachComponent(Entity*, Component*);
+				Entity* pushEntity(Entity*);
+				Component* attachComponent(Entity*, Component*);
 
-			void trashEntity(Entity*);
-			void processTrash();
+				void trashEntity(Entity*);
+				void processTrash();
 
-		private:
-			std::list<Entity*> trash;
-	};
+			private:
+				std::list<Entity*> trash;
+		};
+	}
 }
 
 #endif

@@ -5,15 +5,17 @@
 #include "core/component.h"
 
 namespace JEngine {
-	class Damage : public Component {
-		public:
-			Damage(float);
-			virtual ~Damage();
+	namespace Components {
+		class Damage : public Core::Component {
+			public:
+				Damage(float);
+				virtual ~Damage();
 
-			virtual bool canAttach(Entity&);
+				virtual bool canAttach(Core::Entity&);
 
-			float damage;
-	};
+				float damage;
+		};
+	}
 }
 
 #endif

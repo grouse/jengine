@@ -3,16 +3,18 @@
 #include <iostream>
 
 namespace JEngine {
-	HealthSystem::HealthSystem(GameObjects* objects) : System(objects) {}
-	HealthSystem::~HealthSystem() {}
+	namespace Systems {
+		HealthSystem::HealthSystem(Core::GameObjects* objects) : Core::System(objects) {}
+		HealthSystem::~HealthSystem() {}
 
-	void HealthSystem::update(float dt) {
-		for (auto it = objects->components[Component::HEALTH].begin(); it != objects->components[Component::HEALTH].end(); it++) {
-			Health* h = (Health*) (*it);
-			
-			if (h->health <= 0) 
-				objects->trashEntity(h->owner);
-			
-		}	
+		void HealthSystem::update(float dt) {
+			for (auto it = objects->components[Core::Component::HEALTH].begin(); it != objects->components[Core::Component::HEALTH].end(); it++) {
+				Components::Health* h = (Components::Health*) (*it);
+				
+				if (h->health <= 0) 
+					objects->trashEntity(h->owner);
+				
+			}	
+		}
 	}
 }

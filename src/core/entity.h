@@ -6,20 +6,21 @@
 #include "core/component.h"
 
 namespace JEngine {
-	
-	class Entity {
-		public:
-			Entity(float, float, float);
-			Entity(glm::vec3);
+	namespace Core {	
+		class Entity {
+			public:
+				Entity(float, float, float);
+				Entity(glm::vec3);
 
-			~Entity();
+				~Entity();
 
-			glm::vec3 pos;
-	
-			int attach(unsigned int, Component*);
+				glm::vec3 pos;
+		
+				int attach(unsigned int, Component*);
 
-			Component* components[Component::NUM_TYPES];
-	};
+				Component* components[Component::NUM_TYPES];
+		};
+	}
 }
 
 #endif

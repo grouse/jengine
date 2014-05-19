@@ -10,23 +10,24 @@
 #include "core/entity.h"
 
 namespace JEngine {
+	namespace Components {
+		class Shape : public Core::Component {
+			public:
+				Shape(std::initializer_list<GLfloat>);
+				virtual ~Shape();
 
-	class Shape : public Component {
-		public:
-			Shape(std::initializer_list<GLfloat>);
-			virtual ~Shape();
+				virtual bool canAttach(Core::Entity&);
 
-			virtual bool canAttach(Entity&);
+				void rotate(double);
+				void setRotation(double);
 
-			void rotate(double);
-			void setRotation(double);
+				std::vector<GLfloat> vertices;
 
-			std::vector<GLfloat> vertices;
+				float rotation;
 
-			float rotation;
-
-			GLuint vbo;
-	};
+				GLuint vbo;
+		};
+	}
 }
 
 #endif

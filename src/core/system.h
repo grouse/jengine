@@ -9,18 +9,20 @@
 #include "core/game_objects.h"
 
 namespace JEngine {
-	class System {
-		public:
-			System(GameObjects*);
-			virtual ~System();
+	namespace Core {
+		class System {
+			public:
+				System(GameObjects*);
+				virtual ~System();
 
-			virtual void update(float);
+				virtual void update(float);
 
-		protected:
-			GameObjects* objects;
-			
+			protected:
+				GameObjects* objects;
+				
 
-	};
+		};
+	}
 }
 
 #endif

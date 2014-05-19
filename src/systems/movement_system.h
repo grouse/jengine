@@ -11,14 +11,16 @@
 #include "components/velocity.h"
 
 namespace JEngine {
+	namespace Systems {
 
-	class MovementSystem : public System {
-		public:
-			MovementSystem(GameObjects*);
-			~MovementSystem();
+		class MovementSystem : public Core::System {
+			public:
+				MovementSystem(Core::GameObjects*);
+				~MovementSystem();
 
-			virtual void update(float dt);
-	};
+				virtual void update(float dt);
+		};
+	}
 }
 
 #endif

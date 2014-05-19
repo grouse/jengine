@@ -3,7 +3,7 @@
 #include "core/engine.h"
 
 int main(int argc, char* argv[]) {
-	JEngine::Engine engine;
+	JEngine::Core::Engine engine;
 
 	if (engine.init("Cookie Attack!", 1280, 720) != 0)
 		return -1;

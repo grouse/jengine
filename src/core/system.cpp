@@ -3,15 +3,16 @@
 #include <iostream>
 
 namespace JEngine {
+	namespace Core {
+		System::System(GameObjects* objects) {
+			this->objects = objects;
+		}
 
-	System::System(GameObjects* objects) {
-		this->objects = objects;
-	}
-
-	System::~System() {}
+		System::~System() {}
 
 
-	void System::update(float dt) {
-		objects->processTrash();
+		void System::update(float dt) {
+			objects->processTrash();
+		}
 	}
 }

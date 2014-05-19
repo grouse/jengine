@@ -10,14 +10,16 @@
 #include "components/life_time.h"
 
 namespace JEngine {
-	class LifeTimeSystem : public System {
-		public:
-			LifeTimeSystem(GameObjects*);
-			virtual ~LifeTimeSystem();
+	namespace Systems {
+		class LifeTimeSystem : public Core::System {
+			public:
+				LifeTimeSystem(Core::GameObjects*);
+				virtual ~LifeTimeSystem();
 
-			virtual void update(float);
+				virtual void update(float);
 
-	};
+		};
+	}
 }
 
 #endif

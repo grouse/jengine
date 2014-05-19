@@ -14,20 +14,22 @@
 #include "components/texture.h"
 
 namespace JEngine {
-	class RenderSystem : public System {
-		public:
-			RenderSystem(GameObjects*, SDL_Window*);
-			virtual ~RenderSystem();
+	namespace Systems {
+		class RenderSystem : public Core::System {
+			public:
+				RenderSystem(Core::GameObjects*, SDL_Window*);
+				virtual ~RenderSystem();
 
-			virtual void update(float);
+				virtual void update(float);
 
-			
+				
 
-		private:
-			SDL_Window* window;
+			private:
+				SDL_Window* window;
 
-			float uv[8];
-	};
+				float uv[8];
+		};
+	}
 }
 
 #endif
