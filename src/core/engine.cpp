@@ -64,6 +64,8 @@ namespace JEngine {
 			systems.push_back(new Systems::CollisionSystem(objects));
 			systems.push_back(new Systems::HealthSystem(objects));
 			systems.push_back(new Systems::RenderSystem(objects, window));
+
+			Level::load("data/entities", objects);	
 			
 			player = objects->pushEntity(new Entity(100.0f, 100.0f, 0.0f));
 

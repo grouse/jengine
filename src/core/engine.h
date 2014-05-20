@@ -12,6 +12,7 @@
 #include "core/component.h"
 #include "core/system.h"
 #include "core/game_objects.h"
+#include "core/level.h"
 
 #include "systems/movement_system.h"
 #include "systems/collision_system.h"

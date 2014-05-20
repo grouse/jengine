@@ -14,12 +14,11 @@ namespace JEngine {
 					VELOCITY = 0,
 					SHAPE = 1,
 					TEXTURE = 2,
-					DIRECTION = 3,
-					COLLISION = 4,
-					LIFETIME = 5,
-					DAMAGE = 6,
-					HEALTH = 7,
-					NUM_TYPES = 8;
+					COLLISION = 3,
+					LIFETIME = 4,
+					DAMAGE = 5,
+					HEALTH = 6,
+					NUM_TYPES = 7;
 
 				
 				const unsigned int type;
