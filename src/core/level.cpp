@@ -54,7 +54,7 @@ namespace JEngine {
 			s >> filename;;
 			std::getline(s, *data);
 
-			std::cout << "Loaded texture component!\n\tfilename: " << filename << "\n";
+			std::cout << "Loaded texture component!\n\tfilename: " << filename << "\n\n";
 		}
 
 		void load_vel(Entity* e, GameObjects* o, std::string* data) {
@@ -68,7 +68,10 @@ namespace JEngine {
 			std::getline(s, *data);
 
 			std::cout << "Loaded velocity component:\n";
-			std::cout << "vector: (" << x << ", " << y << ", " << z << "), acceleration: " << accel << ", deacceleration: " << deaccel << ", max_speed: " << max_speed << "\n";
+			std::cout << "\tvector: (" << x << ", " << y << ", " << z << ")\n";
+			std::cout << "\tacceleration: " << accel << "\n";
+			std::cout << "\tdeacceleration: " << deaccel << "\n";
+			std::cout << "\tmax_speed: " << max_speed << "\n\n";
 		}
 
 		void load_col(Entity* e, GameObjects* o, std::string* data) {}
@@ -80,7 +83,7 @@ namespace JEngine {
 			s >> damage;
 			std::getline(s, *data);
 
-			std::cout << "Loaded damage component!\n\tdamage: " << damage << "\n";
+			std::cout << "Loaded damage component!\n\tdamage: " << damage << "\n\n";
 		}
 
 		void load_hp(Entity* e, GameObjects* o, std::string* data) {
@@ -90,7 +93,7 @@ namespace JEngine {
 			s >> health;;
 			std::getline(s, *data);
 
-			std::cout << "Loaded health component!\n\thealth: " << health << "\n";
+			std::cout << "Loaded health component!\n\thealth: " << health << "\n\n";
 		}
 
 		void load_lfe(Entity* e, GameObjects* o, std::string* data) {
@@ -100,7 +103,7 @@ namespace JEngine {
 			s >> lifetime;;
 			std::getline(s, *data);
 
-			std::cout << "Loaded life_time component!\n\tlifetime: " << lifetime << "\n";
+			std::cout << "Loaded life_time component!\n\tlifetime: " << lifetime << "\n\n";
 		}
 
 		void load_shp(Entity* e, GameObjects* o, std::string* data) {
@@ -120,7 +123,7 @@ namespace JEngine {
 			for (unsigned int i = 0; i < n/3; i++) {
 				std::cout << "\t\t(" << vertices[i] << ", " << vertices[i+1] << ", " << vertices[i+2] << ")\n";
 			}
-			std::cout << "}\n";
+			std::cout << "\t}\n\n";
 		
 		}
 	}

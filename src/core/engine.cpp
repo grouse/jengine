@@ -15,6 +15,27 @@ static const double PI = 3.14159265358979323846264338327950288419716939937510582
 
 namespace JEngine {
 	namespace Core {
+		void screenshot(int x, int y, int w, int h, const char* filename) {
+			unsigned char* apixels = new unsigned char[w*h*4];
+			glReadPixels(x, y, w, h, GL_RGBA, GL_UNSIGNED_BYTE, apixels);
+
+			unsigned char* pixels = new unsigned char[w*h*4];
+			for (unsigned int line = 0; line < h; line++) {
+				unsigned int pos = line*w*4;
+				for (unsigned int i = 0; i < w*4; i++) {
+					pixels[pos+i] = apixels[(w*4*h-pos)-(w*4)+i];
+				}
+
+			}
+
+
+			SDL_Surface* surface = SDL_CreateRGBSurfaceFrom(pixels, w, h, 32, w*4, 0x000000FF, 0x0000FF00, 0x00FF0000, 0);
+			SDL_SaveBMP(surface, filename);
+
+			SDL_FreeSurface(surface);
+			delete[] pixels;
+		}
+
 		Engine::Engine() {
 			run = false;
 			window = NULL;
@@ -77,7 +98,7 @@ namespace JEngine {
 			}));
 
 			objects->attachComponent(player, new Components::Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
-			objects->attachComponent(player, new Components::Collision(CollisionResponse::rigid_body));;
+			//objects->attachComponent(player, new Components::Collision(CollisionResponse::rigid_body));;
 			objects->attachComponent(player, new Components::Texture("assets/ship.png"));
 			objects->attachComponent(player, new Components::Health(100.0f));
 
@@ -167,6 +188,10 @@ namespace JEngine {
 
 			if (e.type == SDL_KEYUP) {
 				switch (e.key.keysym.sym) {
+					case SDLK_p:
+						screenshot(0, 0, 1280, 720, "screenshot.bmp");
+						break;
+
 					case SDLK_w:
 						input_w = false;
 						break;
