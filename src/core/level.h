@@ -5,6 +5,14 @@
 #include "core/component.h"
 #include "core/game_objects.h"
 
+#include "components/collision.h"
+#include "components/damage.h"
+#include "components/health.h"
+#include "components/life_time.h"
+#include "components/shape.h"
+#include "components/texture.h"
+#include "components/velocity.h"
+
 namespace JEngine {
 	namespace Core {
 		

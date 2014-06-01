@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <fstream>
 
 namespace JEngine {
 	namespace Core {
@@ -30,41 +31,48 @@ namespace JEngine {
 		void Level::load(const char* filename, Core::GameObjects* objects) {
 			std::cout << "Loading entities from: " << filename << "\n";
 			
-			std::string velocity("0 50 50 0 1000 1000 400");
-			std::string shape("1 12 -16 -16 0 16 -16 0 16 16 0 -16 16 0");
-			std::string lifetime("4 300");
-			std::string damage("5 300");
-			std::string health("6 300");
-			std::string texture("2 assets/ship.png");
-
-			std::string data = lifetime + " " + velocity + " " +  damage + " " + health + " " + texture + " " + shape;
-
-				
-			std::stringstream s;
-			s << data <<  '\n';
+			std::ifstream file;
+			file.open(filename, std::ifstream::in);
 
 			int cmp;
-			s >> cmp;
+			std::string line;
 
-			while (!s.eof()) {
-				load_cmp[cmp](0, 0, s);
+			std::getline(file, line);
+			while (!file.eof()) {
+				std::stringstream s(line + '\n');
+
+				float x, y, z;
+				s >> x >> y >> z;
+
+				Entity* e = objects->pushEntity(new Entity(x, y, z));
+
 				s >> cmp;
+
+				while (!s.eof()) {
+					load_cmp[cmp](e, objects, s);
+					s >> cmp;
+				}
+				
+				std::getline(file, line);
 			}
 		}
 		
-		void load_tex(Entity* e, GameObjects* o, std::stringstream& s) {
+		void load_tex(Entity* e, GameObjects* objects, std::stringstream& s) {
 			std::string filename;
 
 			s >> filename;
+			objects->attachComponent(e, new Components::Texture(filename.c_str()));
+
 			std::cout << "Loaded texture component!\n\tfilename: " << filename << "\n\n";
 		}
 
-		void load_vel(Entity* e, GameObjects* o, std::stringstream& s) {
+		void load_vel(Entity* e, GameObjects* objects, std::stringstream& s) {
 			float x, y, z;
 			float accel, deaccel;
 			float max_speed;
 
 			s >> x >> y >> z >> accel >> deaccel >> max_speed;
+			objects->attachComponent(e, new Components::Velocity(x, y, z, accel, deaccel, max_speed));
 
 			std::cout << "Loaded velocity component:\n";
 			std::cout << "\tvector: (" << x << ", " << y << ", " << z << ")\n";
@@ -73,30 +81,36 @@ namespace JEngine {
 			std::cout << "\tmax_speed: " << max_speed << "\n\n";
 		}
 
-		void load_col(Entity* e, GameObjects* o, std::stringstream& s) {}
+		void load_col(Entity* e, GameObjects* objects, std::stringstream& s) {}
 
-		void load_dmg(Entity* e, GameObjects* o, std::stringstream& s) {
+		void load_dmg(Entity* e, GameObjects* objects, std::stringstream& s) {
 			float damage;
 
 			s >> damage;
+			objects->attachComponent(e, new Components::Damage(damage));
+
 			std::cout << "Loaded damage component!\n\tdamage: " << damage << "\n\n";
 		}
 
-		void load_hp(Entity* e, GameObjects* o, std::stringstream& s) {
+		void load_hp(Entity* e, GameObjects* objects, std::stringstream& s) {
 			float health;
 
 			s >> health;
+			objects->attachComponent(e, new Components::Health(health));
+
 			std::cout << "Loaded health component!\n\thealth: " << health << "\n\n";
 		}
 
-		void load_lfe(Entity* e, GameObjects* o, std::stringstream& s) {
+		void load_lfe(Entity* e, GameObjects* objects, std::stringstream& s) {
 			int lifetime;
 
 			s >> lifetime;;
+			objects->attachComponent(e, new Components::LifeTime(lifetime));
+
 			std::cout << "Loaded life_time component!\n\tlifetime: " << lifetime << "\n\n";
 		}
 
-		void load_shp(Entity* e, GameObjects* o, std::stringstream& s) {
+		void load_shp(Entity* e, GameObjects* objects, std::stringstream& s) {
 			unsigned int n;
 
 			s >> n;
@@ -104,6 +118,8 @@ namespace JEngine {
 			float vertices[n];
 			for (unsigned int i = 0; i < n; i++) 
 				s >> vertices[i];
+
+			objects->attachComponent(e, new Components::Shape(vertices));
 			
 			std::cout << "Loaded shape component!\n";
 			std::cout << "\tnbr vertices: " << n/3 << "\n\tvertices: {\n";

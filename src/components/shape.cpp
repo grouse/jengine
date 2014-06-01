@@ -12,6 +12,13 @@ namespace JEngine {
 				rotation = 0;
 		}
 
+		Shape::Shape(float v[]) : 
+			Core::Component(Core::Component::SHAPE),
+	   		vertices(v, v + sizeof(v) / sizeof(float))	{
+
+			rotation = 0;
+		}
+
 		Shape::~Shape() {}
 
 		bool Shape::canAttach(Core::Entity& e) {

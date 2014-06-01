@@ -14,6 +14,8 @@ namespace JEngine {
 		class Shape : public Core::Component {
 			public:
 				Shape(std::initializer_list<GLfloat>);
+				Shape(float[]);
+
 				virtual ~Shape();
 
 				virtual bool canAttach(Core::Entity&);
