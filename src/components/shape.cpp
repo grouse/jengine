@@ -5,19 +5,20 @@
 
 namespace JEngine {
 	namespace Components {	
-		Shape::Shape(std::initializer_list<GLfloat> v) : 
-			Core::Component(Core::Component::SHAPE),
-			vertices(v)	{
-			
-				rotation = 0;
-		}
 
-		Shape::Shape(float v[]) : 
+		Shape::Shape(std::initializer_list<float> v) : 
 			Core::Component(Core::Component::SHAPE),
-	   		vertices(v, v + sizeof(v) / sizeof(float))	{
+	   		vertices(v)	{
 
 			rotation = 0;
 		}
+
+		Shape::Shape(float* v, unsigned int size) :
+			Core::Component(Core::Component::SHAPE),
+			vertices(v, v + size) {
+
+				rotation = 0;
+			}
 
 		Shape::~Shape() {}
 

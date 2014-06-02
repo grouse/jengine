@@ -119,14 +119,13 @@ namespace JEngine {
 			for (unsigned int i = 0; i < n; i++) 
 				s >> vertices[i];
 
-			objects->attachComponent(e, new Components::Shape(vertices));
+			objects->attachComponent(e, new Components::Shape(vertices, n));
 			
 			std::cout << "Loaded shape component!\n";
-			std::cout << "\tnbr vertices: " << n/3 << "\n\tvertices: {\n";
-			for (unsigned int i = 0; i < n/3; i++) {
-				std::cout << "\t\t(" << vertices[i] << ", " << vertices[i+1] << ", " << vertices[i+2] << ")\n";
-			}
-			std::cout << "\t}\n\n";
+			std::cout << "\tnbr vertices: " << n/3 << "\n\tvertices: {";
+			for (unsigned int i = 0; i < n; i++)
+				std::cout << vertices[i] << ", ";
+			std::cout << "}\n";
 		
 		}
 	}

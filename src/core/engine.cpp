@@ -90,12 +90,14 @@ namespace JEngine {
 			
 			player = objects->pushEntity(new Entity(100.0f, 100.0f, 0.0f));
 
-			objects->attachComponent(player, new Components::Shape({
+			float p_verts[] = {
 				-16.0f, -16.0f, 0.0f,
 				16.0f, -16.0f, 0.0f,
 				16.0f, 16.0f, 0.0f,
 				-16.0f, 16.0f, 0.0f		
-			}));
+			};
+
+			objects->attachComponent(player, new Components::Shape(p_verts, 12));
 
 			objects->attachComponent(player, new Components::Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
 			//objects->attachComponent(player, new Components::Collision(CollisionResponse::rigid_body));;
@@ -104,12 +106,7 @@ namespace JEngine {
 
 			Entity* target = objects->pushEntity(new Entity(200.0f, 200.0f, 0.0f));
 		
-			objects->attachComponent(target, new Components::Shape({
-				-16.0f, -16.0f, 0.0f,
-				16.0f, -16.0f, 0.0f,
-				16.0f, 16.0f, 0.0f,
-				-16.0f, 16.0f, 0.0f,
-			}));
+			objects->attachComponent(target, new Components::Shape(p_verts, 12));
 		
 			objects->attachComponent(target, new Components::Collision(CollisionResponse::static_body));
 			objects->attachComponent(target, new Components::Health(100.0f));
@@ -211,13 +208,25 @@ namespace JEngine {
 					case SDLK_y:
 						Entity* t20;
 						t20	= objects->pushEntity(new Entity(player->pos + glm::vec3(50.0f, 50.0f, 0.0f)));
-					
-						objects->attachComponent(t20, new Components::Shape({
-							-16.0f, -16.0f, 0.0f,
-							16.0f, -16.0f, 0.0f,
-							16.0f, 16.0f, 0.0f,
-							-16.0f, 16.0f, 0.0f,
-						}));
+			
+						float p_verts[12];
+						p_verts[0] = -16.0f;
+						p_verts[1] = -16.0f;
+						p_verts[2] = 0.0f;
+
+						p_verts[3] = 16.0f;
+						p_verts[4] = -16.0f;
+						p_verts[5] = 0.0f;
+
+						p_verts[6] = 16.0f;
+						p_verts[7] = 16.0f;
+						p_verts[8] = 0.0f;
+
+						p_verts[9] = -16.0f;
+						p_verts[10] = 16.0f;
+						p_verts[11] = 0.0f;
+
+						objects->attachComponent(t20, new Components::Shape(p_verts, 12));
 					
 						objects->attachComponent(t20, new Components::Collision(CollisionResponse::static_body));
 						objects->attachComponent(t20, new Components::Health(100.0f));
@@ -229,14 +238,24 @@ namespace JEngine {
 
 						Entity* projectile = objects->pushEntity(new Entity(pos));
 							
+						float t_verts[12];
+						t_verts[0] = -16.0f;
+						t_verts[1] = -16.0f;
+						t_verts[2] = 0.0f;
+
+						t_verts[3] = 16.0f;
+						t_verts[4] = -16.0f;
+						t_verts[5] = 0.0f;
+
+						t_verts[6] = 16.0f;
+						t_verts[7] = 16.0f;
+						t_verts[8] = 0.0f;
+
+						t_verts[9] = -16.0f;
+						t_verts[10] = 16.0f;
+						t_verts[11] = 0.0f;
 					
-						Components::Shape* p_shape = new Components::Shape({
-							-4.0f, -4.0f, 0.0f,
-							4.0f, -4.0f, 0.0f,
-							4.0f, 4.0f, 0.0f,
-							-4.0f, 4.0f, 0.0f		
-								
-						});
+						Components::Shape* p_shape = new Components::Shape(t_verts, 12);
 						p_shape->rotate(((Components::Shape*) player->components[Component::SHAPE])->rotation);
 
 						objects->attachComponent(projectile, p_shape);

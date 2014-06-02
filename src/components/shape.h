@@ -13,8 +13,8 @@ namespace JEngine {
 	namespace Components {
 		class Shape : public Core::Component {
 			public:
-				Shape(std::initializer_list<GLfloat>);
-				Shape(float[]);
+				Shape(std::initializer_list<float>);
+				Shape(float*, unsigned int);
 
 				virtual ~Shape();
 
@@ -23,7 +23,7 @@ namespace JEngine {
 				void rotate(double);
 				void setRotation(double);
 
-				std::vector<GLfloat> vertices;
+				std::vector<float> vertices;
 
 				float rotation;
 
