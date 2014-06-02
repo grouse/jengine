@@ -14,6 +14,7 @@ namespace JEngine {
 				if (c->remaining <= 0)
 					objects->trashEntity(c->owner);
 			}
+			
 		}
 	}
 }

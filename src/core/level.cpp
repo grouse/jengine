@@ -115,18 +115,17 @@ namespace JEngine {
 
 			s >> n;
 
-			float vertices[n];
-			for (unsigned int i = 0; i < n; i++) 
-				s >> vertices[i];
 
-			objects->attachComponent(e, new Components::Shape(vertices, n));
+			float p_verts[] = {
+				-16.0f, -16.0f, 0.0f,
+				16.0f, -16.0f, 0.0f,
+				16.0f, 16.0f, 0.0f,
+				-16.0f, 16.0f, 0.0f		
+			};
+			objects->attachComponent(e, new Components::Shape(p_verts, 12));
 			
 			std::cout << "Loaded shape component!\n";
-			std::cout << "\tnbr vertices: " << n/3 << "\n\tvertices: {";
-			for (unsigned int i = 0; i < n; i++)
-				std::cout << vertices[i] << ", ";
-			std::cout << "}\n";
-		
+	
 		}
 	}
 }

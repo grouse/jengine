@@ -22,7 +22,6 @@ int main(int argc, char* argv[]) {
 		while (SDL_PollEvent(&e))
 			engine.handleInput(e);
 
-
 		engine.update(dt);		
 	}
 	

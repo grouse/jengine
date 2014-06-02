@@ -86,7 +86,6 @@ namespace JEngine {
 			systems.push_back(new Systems::HealthSystem(objects));
 			systems.push_back(new Systems::RenderSystem(objects, window));
 
-			Level::load("data/entities", objects);	
 			
 			player = objects->pushEntity(new Entity(100.0f, 100.0f, 0.0f));
 
@@ -113,6 +112,7 @@ namespace JEngine {
 
 			std::cout << glGetString(GL_VERSION) << "\n";
 
+			Level::load("data/entities", objects);	
 			run = true;
 			return 0;
 		}
@@ -314,6 +314,7 @@ namespace JEngine {
 					v->vec3 = new_v;	
 				}
 			}
+
 
 			for (auto it = systems.begin(); it != systems.end(); it++)
 				(*it)->update(dt);
