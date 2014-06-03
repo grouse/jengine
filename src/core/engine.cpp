@@ -97,7 +97,7 @@ namespace JEngine {
 			}));
 
 			objects->attachComponent(player, new Components::Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
-			//objects->attachComponent(player, new Components::Collision(CollisionResponse::rigid_body));;
+			objects->attachComponent(player, new Components::Collision(CollisionResponse::rigid_body));;
 			objects->attachComponent(player, new Components::Texture("assets/ship.png"));
 			objects->attachComponent(player, new Components::Health(100.0f));
 
@@ -239,8 +239,6 @@ namespace JEngine {
 						p_shape->rotate(((Components::Shape*) player->components[Component::SHAPE])->rotation);
 
 						objects->attachComponent(projectile, p_shape);
-
-					
 
 						objects->attachComponent(projectile, new Components::Velocity(rotation.x*1000, rotation.y*1000, 0.0f, 1.0f, 0.0f, 100.0f));
 						objects->attachComponent(projectile, new Components::Collision(CollisionResponse::projectile));

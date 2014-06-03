@@ -19,9 +19,12 @@ namespace JEngine {
 	namespace CollisionResponse {
 		void rigid_body(Core::Entity* e1, Core::Entity* e2, glm::vec3 overlap, Core::GameObjects* objects) {
 			e1->pos -= overlap;
-			
-			Components::Velocity* v = (Components::Velocity*) e1->components[Core::Component::VELOCITY];
-			v->vec3 = glm::vec3(0.0f, 0.0f, 0.0f);
+
+			if (e1->components[Core::Component::VELOCITY] != 0) {
+				Components::Velocity* v = (Components::Velocity*) e1->components[Core::Component::VELOCITY];
+				
+				v->vec3 *= 0.75;
+			}
 		}
 		
 		void static_body(Core::Entity* e1, Core::Entity* e2, glm::vec3 overlap, Core::GameObjects* objects) {}
