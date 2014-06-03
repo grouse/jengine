@@ -81,7 +81,35 @@ namespace JEngine {
 			std::cout << "\tmax_speed: " << max_speed << "\n\n";
 		}
 
-		void load_col(Entity* e, GameObjects* objects, std::stringstream& s) {}
+		void load_col(Entity* e, GameObjects* objects, std::stringstream& s) {
+			unsigned int t;
+			s >> t;
+
+			Components::Collision* c;
+			std::string type;
+
+			switch (t) {
+				default:
+				case 0:
+					c = new Components::Collision(CollisionResponse::rigid_body);
+					type = "RigidBody";
+					break;
+
+				case 1:
+					c = new Components::Collision(CollisionResponse::static_body);
+					type = "StaticBody";
+					break;
+
+				case 2:
+					c = new Components::Collision(CollisionResponse::projectile);
+					type = "Projectile";
+					break;
+			}
+
+			objects->attachComponent(e, c);
+			std::cout << "Loaded collision component!\n";
+			std::cout << "\ttype: " << type << "\n";
+		}
 
 		void load_dmg(Entity* e, GameObjects* objects, std::stringstream& s) {
 			float damage;
@@ -114,15 +142,12 @@ namespace JEngine {
 			unsigned int n;
 
 			s >> n;
+			float vertices[n];
 
+			for (unsigned int i = 0; i < n; i++)
+				s >> vertices[i];
 
-			float p_verts[] = {
-				-16.0f, -16.0f, 0.0f,
-				16.0f, -16.0f, 0.0f,
-				16.0f, 16.0f, 0.0f,
-				-16.0f, 16.0f, 0.0f		
-			};
-			objects->attachComponent(e, new Components::Shape(p_verts, 12));
+			objects->attachComponent(e, new Components::Shape(vertices, n));
 			
 			std::cout << "Loaded shape component!\n";
 	
