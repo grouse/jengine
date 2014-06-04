@@ -2,10 +2,23 @@
 
 #include "core/engine.h"
 
-int main(int argc, char* argv[]) {
-	JEngine::Core::Engine engine;
+#include "systems/collision_system.h"
+#include "systems/health_system.h"
+#include "systems/life_time_system.h"
+#include "systems/movement_system.h"
+#include "systems/render_system.h"
 
-	if (engine.init("Cookie Attack!", 1280, 720) != 0)
+int main(int argc, char* argv[]) {
+	JEngine::Core::GameObjects objects;
+	JEngine::Core::Engine engine(&objects);
+
+	engine.attachSystem(new JEngine::Systems::LifeTimeSystem(&objects));
+	engine.attachSystem(new JEngine::Systems::MovementSystem(&objects));
+	engine.attachSystem(new JEngine::Systems::CollisionSystem(&objects));
+	engine.attachSystem(new JEngine::Systems::HealthSystem(&objects));
+	engine.attachSystem(new JEngine::Systems::RenderSystem(&objects));
+
+	if (engine.init() != 0)
 		return -1;
 
 	Uint32 old_time, current_time;

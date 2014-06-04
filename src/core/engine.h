@@ -33,29 +33,23 @@ namespace JEngine {
 	namespace Core {
 		class Engine {
 			public:
-				Engine();
+				Engine(GameObjects*);
 				virtual ~Engine();
 
-				int init(const char*, int, int);
+				int init();
 
 				void handleInput(SDL_Event&);
+
+				void attachSystem(System*);
 				void update(float);
 
 				void quit();
 				bool isRunning();
 
-				void deleteEntity(Entity*);
-
 			private:
-				SDL_Window* window;
-				SDL_GLContext glcontext;
-
 				bool run;
 
-				void initGL(int, int);
-
 				GameObjects* objects;
-				System* system;
 				std::list<System*> systems;
 
 				Entity* player;

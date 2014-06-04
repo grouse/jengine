@@ -6,6 +6,10 @@ namespace JEngine {
 		LifeTimeSystem::LifeTimeSystem(Core::GameObjects* objects) : Core::System(objects) {}
 		LifeTimeSystem::~LifeTimeSystem() {}
 
+		void LifeTimeSystem::init() {
+			initialised = true;
+		}
+
 		void LifeTimeSystem::update(float dt) {
 			for (auto it = objects->components[Core::Component::LIFETIME].begin(); it != objects->components[Core::Component::LIFETIME].end(); it++) {
 				Components::LifeTime* c = (Components::LifeTime*) (*it);

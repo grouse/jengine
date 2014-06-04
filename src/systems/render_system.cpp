@@ -5,8 +5,7 @@
 namespace JEngine {
 	namespace Systems {
 
-		RenderSystem::RenderSystem(Core::GameObjects* objects, SDL_Window* w) : Core::System(objects) {
-			window = w;
+		RenderSystem::RenderSystem(Core::GameObjects* objects) : Core::System(objects) {
 
 			uv[0] = 0.0f;
 			uv[1] = 0.0f;
@@ -22,7 +21,65 @@ namespace JEngine {
 
 		}
 
-		RenderSystem::~RenderSystem() {}
+		RenderSystem::~RenderSystem() {
+			SDL_DestroyWindow(window);
+			SDL_GL_DeleteContext(glcontext);
+		}
+
+		void RenderSystem::init() {
+			int w = 1280, h = 720;
+			const char* title = "JEngine";
+
+			if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+				std::cerr << SDL_GetError() << "\n";
+			}
+
+			window = SDL_CreateWindow(
+				title,
+				SDL_WINDOWPOS_UNDEFINED,
+				SDL_WINDOWPOS_UNDEFINED,
+				w,
+				h,
+				SDL_WINDOW_OPENGL		
+			);
+
+			if (window == NULL) {
+				std::cerr << SDL_GetError() << "\n";
+				SDL_Quit();
+			}
+
+
+			glcontext = SDL_GL_CreateContext(window);
+			
+			glShadeModel(GL_SMOOTH);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClearDepth(1.0f);
+			
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
+			
+			glEnable(GL_TEXTURE_2D);
+
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+			// Set viewport
+
+			glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+
+			glOrtho(0.0f, w, h, 0.0f, -1.0f, 1.0f);
+
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+
+
+			initialised = true;
+		}
 
 		void RenderSystem::update(float dt) {
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

@@ -21,6 +21,7 @@ namespace JEngine {
 				CollisionSystem(Core::GameObjects*);
 				virtual ~CollisionSystem();
 
+				virtual void init();
 				virtual void update(float dt);
 
 			private:

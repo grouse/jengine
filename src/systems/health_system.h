@@ -16,6 +16,7 @@ namespace JEngine {
 				HealthSystem(Core::GameObjects*);
 				virtual ~HealthSystem();
 
+				virtual void init();
 				virtual void update(float dt);
 		};
 	}

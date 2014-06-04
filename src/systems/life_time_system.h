@@ -16,6 +16,7 @@ namespace JEngine {
 				LifeTimeSystem(Core::GameObjects*);
 				virtual ~LifeTimeSystem();
 
+				virtual void init();
 				virtual void update(float);
 
 		};

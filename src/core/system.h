@@ -15,9 +15,11 @@ namespace JEngine {
 				System(GameObjects*);
 				virtual ~System();
 
-				virtual void update(float);
+				virtual void init() = 0;
+				virtual void update(float) = 0;
 
 			protected:
+				bool initialised = false;
 				GameObjects* objects;
 				
 

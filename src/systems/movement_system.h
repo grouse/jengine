@@ -18,6 +18,7 @@ namespace JEngine {
 				MovementSystem(Core::GameObjects*);
 				~MovementSystem();
 
+				virtual void init();
 				virtual void update(float dt);
 		};
 	}

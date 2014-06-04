@@ -5,6 +5,10 @@ namespace JEngine {
 		MovementSystem::MovementSystem(Core::GameObjects* objects) : Core::System(objects) {}
 		MovementSystem::~MovementSystem() {}
 
+		void MovementSystem::init() {
+			initialised = true;
+		}
+
 		void MovementSystem::update(float dt) {
 			for (auto it = objects->components[Core::Component::VELOCITY].begin(); it != objects->components[Core::Component::VELOCITY].end(); it++) {
 

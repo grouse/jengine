@@ -36,57 +36,22 @@ namespace JEngine {
 			delete[] pixels;
 		}
 
-		Engine::Engine() {
+		Engine::Engine(GameObjects* objects) {
+			this->objects = objects;
 			run = false;
-			window = NULL;
 		}
 
 		Engine::~Engine() {
-			SDL_DestroyWindow(window);
-			SDL_GL_DeleteContext(glcontext);
-			SDL_Quit();
-
 			for (auto it = systems.begin(); it != systems.end(); it++)
 				delete (*it);
 
-			delete objects;
+			SDL_Quit();
 		}
 
-		int Engine::init(const char* title, int w, int h) {
+		int Engine::init() {
+			for (auto it = systems.begin(); it != systems.end(); it++)
+				(*it)->init();
 
-			if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-				std::cerr << SDL_GetError() << "\n";
-				return -1;
-			}
-
-			window = SDL_CreateWindow(
-				title,
-				SDL_WINDOWPOS_UNDEFINED,
-				SDL_WINDOWPOS_UNDEFINED,
-				w,
-				h,
-				SDL_WINDOW_OPENGL		
-			);
-
-			if (window == NULL) {
-				std::cerr << SDL_GetError() << "\n";
-				SDL_Quit();
-				return -1;
-			}
-
-			initGL(w, h);
-
-			objects = new GameObjects();
-			system = new System(objects);
-
-			systems.push_back(system);
-			systems.push_back(new Systems::LifeTimeSystem(objects));
-			systems.push_back(new Systems::MovementSystem(objects));
-			systems.push_back(new Systems::CollisionSystem(objects));
-			systems.push_back(new Systems::HealthSystem(objects));
-			systems.push_back(new Systems::RenderSystem(objects, window));
-
-			
 			player = objects->pushEntity(new Entity(100.0f, 100.0f, 0.0f));
 
 			objects->attachComponent(player, new Components::Shape({
@@ -113,44 +78,15 @@ namespace JEngine {
 			objects->attachComponent(target, new Components::Collision(CollisionResponse::static_body));
 			objects->attachComponent(target, new Components::Health(100.0f));
 
-			std::cout << glGetString(GL_VERSION) << "\n";
 
 			Level::load("data/entities", objects);	
 			run = true;
 			return 0;
 		}
 
-		void Engine::initGL(int w, int h) {
-			glcontext = SDL_GL_CreateContext(window);
-			
-			
-			glShadeModel(GL_SMOOTH);
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			glClearDepth(1.0f);
-			
-			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LESS);
-			
-			glEnable(GL_TEXTURE_2D);
-
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-			// Set viewport
-
-			glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-
-			glOrtho(0.0f, w, h, 0.0f, -1.0f, 1.0f);
-
-			glMatrixMode(GL_MODELVIEW);
-			glLoadIdentity();
+		void Engine::attachSystem(System* s) {
+			systems.push_back(s);
 		}
-
 
 		void Engine::handleInput(SDL_Event& e) {
 			if (e.type == SDL_QUIT)
@@ -296,6 +232,8 @@ namespace JEngine {
 
 			for (auto it = systems.begin(); it != systems.end(); it++)
 				(*it)->update(dt);
+
+			objects->processTrash();
 		}
 
 		void Engine::quit() {

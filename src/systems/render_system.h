@@ -17,15 +17,17 @@ namespace JEngine {
 	namespace Systems {
 		class RenderSystem : public Core::System {
 			public:
-				RenderSystem(Core::GameObjects*, SDL_Window*);
+				RenderSystem(Core::GameObjects*);
 				virtual ~RenderSystem();
 
+				virtual void init();
 				virtual void update(float);
 
 				
 
 			private:
 				SDL_Window* window;
+				SDL_GLContext glcontext;
 
 				float uv[8];
 		};

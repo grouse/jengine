@@ -8,6 +8,10 @@ namespace JEngine {
 		CollisionSystem::CollisionSystem(Core::GameObjects* objects) : Core::System(objects) {}
 		CollisionSystem::~CollisionSystem() {}
 
+		void CollisionSystem::init() {
+			initialised = true;
+		}
+
 		void CollisionSystem::update(float dt) {
 
 			auto itr = objects->components[Core::Component::COLLISION].rbegin();

@@ -9,10 +9,5 @@ namespace JEngine {
 		}
 
 		System::~System() {}
-
-
-		void System::update(float dt) {
-			objects->processTrash();
-		}
 	}
 }
