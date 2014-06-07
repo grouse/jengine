@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #include "life_time_system.h"
 
 namespace JEngine {

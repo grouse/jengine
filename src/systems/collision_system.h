@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef COLLISION_SYSTEM_H
 #define COLLISION_SYSTEM_H
 

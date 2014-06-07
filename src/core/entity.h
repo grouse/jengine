@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef ENTITY_H
 #define ENTITY_H
 

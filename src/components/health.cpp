@@ -1,4 +1,7 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #include "health.h"
+
 
 namespace JEngine {
 	namespace Components {

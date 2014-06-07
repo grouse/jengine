@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef SHAPE_H
 #define SHAPE_H
 

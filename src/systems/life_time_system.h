@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef LIFE_TIME_SYSTEM_H
 #define LIFE_TIME_SYSTEM_H
 

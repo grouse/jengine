@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef RENDER_SYSTEM_H
 #define RENDER_SYSTEM_H
 

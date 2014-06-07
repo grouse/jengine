@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef GAME_OBJECTS_H
 #define GAME_OBJECTS_H
 

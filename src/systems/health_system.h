@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef HEALTH_SYSTEM_H
 #define HEALTH_SYSTEM_H
 
