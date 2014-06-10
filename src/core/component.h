@@ -20,7 +20,8 @@ namespace JEngine {
 					LIFETIME = 4,
 					DAMAGE = 5,
 					HEALTH = 6,
-					NUM_TYPES = 7;
+					AUDIO = 7,
+					NUM_TYPES = 8;
 
 				
 				const unsigned int type;
