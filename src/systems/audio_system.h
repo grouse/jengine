@@ -1,3 +1,5 @@
+// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+
 #ifndef AUDIO_SYSTEM_H
 #define AUDIO_SYSTEM_H
 
