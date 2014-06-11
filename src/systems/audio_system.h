@@ -3,6 +3,9 @@
 #ifndef AUDIO_SYSTEM_H
 #define AUDIO_SYSTEM_H
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+
 #include "core/system.h"
 #include "core/game_objects.h"
 
@@ -14,7 +17,10 @@ namespace JEngine {
 				virtual ~AudioSystem();
 
 				virtual void init();
-				virtual void update(float);	
+				virtual void update(float);
+
+				Mix_Music* music;
+
 
 		};
 	}

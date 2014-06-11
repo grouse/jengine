@@ -10,7 +10,7 @@ GLM_OBJ := $(addprefix obj/,$(notdir $(GLM_HPP:.hpp=.o)))
 CC = g++
 DEBUG = -g -Wall
 CFLAGS = -c -std=c++11 -MMD $(DEBUG)
-LFLAGS = -lGL -lSDL2 $(DEBUG)
+LFLAGS = -lGL -lSDL2 -lSDL2_mixer $(DEBUG)
 INC = -Ilib/stb -Ilib -Isrc
 
 jengine: $(OBJ_FILES)

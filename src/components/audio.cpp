@@ -2,15 +2,20 @@
 
 #include "components/audio.h"
 
+#include <iostream>
+
 namespace JEngine {
 	namespace Components {
 		
 		Audio::Audio(const char* file, void(*callback)(Audio*)) : Core::Component(Core::Component::AUDIO) {
 			this->callback = callback;
 			this->file = file;
+		
 		}
 
-		Audio::~Audio() {}
+		Audio::~Audio() {
+		}
+
 		bool Audio::canAttach(Core::Entity& e) {
 			return true;
 		}

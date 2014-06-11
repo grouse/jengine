@@ -3,6 +3,9 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+
 #include "core/entity.h"
 #include "core/component.h"
 
@@ -16,6 +19,8 @@ namespace JEngine {
 				virtual bool canAttach(Core::Entity&);
 				
 				const char* file;
+				Mix_Music* sound;
+				
 				void (*callback)(Audio*);
 
 		};

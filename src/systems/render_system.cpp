@@ -32,10 +32,6 @@ namespace JEngine {
 			int w = 1280, h = 720;
 			const char* title = "JEngine";
 
-			if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-				std::cerr << SDL_GetError() << "\n";
-			}
-
 			window = SDL_CreateWindow(
 				title,
 				SDL_WINDOWPOS_UNDEFINED,

@@ -51,6 +51,11 @@ namespace JEngine {
 		}
 
 		int Engine::init() {
+
+			if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
+				std::cerr << SDL_GetError() << "\n";
+			}
+
 			for (auto it = systems.begin(); it != systems.end(); it++)
 				(*it)->init();
 

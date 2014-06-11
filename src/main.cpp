@@ -9,6 +9,7 @@
 #include "systems/life_time_system.h"
 #include "systems/movement_system.h"
 #include "systems/render_system.h"
+#include "systems/audio_system.h"
 
 int main(int argc, char* argv[]) {
 	JEngine::Core::GameObjects objects;
@@ -19,6 +20,7 @@ int main(int argc, char* argv[]) {
 	engine.attachSystem(new JEngine::Systems::CollisionSystem(&objects));
 	engine.attachSystem(new JEngine::Systems::HealthSystem(&objects));
 	engine.attachSystem(new JEngine::Systems::RenderSystem(&objects));
+	engine.attachSystem(new JEngine::Systems::AudioSystem(&objects));
 
 	if (engine.init() != 0)
 		return -1;
