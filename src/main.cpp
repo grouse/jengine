@@ -12,9 +12,10 @@
 #include "systems/audio_system.h"
 
 int main(int argc, char* argv[]) {
-	JEngine::Core::GameObjects objects;
-	JEngine::Core::Engine engine(&objects);
+	JEngine::Core::GameObjects objects; 
+	JEngine::Core::Engine engine(&objects); 
 
+	// set up the engine with systems
 	engine.attachSystem(new JEngine::Systems::LifeTimeSystem(&objects));
 	engine.attachSystem(new JEngine::Systems::MovementSystem(&objects));
 	engine.attachSystem(new JEngine::Systems::CollisionSystem(&objects));
