@@ -33,6 +33,8 @@ int main(int argc, char* argv[]) {
 	while (engine.isRunning()) {
 		old_time = current_time;
 		current_time = SDL_GetTicks();
+
+		// time since last frame in seconds
 		dt = (current_time - old_time) / 1000.0f;
 
 		SDL_Event e;

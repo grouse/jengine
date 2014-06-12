@@ -15,11 +15,17 @@
 #include "components/texture.h"
 #include "components/velocity.h"
 
+// Class used for loading entities from file, the format for
+// each line should be ID DATA where ID is the Component ID as 
+// represented by const integers in Core::Component, and DATA 
+// is space separated values for the component.
 namespace JEngine {
 	namespace Core {
 		
 		class Level {
 		public:
+
+			// Loads entities into GameObjects from file
 			static void load(const char*, Core::GameObjects*);
 		};
 	}

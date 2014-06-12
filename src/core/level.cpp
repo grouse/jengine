@@ -12,14 +12,18 @@
 
 namespace JEngine {
 	namespace Core {
-		static void load_tex(Entity*, GameObjects*, std::stringstream&);
-		static void load_vel(Entity*, GameObjects*, std::stringstream&);
-		static void load_col(Entity*, GameObjects*, std::stringstream&);
-		static void load_dmg(Entity*, GameObjects*, std::stringstream&);
-		static void load_hp(Entity*, GameObjects*, std::stringstream&);
-		static void load_lfe(Entity*, GameObjects*, std::stringstream&);
-		static void load_shp(Entity*, GameObjects*, std::stringstream&);
 
+		// Component loaders
+		static void load_tex(Entity*, GameObjects*, std::stringstream&); // Texture loader
+		static void load_vel(Entity*, GameObjects*, std::stringstream&); // Velocity loader
+		static void load_col(Entity*, GameObjects*, std::stringstream&); // Collision loader
+		static void load_dmg(Entity*, GameObjects*, std::stringstream&); // Damage loader
+		static void load_hp(Entity*, GameObjects*, std::stringstream&);  // Health loader
+		static void load_lfe(Entity*, GameObjects*, std::stringstream&); // LifeTime loader
+		static void load_shp(Entity*, GameObjects*, std::stringstream&); // Shape loader
+
+		// Array of function pointers to above component loaders
+		// indexed by Component ID for calling by index ID
 		static void (*load_cmp[])(Entity*, GameObjects*, std::stringstream&) = {
 			load_vel,
 			load_shp,
@@ -39,17 +43,22 @@ namespace JEngine {
 			int cmp;
 			std::string line;
 
+			// for each line in the file, create a new entity with position provided
+			// as the first 3 floats separated by space. 
+			// Get next integer as component ID and pass the remaining data to the 
+			// component loader.
 			std::getline(file, line);
 			while (!file.eof()) {
 				std::stringstream s(line + '\n');
 
-				float x, y, z;
+				float x, y, z; 
 				s >> x >> y >> z;
 
 				Entity* e = objects->pushEntity(new Entity(x, y, z));
 
 				s >> cmp;
 
+				// while stream still has input, load component and attach to entity
 				while (!s.eof()) {
 					load_cmp[cmp](e, objects, s);
 					s >> cmp;
