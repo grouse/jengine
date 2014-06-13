@@ -1,5 +1,22 @@
 // Copyright (c) 2014 Jesper Stefansson. All rights reserved.
-
+//
+// file: engine.h
+// author: Jesper Stefansson
+//
+// Contains the Engine class which handles all attached systems, input
+// and memory management. The engine is ignorant to which systems are 
+// attached and simply contains a list of pointers to the systems,
+// by calling Engine::update(float) the engine will update all 
+// attached systems and finish with processing the GameObjects trash.
+//
+// Sample usage:
+// 		Engine e;
+// 		e.attachSystem(new System(&GameObjects));
+// 		e.init();
+//
+// 		while (e.isRunning())
+// 			e.handleInput(SDL_Event);
+// 			e.update(dt);
 #ifndef ENGINE_H
 #define ENGINE_H
 
@@ -34,25 +51,23 @@
 namespace JEngine {
 	namespace Core {
 
-		// The engine class acts as a container for its attached systems 
-		// which it initialises, updates, and manages. 
-		//
-		// Sample usage: 
-		// 		Engine e;
-		//		e.attachSystem(new System(GamaObjects*));
-		//		e.init();
-		//
-		//		while (true)
-		//			e.handleInput(SDL_Event);
-		//			e.update(dt);
+		// See file comments for class details
 		class Engine {
 			public:
+				// Saves the GameObjects pointer 	
 				Engine(GameObjects*);
+
+				// Deallocates all attached systems and call SDL_Quit()
+				//
+				// Function is equivalent to:
+				// 		for (system : systems)
+				// 			delete system;
+				// 		SDL_Quit();
 				virtual ~Engine();
 
 				// Initialises SDL and the attached systems
 				//
-				// The function is equivalent to:
+				// Function is equivalent to:
 				//		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 				// 		for (system : systems)
 				// 			system->init()
