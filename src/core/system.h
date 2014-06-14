@@ -25,8 +25,7 @@ namespace JEngine {
 		// See file comments for class details
 		class System {
 			public:
-				System(GameObjects* o) {objects = o};
-				virtual ~System();
+				System(GameObjects* o) {objects = o;};
 
 				virtual void init() = 0;		// initialise system
 				virtual void update(float) = 0;	// update system, paramter is seconds since last frame

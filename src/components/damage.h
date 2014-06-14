@@ -1,4 +1,9 @@
-// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+// Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+//
+// file: damage.h
+// author: Jesper Stefansson
+//
+//
 
 #ifndef DAMAGE_H
 #define DAMAGE_H
