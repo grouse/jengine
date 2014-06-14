@@ -1,4 +1,10 @@
-// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+// Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+//
+// file: level.h
+// author: Jesper Stefansson
+//
+// Contains functions to load components from string input and
+// attach them to an entity. 
 
 #ifndef LEVEL_H
 #define LEVEL_H
@@ -15,17 +21,18 @@
 #include "components/texture.h"
 #include "components/velocity.h"
 
-// Class used for loading entities from file, the format for
-// each line should be ID DATA where ID is the Component ID as 
-// represented by const integers in Core::Component, and DATA 
-// is space separated values for the component.
 namespace JEngine {
 	namespace Core {
 		
+		// See file comments for class details
 		class Level {
 		public:
 
 			// Loads entities into GameObjects from file
+			//
+			// Each line in the file should begin with a new 
+			// entitiy's position and proceeded by the component data
+			// for the commponents that should be attached to the entity
 			static void load(const char*, Core::GameObjects*);
 		};
 	}

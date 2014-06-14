@@ -35,13 +35,22 @@ namespace JEngine {
 				// 		ptr - Pointer to Component if successful
 				Component* attachComponent(Entity*, Component*);
 
+				// Adds the entity to the trash list, making sure to only 
+				// allow unique entities in the list.
 				void trashEntity(Entity*);
-				void processTrash();
 
+				// Iterates through the trash list and deletes the entities
+				void processTrash();
+				
+				// List of all attached components, grouped into the 
+				// component ids for easy access
 				std::list<Component*> components[Component::NUM_TYPES];
+
+				// List of all attached entities
 				std::list<Entity*> entities;
 
 			private:
+				// The trash list, emptied upon calling GameObjects::processTrash
 				std::list<Entity*> trash;
 		};
 	}
