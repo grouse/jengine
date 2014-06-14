@@ -1,4 +1,7 @@
-// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+// Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+//
+// file: shape.cpp
+// author: Jesper Stefansson
 
 #include "shape.h"
 
@@ -28,17 +31,19 @@ namespace JEngine {
 			return true;
 		}
 
+		// Rotate the shape by radians
+		// TODO: Switch out logic in favour of GLM
 		void Shape::rotate(double angle) {
-			double s = sin(angle); // computer sin & cos once
-			double c = cos(angle);
+			double s = sin(angle); // compute sin once
+			double c = cos(angle); // compute cos once
 
-			double xt, yt; // transformed to ox, oy origin
+			double xt, yt; // vector coordinate
 			double xr, yr; // rotated coordinates
 
 			xt = vertices[0];
 			yt = vertices[1];
 
-			xr = xt * c - yt * s;
+			xr = xt * c - yt * s; 
 			yr = xt * s + yt * c;
 
 			vertices[0] = xr;

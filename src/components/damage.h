@@ -3,7 +3,9 @@
 // file: damage.h
 // author: Jesper Stefansson
 //
-//
+// Contains the Damage component, which contains nothing more
+// than the amount of damage the entity should do. Damage
+// is currently only used by the projectile collision response
 
 #ifndef DAMAGE_H
 #define DAMAGE_H
@@ -13,13 +15,19 @@
 
 namespace JEngine {
 	namespace Components {
+
+		// See file comments for class details
 		class Damage : public Core::Component {
 			public:
 				Damage(float);
 				virtual ~Damage();
-
+				
+				// Returns true, Damage currently does not depend
+				// on any other component
 				virtual bool canAttach(Core::Entity&);
 
+				// The damage to inflict upon the other entity when
+				// triggerd
 				float damage;
 		};
 	}

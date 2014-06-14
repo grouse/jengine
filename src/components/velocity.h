@@ -1,4 +1,10 @@
-// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+// Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+//
+// file: velocity.h
+// author: Jesper Stefansson
+//
+// Contains the Velocity component which contains the data necessary
+// to model velocity, direction, acceleration, and max speed
 
 #ifndef VELOCITY_H
 #define VELOCITY_H
@@ -12,16 +18,21 @@
 
 namespace JEngine {
 	namespace Components {
+		
+		// See file comments for class details
 		class Velocity : public Core::Component {
 			public:
+
+				// Params: initial velocity (x, y, z), acceleration, deacceleration, max speed
 				Velocity(float, float, float, float, float, float);
 				virtual ~Velocity();
 
-				glm::vec3 vec3;
 
+				// Returns true, the Velocity component does
+				// not currently depend on any other component
 				virtual bool canAttach(Core::Entity&);
-
-				float rotation;
+	
+				glm::vec3 vec3; // velocity
 				float acceleration, deacceleration, max_speed;
 
 		};

@@ -22,7 +22,7 @@ namespace JEngine {
 		// several different collision meshes - axis aligned 
 		// bounding box, bounding box, and complex (shape)
 		bool Collision::canAttach(Core::Entity& e) {
-			return (e->components[Core::Component::SHAPE] != 0);
+			return (e.components[Core::Component::SHAPE] != 0);
 		}
 	}
 
