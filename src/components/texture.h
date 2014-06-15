@@ -33,7 +33,7 @@ namespace JEngine {
 				const char* filename;	// Texture file
 				GLuint GLtex;			// Texture OpenGL id
 				int width, height;		// Texture dimensions
-				int components;			// Texture components (eg. RGBA)\
+				int components;			// Texture components (eg. RGBA)
 		};
 	}
 }

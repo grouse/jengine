@@ -33,12 +33,6 @@
 #include "core/game_objects.h"
 #include "core/level.h"
 
-#include "systems/movement_system.h"
-#include "systems/collision_system.h"
-#include "systems/render_system.h"
-#include "systems/life_time_system.h"
-#include "systems/health_system.h"
-
 #include "components/shape.h"
 #include "components/velocity.h"
 #include "components/collision.h"
