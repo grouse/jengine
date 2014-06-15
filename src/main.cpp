@@ -1,4 +1,13 @@
-// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+// Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+//
+// file: main.cpp
+// author: Jesper Stefansson
+//
+// Contains the entry point for the application, manages 
+// initialisation of the engine and its attached systems.
+//
+// Once initialised, runs the main game loop and calls the
+// update and handleInput functions in the engine
 
 #include <SDL2/SDL.h>
 
@@ -38,6 +47,7 @@ int main(int argc, char* argv[]) {
 		// time since last frame in seconds
 		dt = (current_time - old_time) / 1000.0f;
 
+		// Handle the user input before any systems are updated
 		SDL_Event e;
 		while (SDL_PollEvent(&e))
 			engine.handleInput(e);

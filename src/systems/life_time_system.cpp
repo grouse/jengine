@@ -1,4 +1,7 @@
-// Copyright (c) 2014 Jesper "Grouse" Stefansson. All rights reserved.
+// Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+//
+// file: life_time_system.cpp
+// author: Jesper Stefansson
 
 #include "life_time_system.h"
 
