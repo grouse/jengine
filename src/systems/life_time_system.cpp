@@ -8,7 +8,9 @@
 namespace JEngine {
 	namespace Systems {
 
-		LifeTimeSystem::LifeTimeSystem(Core::GameObjects* objects) : Core::System(objects) {}
+		LifeTimeSystem::LifeTimeSystem(Core::Engine* e, Core::GameObjects* o) : 
+			Core::System(e, o) {}
+
 		LifeTimeSystem::~LifeTimeSystem() {}
 
 		void LifeTimeSystem::init() {

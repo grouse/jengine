@@ -10,7 +10,9 @@
 namespace JEngine {
 	namespace Systems {
 
-		CollisionSystem::CollisionSystem(Core::GameObjects* objects) : Core::System(objects) {}
+		CollisionSystem::CollisionSystem(Core::Engine* e, Core::GameObjects* o) : 
+			Core::System(e, o) {}
+
 		CollisionSystem::~CollisionSystem() {}
 
 		void CollisionSystem::init() {

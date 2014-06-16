@@ -10,7 +10,8 @@
 namespace JEngine {
 	namespace Systems {
 
-		RenderSystem::RenderSystem(Core::GameObjects* objects) : Core::System(objects) {
+		RenderSystem::RenderSystem(Core::Engine* e, Core::GameObjects* o) :
+		   Core::System(e, o) {
 			// Define the standard UV coordinates
 			// TODO: Move UV into vertex data
 			uv[0] = 0.0f;

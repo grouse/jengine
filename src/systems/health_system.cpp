@@ -9,7 +9,9 @@
 
 namespace JEngine {
 	namespace Systems {
-		HealthSystem::HealthSystem(Core::GameObjects* objects) : Core::System(objects) {}
+		HealthSystem::HealthSystem(Core::Engine* e, Core::GameObjects* o) : 
+			Core::System(e, o) {}
+
 		HealthSystem::~HealthSystem() {}
 
 		void HealthSystem::init() { 

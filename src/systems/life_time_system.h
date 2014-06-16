@@ -15,6 +15,8 @@
 #include "core/entity.h"
 #include "core/component.h"
 #include "core/system.h"
+#include "core/engine.h"
+#include "core/game_objects.h"
 
 #include "components/life_time.h"
 
@@ -24,7 +26,7 @@ namespace JEngine {
 		// See file comments for class details
 		class LifeTimeSystem : public Core::System {
 			public:
-				LifeTimeSystem(Core::GameObjects*);
+				LifeTimeSystem(Core::Engine*, Core::GameObjects*);
 				virtual ~LifeTimeSystem();
 
 				virtual void init();

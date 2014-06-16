@@ -14,6 +14,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "core/system.h"
+#include "core/engine.h"
 #include "core/game_objects.h"
 
 namespace JEngine {
@@ -22,7 +23,7 @@ namespace JEngine {
 		// See file comments for class details
 		class AudioSystem : public Core::System {
 			public:
-				AudioSystem(Core::GameObjects*);
+				AudioSystem(Core::Engine*, Core::GameObjects*);
 				virtual ~AudioSystem();
 
 				// Initialises the audio controls

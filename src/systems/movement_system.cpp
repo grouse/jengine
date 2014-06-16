@@ -7,7 +7,8 @@
 
 namespace JEngine {
 	namespace Systems {
-		MovementSystem::MovementSystem(Core::GameObjects* objects) : Core::System(objects) {}
+		MovementSystem::MovementSystem(Core::Engine* e, Core::GameObjects* o) :
+		   Core::System(e, o) {}
 		MovementSystem::~MovementSystem() {}
 
 		void MovementSystem::init() {

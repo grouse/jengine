@@ -7,6 +7,7 @@
 #include "engine.h"
 
 #include <math.h>
+#include <iostream>
 
 
 #include "stb_image.c"
@@ -53,9 +54,6 @@ namespace JEngine {
 		}
 
 		Engine::~Engine() {
-			for (auto it = systems.begin(); it != systems.end(); it++)
-				delete (*it);
-
 			SDL_Quit();
 		}
 
@@ -232,7 +230,8 @@ namespace JEngine {
 			// TODO: Shouldn't be here, should be in handleInput. Will be stay until
 			// implementation of InputSystem, after which it will be removed from the
 			// engine class entirely.
-			Components::Velocity* v = (Components::Velocity*) player->components[Core::Component::VELOCITY];
+			
+			/**Components::Velocity* v = (Components::Velocity*) player->components[Core::Component::VELOCITY];
 			Components::Shape* s = (Components::Shape*) player->components[Core::Component::SHAPE];
 
 			if (input_w || input_a || input_s || input_d) {
@@ -269,11 +268,13 @@ namespace JEngine {
 				} else {
 					v->vec3 = new_v;	
 				}
-			}
+			} **/
 
 			// Update the attached systems
-			for (auto it = systems.begin(); it != systems.end(); it++)
+			for (auto it = systems.begin(); it != systems.end(); it++) {
+				//std::cout << "updating system: " << (*it) << "\n";
 				(*it)->update(dt);
+			}
 
 			// Process the GameObjects trash
 			objects->processTrash();

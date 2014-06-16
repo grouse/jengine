@@ -17,6 +17,7 @@
 #include "core/entity.h"
 #include "core/component.h"
 #include "core/system.h"
+#include "core/engine.h"
 #include "core/game_objects.h"
 
 #include "components/shape.h"
@@ -28,7 +29,7 @@ namespace JEngine {
 		// See file comments for class details
 		class RenderSystem : public Core::System {
 			public:
-				RenderSystem(Core::GameObjects*);
+				RenderSystem(Core::Engine*, Core::GameObjects*);
 
 				// Destroys the SDL window and OpenGL context
 				virtual ~RenderSystem();

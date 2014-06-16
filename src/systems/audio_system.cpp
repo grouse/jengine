@@ -9,7 +9,8 @@
 
 namespace JEngine {
 	namespace Systems {
-		AudioSystem::AudioSystem(Core::GameObjects* objects) : Core::System(objects) {}
+		AudioSystem::AudioSystem(Core::Engine* e, Core::GameObjects* o) :
+			Core::System(e, o) {}
 
 		AudioSystem::~AudioSystem() {
 			Mix_FreeMusic(music);

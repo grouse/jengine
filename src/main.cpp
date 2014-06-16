@@ -9,6 +9,8 @@
 // Once initialised, runs the main game loop and calls the
 // update and handleInput functions in the engine
 
+#include <iostream>
+
 #include <SDL2/SDL.h>
 
 #include "core/engine.h"
@@ -19,22 +21,38 @@
 #include "systems/movement_system.h"
 #include "systems/render_system.h"
 #include "systems/audio_system.h"
+#include "systems/input_system.h"
+
+void player_fire();
 
 int main(int argc, char* argv[]) {
 	JEngine::Core::GameObjects objects; 
-	JEngine::Core::Engine engine(&objects); 
+	JEngine::Core::Engine engine(&objects);
 
 	// set up the engine with systems
-	engine.attachSystem(new JEngine::Systems::LifeTimeSystem(&objects));
-	engine.attachSystem(new JEngine::Systems::MovementSystem(&objects));
-	engine.attachSystem(new JEngine::Systems::CollisionSystem(&objects));
-	engine.attachSystem(new JEngine::Systems::HealthSystem(&objects));
-	engine.attachSystem(new JEngine::Systems::RenderSystem(&objects));
-	engine.attachSystem(new JEngine::Systems::AudioSystem(&objects));
+	JEngine::Systems::InputSystem input(&engine, &objects);
+	JEngine::Systems::LifeTimeSystem life_time(&engine, &objects);
+	JEngine::Systems::MovementSystem movement(&engine, &objects);
+	JEngine::Systems::CollisionSystem collision(&engine, &objects);
+	JEngine::Systems::HealthSystem health(&engine, &objects);
+	JEngine::Systems::RenderSystem render(&engine, &objects);
+	JEngine::Systems::AudioSystem audio(&engine, &objects);
+	
+	engine.attachSystem(&input);
+	engine.attachSystem(&life_time);
+	engine.attachSystem(&movement);
+	engine.attachSystem(&collision);
+	engine.attachSystem(&health);
+	engine.attachSystem(&render);
+	engine.attachSystem(&audio);
+
+	
+	input.registerKeyEvent("FIRE", &player_fire);
+
 
 	if (engine.init() != 0)
 		return -1;
-
+	
 	Uint32 old_time, current_time;
 	current_time = SDL_GetTicks();
 
@@ -48,12 +66,12 @@ int main(int argc, char* argv[]) {
 		dt = (current_time - old_time) / 1000.0f;
 
 		// Handle the user input before any systems are updated
-		SDL_Event e;
-		while (SDL_PollEvent(&e))
-			engine.handleInput(e);
-
 		engine.update(dt);		
 	}
 	
 	return 0;
+}
+
+void player_fire() {
+	std::cout << "FIRE \n";
 }

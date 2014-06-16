@@ -14,6 +14,7 @@
 #include "core/entity.h"
 #include "core/component.h"
 #include "core/system.h"
+#include "core/engine.h"
 #include "core/game_objects.h"
 
 #include "components/velocity.h"
@@ -24,7 +25,7 @@ namespace JEngine {
 		// See file comments for class details
 		class MovementSystem : public Core::System {
 			public:
-				MovementSystem(Core::GameObjects*);
+				MovementSystem(Core::Engine*, Core::GameObjects*);
 				~MovementSystem();
 
 				virtual void init();

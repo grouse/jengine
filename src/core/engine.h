@@ -44,6 +44,7 @@
 
 namespace JEngine {
 	namespace Core {
+		class System;
 
 		// See file comments for class details
 		class Engine {
