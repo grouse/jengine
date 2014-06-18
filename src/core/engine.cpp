@@ -92,7 +92,7 @@ namespace JEngine {
 
 			// Load the entities defined in data/entities file into objects
 			// TODO: move out of engine class
-			Level::load("data/entities", objects);	
+			///Level::load("data/entities", objects);	
 			
 			run = true; // initialisation successful, so we are now ready to run the engine
 			return 0; 	// TODO: return error/success code based on SDL_Init and Systems.init

@@ -29,9 +29,9 @@
 
 #include "core/entity.h"
 #include "core/component.h"
-#include "core/system.h"
 #include "core/game_objects.h"
 #include "core/level.h"
+#include "core/system.h"
 
 #include "components/shape.h"
 #include "components/velocity.h"
@@ -44,8 +44,6 @@
 
 namespace JEngine {
 	namespace Core {
-		class System;
-
 		// See file comments for class details
 		class Engine {
 			public:

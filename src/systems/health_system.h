@@ -12,14 +12,12 @@
 #include "core/component.h"
 #include "core/entity.h"
 #include "core/system.h"
-#include "core/engine.h"
 #include "core/game_objects.h"
 
 #include "components/health.h"
 
 namespace JEngine {
 	namespace Systems {
-
 		// See file comments for class details
 		class HealthSystem : public Core::System {
 			public:

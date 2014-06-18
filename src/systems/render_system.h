@@ -17,7 +17,6 @@
 #include "core/entity.h"
 #include "core/component.h"
 #include "core/system.h"
-#include "core/engine.h"
 #include "core/game_objects.h"
 
 #include "components/shape.h"

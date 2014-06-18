@@ -14,7 +14,6 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "core/system.h"
-#include "core/engine.h"
 #include "core/game_objects.h"
 
 namespace JEngine {

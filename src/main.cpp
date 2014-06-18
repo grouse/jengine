@@ -23,7 +23,9 @@
 #include "systems/audio_system.h"
 #include "systems/input_system.h"
 
-void player_fire();
+void player_fire() {
+	std::cout << "FIRE" << std::endl;
+}
 
 int main(int argc, char* argv[]) {
 	JEngine::Core::GameObjects objects; 
@@ -46,8 +48,8 @@ int main(int argc, char* argv[]) {
 	engine.attachSystem(&render);
 	engine.attachSystem(&audio);
 
-	
 	input.registerKeyEvent("FIRE", &player_fire);
+	
 
 
 	if (engine.init() != 0)
@@ -72,6 +74,3 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
-void player_fire() {
-	std::cout << "FIRE \n";
-}

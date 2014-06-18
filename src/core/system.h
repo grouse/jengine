@@ -41,8 +41,6 @@ namespace JEngine {
 
 				Engine* engine;
 				GameObjects* objects;
-				
-
 		};
 	}
 }

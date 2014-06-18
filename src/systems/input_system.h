@@ -11,6 +11,7 @@
 
 #include <map>
 #include <list>
+#include <cstring>
 
 #include <SDL2/SDL.h>
 
@@ -20,15 +21,20 @@
 
 namespace JEngine {
 	namespace Systems {
+		struct cmp_key {
+			bool operator()(char const* a, char const* b) {
+				return (strcmp(a, b) < 0);
+			}
+		};
 
 		// See file comments for class details
 		class InputSystem : public Core::System {
 			
 			// Index is input event (eg. JUMP), value is the function to call when triggered
-			std::map<const char*, std::list<void (*)()>> callbacks;
+			std::map<const char*, std::list<void (*)()>, cmp_key> callbacks;
 
 			// Index is the keycode (eg. SPACE), value is the input event (eg. JUMP)
-			std::map<const char*, const char*> key_binds;
+			std::map<const char*, const char*, cmp_key> key_binds;
 
 			SDL_Event e;
 

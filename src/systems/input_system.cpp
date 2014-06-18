@@ -5,6 +5,11 @@
 
 #include "input_system.h"
 
+#include <typeinfo>
+#include <string>
+#include <iostream>
+#include <cstring>
+
 namespace JEngine {
 	namespace Systems {
 	
@@ -15,22 +20,26 @@ namespace JEngine {
 
 		void InputSystem::init() {
 			key_binds["Space"] = "FIRE";
-
 		}
 
 		void InputSystem::update(float dt) {
 			while (SDL_PollEvent(&e)) {
-				if (e.type == SDL_QUIT) {
+				if (e.type == SDL_QUIT)
 					engine->quit();
-				}
 
 				if (e.type == SDL_KEYDOWN) {
 					const char* key = SDL_GetKeyName(e.key.keysym.sym);
-					const char* input = key_binds[key];
 
+					if (
+						key_binds.find(key) != key_binds.end() && 
+						callbacks.find(key_binds[key]) != callbacks.end()
+					) {
+						
+						const char* callback = key_binds[key];
 
-					for (auto it = callbacks[input].begin(); it != callbacks[input].end(); it++)
-					   (*it)();	
+						for (auto it = callbacks[callback].begin(); it != callbacks[callback].end(); it++)
+							(*it)();
+					}
 				}
 			}
 		}
