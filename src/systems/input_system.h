@@ -19,40 +19,36 @@
 #include "core/system.h"
 #include "core/game_objects.h"
 
-namespace JEngine {
-	namespace Systems {
-		struct cmp_key {
-			bool operator()(char const* a, char const* b) {
-				return (strcmp(a, b) < 0);
-			}
-		};
-
-		// See file comments for class details
-		class InputSystem : public Core::System {
-			
-			// Index is input event (eg. JUMP), value is the function to call when triggered
-			std::map<const char*, std::list<void (*)()>, cmp_key> callbacks;
-
-			// Index is the keycode (eg. SPACE), value is the input event (eg. JUMP)
-			std::map<const char*, const char*, cmp_key> key_binds;
-
-			SDL_Event e;
-
-		public:
-			InputSystem(Core::Engine*, Core::GameObjects*);
-			virtual ~InputSystem();
-
-			// Initialises the input bindings
-			virtual void init();
-
-			// Polls SDL for events and triggers the corresponding callback
-			virtual void update(float dt);
-
-			void registerKeyEvent(const char*, void (*)());
-
-
-		};
+struct cmp_key {
+	bool operator()(char const* a, char const* b) {
+		return (strcmp(a, b) < 0);
 	}
-}
+};
+
+// See file comments for class details
+class InputSystem : public System {
+	
+	// Index is input event (eg. JUMP), value is the function to call when triggered
+	std::map<const char*, std::list<void (*)()>, cmp_key> callbacks;
+
+	// Index is the keycode (eg. SPACE), value is the input event (eg. JUMP)
+	std::map<const char*, const char*, cmp_key> key_binds;
+
+	SDL_Event e;
+
+public:
+	InputSystem(Engine*, GameObjects*);
+	virtual ~InputSystem();
+
+	// Initialises the input bindings
+	virtual void init();
+
+	// Polls SDL for events and triggers the corresponding callback
+	virtual void update(float dt);
+
+	void registerKeyEvent(const char*, void (*)());
+
+
+};
 
 #endif

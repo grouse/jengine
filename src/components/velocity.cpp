@@ -7,18 +7,17 @@
 
 #include <iostream>
 
-namespace JEngine {
-	namespace Components {
-		Velocity::Velocity(float x, float y, float z, float acceleration, float deacceleration, float max_speed) : Core::Component(Core::Component::VELOCITY), vec3(x, y, z) {
-			this->acceleration = acceleration;
-			this->deacceleration = deacceleration;
-			this->max_speed = max_speed;
-		}
+Velocity::Velocity(float x, float y, float z, float acceleration, float deacceleration, float max_speed) : 
+	Component(ComponentId::VELOCITY), 
+	vec3(x, y, z) {
+	
+	this->acceleration = acceleration;
+	this->deacceleration = deacceleration;
+	this->max_speed = max_speed;
+}
 
-		Velocity::~Velocity() {}
+Velocity::~Velocity() {}
 
-		bool Velocity::canAttach(Core::Entity& e) {
-			return true;
-		}
-	}
+bool Velocity::canAttach(Entity& e) {
+	return true;
 }

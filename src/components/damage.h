@@ -13,24 +13,19 @@
 #include "core/entity.h"
 #include "core/component.h"
 
-namespace JEngine {
-	namespace Components {
+// See file comments for class details
+class Damage : public Component {
+	public:
+		Damage(float);
+		virtual ~Damage();
+		
+		// Returns true, Damage currently does not depend
+		// on any other component
+		virtual bool canAttach(Entity&);
 
-		// See file comments for class details
-		class Damage : public Core::Component {
-			public:
-				Damage(float);
-				virtual ~Damage();
-				
-				// Returns true, Damage currently does not depend
-				// on any other component
-				virtual bool canAttach(Core::Entity&);
-
-				// The damage to inflict upon the other entity when
-				// triggerd
-				float damage;
-		};
-	}
-}
+		// The damage to inflict upon the other entity when
+		// triggerd
+		float damage;
+};
 
 #endif

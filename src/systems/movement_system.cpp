@@ -5,24 +5,21 @@
 
 #include "movement_system.h"
 
-namespace JEngine {
-	namespace Systems {
-		MovementSystem::MovementSystem(Core::Engine* e, Core::GameObjects* o) :
-		   Core::System(e, o) {}
-		MovementSystem::~MovementSystem() {}
+MovementSystem::MovementSystem(Engine* e, GameObjects* o) :
+   System(e, o) {}
 
-		void MovementSystem::init() {
-			initialised = true;
-		}
+MovementSystem::~MovementSystem() {}
 
-		void MovementSystem::update(float dt) {
-			for (auto it = objects->components[Core::Component::VELOCITY].begin(); it != objects->components[Core::Component::VELOCITY].end(); it++) {
+void MovementSystem::init() {
+	initialised = true;
+}
 
-				Components::Velocity* v = (Components::Velocity*) (*it);
-				Core::Entity* e = v->owner;;
+void MovementSystem::update(float dt) {
+	for (auto it = objects->components[ComponentId::VELOCITY].begin(); it != objects->components[ComponentId::VELOCITY].end(); it++) {
 
-				e->pos += v->vec3 * dt;
-			}
-		}
+		Velocity* v = (Velocity*) (*it);
+		Entity* e = v->owner;;
+
+		e->pos += v->vec3 * dt;
 	}
 }

@@ -10,42 +10,37 @@
 #include <iostream>
 #include <cstring>
 
-namespace JEngine {
-	namespace Systems {
-	
-		InputSystem::InputSystem(Core::Engine* e, Core::GameObjects* o) : 
-			Core::System(e, o) {}
+InputSystem::InputSystem(Engine* e, GameObjects* o) : 
+	System(e, o) {}
 
-		InputSystem::~InputSystem() {}
+InputSystem::~InputSystem() {}
 
-		void InputSystem::init() {
-			key_binds["Space"] = "FIRE";
-		}
+void InputSystem::init() {
+	key_binds["Space"] = "FIRE";
+}
 
-		void InputSystem::update(float dt) {
-			while (SDL_PollEvent(&e)) {
-				if (e.type == SDL_QUIT)
-					engine->quit();
+void InputSystem::update(float dt) {
+	while (SDL_PollEvent(&e)) {
+		if (e.type == SDL_QUIT)
+			engine->quit();
 
-				if (e.type == SDL_KEYDOWN) {
-					const char* key = SDL_GetKeyName(e.key.keysym.sym);
+		if (e.type == SDL_KEYDOWN) {
+			const char* key = SDL_GetKeyName(e.key.keysym.sym);
 
-					if (
-						key_binds.find(key) != key_binds.end() && 
-						callbacks.find(key_binds[key]) != callbacks.end()
-					) {
-						
-						const char* callback = key_binds[key];
+			if (
+				key_binds.find(key) != key_binds.end() && 
+				callbacks.find(key_binds[key]) != callbacks.end()
+			) {
+				
+				const char* callback = key_binds[key];
 
-						for (auto it = callbacks[callback].begin(); it != callbacks[callback].end(); it++)
-							(*it)();
-					}
-				}
+				for (auto it = callbacks[callback].begin(); it != callbacks[callback].end(); it++)
+					(*it)();
 			}
 		}
-
-		void InputSystem::registerKeyEvent(const char* key, void (*callback)()) {
-			callbacks[key].push_back(callback);	
-		}
 	}
+}
+
+void InputSystem::registerKeyEvent(const char* key, void (*callback)()) {
+	callbacks[key].push_back(callback);	
 }

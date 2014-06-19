@@ -16,22 +16,18 @@
 
 #include "components/health.h"
 
-namespace JEngine {
-	namespace Systems {
-		// See file comments for class details
-		class HealthSystem : public Core::System {
-			public:
-				HealthSystem(Core::Engine*, Core::GameObjects*);
-				virtual ~HealthSystem();
+// See file comments for class details
+class HealthSystem : public System {
+public:
+	HealthSystem(Engine*, GameObjects*);
+	virtual ~HealthSystem();
 
-				virtual void init();
+	virtual void init();
 
-				// Goes through each entity with a health
-				// component and puts them in the trash if 
-				// the health value <= 0
-				virtual void update(float dt);
-		};
-	}
-}
+	// Goes through each entity with a health
+	// component and puts them in the trash if 
+	// the health value <= 0
+	virtual void update(float dt);
+};
 
 #endif

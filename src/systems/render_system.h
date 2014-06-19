@@ -22,34 +22,29 @@
 #include "components/shape.h"
 #include "components/texture.h"
 
-namespace JEngine {
-	namespace Systems {
+// See file comments for class details
+class RenderSystem : public System {
+	public:
+		RenderSystem(Engine*, GameObjects*);
 
-		// See file comments for class details
-		class RenderSystem : public Core::System {
-			public:
-				RenderSystem(Core::Engine*, Core::GameObjects*);
+		// Destroys the SDL window and OpenGL context
+		virtual ~RenderSystem();
 
-				// Destroys the SDL window and OpenGL context
-				virtual ~RenderSystem();
+		// Creates the SDL window, OpenGL context with
+		// the appropriate initialisations
+		virtual void init();
 
-				// Creates the SDL window, OpenGL context with
-				// the appropriate initialisations
-				virtual void init();
+		// Renders the entities with an attached Shape 
+		// component, if entity also has a Texture 
+		// component the texture is applied to the shape
+		// with standard UV
+		virtual void update(float);
 
-				// Renders the entities with an attached Shape 
-				// component, if entity also has a Texture 
-				// component the texture is applied to the shape
-				// with standard UV
-				virtual void update(float);
+	private:
+		SDL_Window* window;			// The main application window
+		SDL_GLContext glcontext;	// OpenGL context
 
-			private:
-				SDL_Window* window;			// The main application window
-				SDL_GLContext glcontext;	// OpenGL context
-
-				float uv[8];				// standard UV, to be replaced in future
-		};
-	}
-}
+		float uv[8];				// standard UV, to be replaced in future
+};
 
 #endif

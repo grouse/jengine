@@ -21,38 +21,32 @@
 #include "components/collision.h"
 #include "components/shape.h"
 
+// See file comments for class details
+class CollisionSystem : public System {
+	public:
+		CollisionSystem(Engine*, GameObjects*);
+		virtual ~CollisionSystem();
 
-namespace JEngine {
-	namespace Systems {
+		virtual void init();
+		virtual void update(float dt);
 
-		// See file comments for class details
-		class CollisionSystem : public Core::System {
-			public:
-				CollisionSystem(Core::Engine*, Core::GameObjects*);
-				virtual ~CollisionSystem();
+	private:
+		// Returns true if the two vectors overlap, uses
+		// CollisionSystem::contains to determine overlap 
+		bool overlaps(glm::vec3, glm::vec3);
+		
+		// Returns true if the float is inside the vector
+		bool contains(float, glm::vec3);
 
-				virtual void init();
-				virtual void update(float dt);
+		// Returns the overlap scalar between the two vectors
+		float getOverlap(glm::vec3, glm::vec3);
 
-			private:
-				// Returns true if the two vectors overlap, uses
-				// CollisionSystem::contains to determine overlap 
-				bool overlaps(glm::vec3, glm::vec3);
-				
-				// Returns true if the float is inside the vector
-				bool contains(float, glm::vec3);
+		// Projects the first parameter onto the second parameter
+		// vector.
+		glm::vec3 project(glm::vec3*, glm::vec3);
 
-				// Returns the overlap scalar between the two vectors
-				float getOverlap(glm::vec3, glm::vec3);
-
-				// Projects the first parameter onto the second parameter
-				// vector.
-				glm::vec3 project(glm::vec3*, glm::vec3);
-
-				// Calculates the perpendicular vector of the parameter
-				glm::vec3 perp(glm::vec3);
-		};
-	}
-}
+		// Calculates the perpendicular vector of the parameter
+		glm::vec3 perp(glm::vec3);
+};
 
 #endif

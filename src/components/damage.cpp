@@ -5,17 +5,13 @@
 
 #include "damage.h"
 
-namespace JEngine {
-	namespace Components {	
-		Damage::Damage(float dmg) : Core::Component(Core::Component::DAMAGE) {
-			this->damage = dmg;
-		}
+Damage::Damage(float dmg) : 
+	Component(ComponentId::DAMAGE) {
+	this->damage = dmg;
+}
 
-		Damage::~Damage() {}
+Damage::~Damage() {}
 
-		bool Damage::canAttach(Core::Entity& e) {
-			return true;
-		}
-
-	}
+bool Damage::canAttach(Entity& e) {
+	return true;
 }

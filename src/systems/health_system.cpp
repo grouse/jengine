@@ -7,25 +7,21 @@
 
 #include <iostream>
 
-namespace JEngine {
-	namespace Systems {
-		HealthSystem::HealthSystem(Core::Engine* e, Core::GameObjects* o) : 
-			Core::System(e, o) {}
+HealthSystem::HealthSystem(Engine* e, GameObjects* o) : 
+	System(e, o) {}
 
-		HealthSystem::~HealthSystem() {}
+HealthSystem::~HealthSystem() {}
 
-		void HealthSystem::init() { 
-			initialised = true;
-		}
+void HealthSystem::init() { 
+	initialised = true;
+}
 
-		void HealthSystem::update(float dt) {
-			for (auto it = objects->components[Core::Component::HEALTH].begin(); it != objects->components[Core::Component::HEALTH].end(); it++) {
-				Components::Health* h = (Components::Health*) (*it);
-				
-				if (h->health <= 0) 
-					objects->trashEntity(h->owner);
-				
-			}	
-		}
-	}
+void HealthSystem::update(float dt) {
+	for (auto it = objects->components[ComponentId::HEALTH].begin(); it != objects->components[ComponentId::HEALTH].end(); it++) {
+		Health* h = (Health*) (*it);
+		
+		if (h->health <= 0) 
+			objects->trashEntity(h->owner);
+		
+	}	
 }

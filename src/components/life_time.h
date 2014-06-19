@@ -13,24 +13,19 @@
 #include "core/entity.h"
 #include "core/component.h"
 
-namespace JEngine {
-	namespace Components {
-
 		// See file comments for class details
-		class LifeTime : public Core::Component {
-			public:
-				LifeTime(float);
-				virtual ~LifeTime();
+class LifeTime : public Component {
+	public:
+		LifeTime(float);
+		virtual ~LifeTime();
 
-				// Returns true, LifeTime currently does not
-				// depend on any other component
-				virtual bool canAttach(Core::Entity&);
+		// Returns true, LifeTime currently does not
+		// depend on any other component
+		virtual bool canAttach(Entity&);
 
-				// Time in seconds until the parent entity should
-				// be discarded 
-				float remaining;
-		};
-	}
-}
+		// Time in seconds until the parent entity should
+		// be discarded 
+		float remaining;
+};
 
 #endif

@@ -5,17 +5,12 @@
 
 #include "health.h"
 
+Health::Health(float hp) : Component(ComponentId::HEALTH) {
+	this->health = hp;
+}
 
-namespace JEngine {
-	namespace Components {
-		Health::Health(float hp) : Core::Component(Core::Component::HEALTH) {
-			this->health = hp;
-		}
+Health::~Health() {}
 
-		Health::~Health() {}
-
-		bool Health::canAttach(Core::Entity& e) {
-			return true;
-		}
-	}
+bool Health::canAttach(Entity& e) {
+	return true;
 }

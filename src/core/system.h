@@ -19,30 +19,26 @@
 #include "core/component.h"
 #include "core/game_objects.h"
 
-namespace JEngine {
-	namespace Core {
-		class Engine;
+class Engine;
 
-		// See file comments for class details
-		class System {
-			public:
-				System(Engine* e, GameObjects* o) {
-					engine = e;
-					objects = o;
-				};
-
-				virtual ~System() {}
-
-				virtual void init() = 0;		// initialise system
-				virtual void update(float) = 0;	// update system, paramter is seconds since last frame
-
-			protected:
-				bool initialised = false;
-
-				Engine* engine;
-				GameObjects* objects;
+// See file comments for class details
+class System {
+	public:
+		System(Engine* e, GameObjects* o) {
+			engine = e;
+			objects = o;
 		};
-	}
-}
+
+		virtual ~System() {}
+
+		virtual void init() = 0;		// initialise system
+		virtual void update(float) = 0;	// update system, paramter is seconds since last frame
+
+	protected:
+		bool initialised = false;
+
+		Engine* engine;
+		GameObjects* objects;
+};
 
 #endif

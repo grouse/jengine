@@ -18,23 +18,18 @@
 
 #include "components/velocity.h"
 
-namespace JEngine {
-	namespace Systems {
+// See file comments for class details
+class MovementSystem : public System {
+	public:
+		MovementSystem(Engine*, GameObjects*);
+		~MovementSystem();
 
-		// See file comments for class details
-		class MovementSystem : public Core::System {
-			public:
-				MovementSystem(Core::Engine*, Core::GameObjects*);
-				~MovementSystem();
+		virtual void init();
 
-				virtual void init();
-
-				// Iterates over the entities with an attached
-				// Velocity component and updates the entity
-				// position	
-				virtual void update(float dt);
-		};
-	}
-}
+		// Iterates over the entities with an attached
+		// Velocity component and updates the entity
+		// position	
+		virtual void update(float dt);
+};
 
 #endif

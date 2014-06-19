@@ -15,45 +15,41 @@
 #include "core/entity.h"
 #include "core/component.h"
 
-namespace JEngine {
-	namespace Core {
-		class GameObjects {
+class GameObjects {
 
-			public: 
-				GameObjects();
+	public: 
+		GameObjects();
 
-				// Deallocates all components and enttities
-				~GameObjects();
-				
-				// Pushes a new entity onto the entity list
-				Entity* pushEntity(Entity*);
+		// Deallocates all components and enttities
+		~GameObjects();
+		
+		// Pushes a new entity onto the entity list
+		Entity* pushEntity(Entity*);
 
-				// Attempts to attach a component to the given entity
-				// 
-				// return:
-				// 		  0 - Component couldn't be attached
-				// 		ptr - Pointer to Component if successful
-				Component* attachComponent(Entity*, Component*);
+		// Attempts to attach a component to the given entity
+		// 
+		// return:
+		// 		  0 - Component couldn't be attached
+		// 		ptr - Pointer to Component if successful
+		Component* attachComponent(Entity*, Component*);
 
-				// Adds the entity to the trash list, making sure to only 
-				// allow unique entities in the list.
-				void trashEntity(Entity*);
+		// Adds the entity to the trash list, making sure to only 
+		// allow unique entities in the list.
+		void trashEntity(Entity*);
 
-				// Iterates through the trash list and deletes the entities
-				void processTrash();
-				
-				// List of all attached components, grouped into the 
-				// component ids for easy access
-				std::list<Component*> components[Component::NUM_TYPES];
+		// Iterates through the trash list and deletes the entities
+		void processTrash();
+		
+		// List of all attached components, grouped into the 
+		// component ids for easy access
+		std::list<Component*> components[ComponentId::NUM_TYPES];
 
-				// List of all attached entities
-				std::list<Entity*> entities;
+		// List of all attached entities
+		std::list<Entity*> entities;
 
-			private:
-				// The trash list, emptied upon calling GameObjects::processTrash
-				std::list<Entity*> trash;
-		};
-	}
-}
+	private:
+		// The trash list, emptied upon calling GameObjects::processTrash
+		std::list<Entity*> trash;
+};
 
 #endif

@@ -23,22 +23,20 @@
 #include "systems/audio_system.h"
 #include "systems/input_system.h"
 
-void player_fire() {
-	std::cout << "FIRE" << std::endl;
-}
+void player_fire();
 
 int main(int argc, char* argv[]) {
-	JEngine::Core::GameObjects objects; 
-	JEngine::Core::Engine engine(&objects);
+	GameObjects objects; 
+	Engine engine(&objects);
 
 	// set up the engine with systems
-	JEngine::Systems::InputSystem input(&engine, &objects);
-	JEngine::Systems::LifeTimeSystem life_time(&engine, &objects);
-	JEngine::Systems::MovementSystem movement(&engine, &objects);
-	JEngine::Systems::CollisionSystem collision(&engine, &objects);
-	JEngine::Systems::HealthSystem health(&engine, &objects);
-	JEngine::Systems::RenderSystem render(&engine, &objects);
-	JEngine::Systems::AudioSystem audio(&engine, &objects);
+	InputSystem input(&engine, &objects);
+	LifeTimeSystem life_time(&engine, &objects);
+	MovementSystem movement(&engine, &objects);
+	CollisionSystem collision(&engine, &objects);
+	HealthSystem health(&engine, &objects);
+	RenderSystem render(&engine, &objects);
+	AudioSystem audio(&engine, &objects);
 	
 	engine.attachSystem(&input);
 	engine.attachSystem(&life_time);
@@ -74,3 +72,6 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
+void player_fire() {
+	std::cout << "FIRE" << std::endl;
+}

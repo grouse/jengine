@@ -21,21 +21,16 @@
 #include "components/texture.h"
 #include "components/velocity.h"
 
-namespace JEngine {
-	namespace Core {
-		
-		// See file comments for class details
-		class Level {
-		public:
+// See file comments for class details
+class Level {
+public:
 
-			// Loads entities into GameObjects from file
-			//
-			// Each line in the file should begin with a new 
-			// entitiy's position and proceeded by the component data
-			// for the commponents that should be attached to the entity
-			static void load(const char*, Core::GameObjects*);
-		};
-	}
-}
+	// Loads entities into GameObjects from file
+	//
+	// Each line in the file should begin with a new 
+	// entitiy's position and proceeded by the component data
+	// for the commponents that should be attached to the entity
+	static void load(const char*, GameObjects*);
+};
 
 #endif

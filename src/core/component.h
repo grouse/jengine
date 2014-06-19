@@ -14,36 +14,32 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
-namespace JEngine {
-	namespace Core {
-		class Entity;
+class Entity;
 
-		// See file comments for class details
-		class Component {
-			public:
-				// Initialise the component type variable
-				Component(unsigned int id) : type(id) {};
-				virtual ~Component() {}
+enum ComponentId {
+	VELOCITY = 0,
+	SHAPE,
+	TEXTURE,
+	COLLISION,
+	LIFETIME,
+	DAMAGE, 
+	HEALTH,
+	AUDIO,
+	NUM_TYPES
+};
 
-				static const unsigned int 
-					VELOCITY = 0,
-					SHAPE = 1,
-					TEXTURE = 2,
-					COLLISION = 3,
-					LIFETIME = 4,
-					DAMAGE = 5,
-					HEALTH = 6,
-					AUDIO = 7,
-					NUM_TYPES = 8;
+// See file comments for class details
+class Component {
+public:
+	// Initialise the component type variable
+	Component(unsigned int id) : type(id) {};
+	virtual ~Component() {}
 
-				
-				const unsigned int type; 	// Component id, set by child class constructor 
-				Entity* owner; 				// The entity to which the component is attached
+	const unsigned int type; 	// Component id, set by child class constructor 
+	Entity* owner; 				// The entity to which the component is attached
 
-				// Checks whether the entity meets the component's dependencies for attachment
-				virtual bool canAttach(Entity&) = 0;
-		};
-	}
-}
+	// Checks whether the entity meets the component's dependencies for attachment
+	virtual bool canAttach(Entity&) = 0;
+};
 
 #endif

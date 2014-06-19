@@ -12,36 +12,31 @@
 
 #include "core/component.h"
 
-namespace JEngine {
-	namespace Core {	
+// See file comments for class details 
+class Entity {
+	public:
 
-		// See file comments for class details 
-		class Entity {
-			public:
+		// Initialise the entity with parameters as position,
+		// also iterates through the list of components and sets
+		// the pointers to 0
+		Entity(float, float, float);	// x, y, z
+		Entity(glm::vec3);				// glm::vec3(x, y, z)
 
-				// Initialise the entity with parameters as position,
-				// also iterates through the list of components and sets
-				// the pointers to 0
-				Entity(float, float, float);	// x, y, z
-				Entity(glm::vec3);				// glm::vec3(x, y, z)
+		~Entity();
 
-				~Entity();
+		glm::vec3 pos;	// Position of entity in world space
 
-				glm::vec3 pos;	// Position of entity in world space
-		
-				// Attaches the Component to the entity if the Entity
-				// does not already contain a component of that type
-				// 
-				// Returns:
-				// 		-1: component already exists
-				// 		 0: component successfully attached
-				int attach(unsigned int, Component*);
+		// Attaches the Component to the entity if the Entity
+		// does not already contain a component of that type
+		// 
+		// Returns:
+		// 		-1: component already exists
+		// 		 0: component successfully attached
+		int attach(unsigned int, Component*);
 
-				// Array of component pointers, which are 0 if no
-				// component of a specified type is attached.
-				Component* components[Component::NUM_TYPES];
-		};
-	}
-}
+		// Array of component pointers, which are 0 if no
+		// component of a specified type is attached.
+		Component* components[ComponentId::NUM_TYPES];
+};
 
 #endif

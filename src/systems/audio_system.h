@@ -16,23 +16,18 @@
 #include "core/system.h"
 #include "core/game_objects.h"
 
-namespace JEngine {
-	namespace Systems {
+// See file comments for class details
+class AudioSystem : public System {
+	public:
+		AudioSystem(Engine*, GameObjects*);
+		virtual ~AudioSystem();
 
-		// See file comments for class details
-		class AudioSystem : public Core::System {
-			public:
-				AudioSystem(Core::Engine*, Core::GameObjects*);
-				virtual ~AudioSystem();
+		// Initialises the audio controls
+		virtual void init();
+		virtual void update(float);
 
-				// Initialises the audio controls
-				virtual void init();
-				virtual void update(float);
-
-				// The background music currently playing
-				Mix_Music* music;
-		};
-	}
-}
+		// The background music currently playing
+		Mix_Music* music;
+};
 
 #endif

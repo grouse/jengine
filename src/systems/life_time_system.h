@@ -19,26 +19,21 @@
 
 #include "components/life_time.h"
 
-namespace JEngine {
-	namespace Systems {
-		
-		// See file comments for class details
-		class LifeTimeSystem : public Core::System {
-			public:
-				LifeTimeSystem(Core::Engine*, Core::GameObjects*);
-				virtual ~LifeTimeSystem();
+// See file comments for class details
+class LifeTimeSystem : public System {
+public:
+	LifeTimeSystem(Engine*, GameObjects*);
+	virtual ~LifeTimeSystem();
 
-				virtual void init();
+	virtual void init();
 
-				// Iterates over all entities with an attached
-				// LifeTime component and places it in the trash
-				// if its lifetime value <= 0
-				// Additionally, subtracts dt from the lifetime 
-				// value
-				virtual void update(float);
+	// Iterates over all entities with an attached
+	// LifeTime component and places it in the trash
+	// if its lifetime value <= 0
+	// Additionally, subtracts dt from the lifetime 
+	// value
+	virtual void update(float);
 
-		};
-	}
-}
+};
 
 #endif

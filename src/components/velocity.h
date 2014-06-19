@@ -16,27 +16,22 @@
 #include "core/entity.h"
 #include "core/component.h"
 
-namespace JEngine {
-	namespace Components {
-		
-		// See file comments for class details
-		class Velocity : public Core::Component {
-			public:
+// See file comments for class details
+class Velocity : public Component {
+	public:
 
-				// Params: initial velocity (x, y, z), acceleration, deacceleration, max speed
-				Velocity(float, float, float, float, float, float);
-				virtual ~Velocity();
+		// Params: initial velocity (x, y, z), acceleration, deacceleration, max speed
+		Velocity(float, float, float, float, float, float);
+		virtual ~Velocity();
 
 
-				// Returns true, the Velocity component does
-				// not currently depend on any other component
-				virtual bool canAttach(Core::Entity&);
-	
-				glm::vec3 vec3; // velocity
-				float acceleration, deacceleration, max_speed;
+		// Returns true, the Velocity component does
+		// not currently depend on any other component
+		virtual bool canAttach(Entity&);
 
-		};
-	}
-}
+		glm::vec3 vec3; // velocity
+		float acceleration, deacceleration, max_speed;
+
+};
 
 #endif

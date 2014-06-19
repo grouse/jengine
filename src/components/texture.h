@@ -16,26 +16,21 @@
 #include "core/entity.h"
 #include "core/component.h"
 
-namespace JEngine {
-	namespace Components {
+// See file comments for class details
+class Texture : public Component {
+	public:
+		// Load texture from paramter file name
+		Texture(const char*);
+		virtual ~Texture();
 
-		// See file comments for class details
-		class Texture : public Core::Component {
-			public:
-				// Load texture from paramter file name
-				Texture(const char*);
-				virtual ~Texture();
+		// Returns true if Entity has a shape 
+		// component attached to it.
+		virtual bool canAttach(Entity&);
 
-				// Returns true if Entity has a shape 
-				// component attached to it.
-				virtual bool canAttach(Core::Entity&);
-
-				const char* filename;	// Texture file
-				GLuint GLtex;			// Texture OpenGL id
-				int width, height;		// Texture dimensions
-				int components;			// Texture components (eg. RGBA)
-		};
-	}
-}
+		const char* filename;	// Texture file
+		GLuint GLtex;			// Texture OpenGL id
+		int width, height;		// Texture dimensions
+		int components;			// Texture components (eg. RGBA)
+};
 
 #endif
