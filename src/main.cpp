@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 	engine.attachSystem(&render);
 	engine.attachSystem(&audio);
 
-	input.registerKeyEvent("FIRE", &player_fire);
+	input.registerKeyEvent("FIRE", KEY_PRESSED, &player_fire);
 	
 
 

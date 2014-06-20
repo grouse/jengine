@@ -16,7 +16,7 @@ InputSystem::InputSystem(Engine* e, GameObjects* o) :
 InputSystem::~InputSystem() {}
 
 void InputSystem::init() {
-	key_binds["Space"] = "FIRE";
+	key_binds["Space"] = KeyBind("Space", SDLK_SPACE, "FIRE");
 }
 
 void InputSystem::update(float dt) {
@@ -24,23 +24,28 @@ void InputSystem::update(float dt) {
 		if (e.type == SDL_QUIT)
 			engine->quit();
 
-		if (e.type == SDL_KEYDOWN) {
+		if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP) {
 			const char* key = SDL_GetKeyName(e.key.keysym.sym);
 
-			if (
-				key_binds.find(key) != key_binds.end() && 
-				callbacks.find(key_binds[key]) != callbacks.end()
-			) {
-				
-				const char* callback = key_binds[key];
+			if (key_binds.find(key) != key_binds.end()) {
+				KeyBind bind = key_binds[key];
 
-				for (auto it = callbacks[callback].begin(); it != callbacks[callback].end(); it++)
-					(*it)();
+				KeyEvent event = (e.type == SDL_KEYDOWN) ? 
+					p_callbacks[bind.keyevent] : 
+					r_callbacks[bind.keyevent];
+
+				if (event.callback != 0)
+					event.callback();
+
 			}
 		}
 	}
 }
 
-void InputSystem::registerKeyEvent(const char* key, void (*callback)()) {
-	callbacks[key].push_back(callback);	
+void InputSystem::registerKeyEvent(const char* key, int t, void (*callback)()) {
+	if (t == KEY_PRESSED) {
+		p_callbacks[key] = KeyEvent(key, t, callback);
+	} else {
+		r_callbacks[key] = KeyEvent(key, t, callback);
+	}
 }
