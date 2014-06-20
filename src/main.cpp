@@ -25,6 +25,11 @@
 
 void player_fire();
 
+void player_move_forward();
+void player_move_left();
+void player_move_back();
+void player_move_right();
+
 int main(int argc, char* argv[]) {
 	GameObjects objects; 
 	Engine engine(&objects);
@@ -46,7 +51,12 @@ int main(int argc, char* argv[]) {
 	engine.attachSystem(&render);
 	engine.attachSystem(&audio);
 
-	input.registerKeyEvent("FIRE", KEY_PRESSED, &player_fire);
+	input.registerKeyEvent("Fire", KEY_PRESSED, &player_fire);
+	
+	input.registerKeyEvent("MoveForward", KEY_PRESSED, &player_move_forward);
+	input.registerKeyEvent("MoveLeft", KEY_PRESSED, &player_move_left);
+	input.registerKeyEvent("MoveBack", KEY_PRESSED, &player_move_back);
+	input.registerKeyEvent("MoveRight", KEY_PRESSED, &player_move_right);
 	
 
 
@@ -74,4 +84,20 @@ int main(int argc, char* argv[]) {
 
 void player_fire() {
 	std::cout << "FIRE" << std::endl;
+
+}
+void player_move_forward() {
+	std::cout << "MovingForward" << std::endl;
+}
+
+void player_move_left() {
+	std::cout << "MovingLeft" << std::endl;
+}
+
+void player_move_back() {
+	std::cout << "MovingBack" << std::endl;
+}
+
+void player_move_right() {
+	std::cout << "MovingRight" << std::endl;
 }

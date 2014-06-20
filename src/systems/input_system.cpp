@@ -16,7 +16,12 @@ InputSystem::InputSystem(Engine* e, GameObjects* o) :
 InputSystem::~InputSystem() {}
 
 void InputSystem::init() {
-	key_binds["Space"] = KeyBind("Space", SDLK_SPACE, "FIRE");
+	key_binds["Space"] = KeyBind("Space", SDLK_SPACE, "Fire");
+	
+	key_binds["W"] = KeyBind("W", SDLK_w, "MoveForward");
+	key_binds["A"] = KeyBind("A", SDLK_a, "MoveLeft");
+	key_binds["S"] = KeyBind("S", SDLK_s, "MoveBack");
+	key_binds["D"] = KeyBind("D", SDLK_d, "MoveRight");
 }
 
 void InputSystem::update(float dt) {
@@ -30,13 +35,12 @@ void InputSystem::update(float dt) {
 			if (key_binds.find(key) != key_binds.end()) {
 				KeyBind bind = key_binds[key];
 
-				KeyEvent event = (e.type == SDL_KEYDOWN) ? 
+				KeyEvent event = (e.type == SDL_KEYDOWN) ?
 					p_callbacks[bind.keyevent] : 
 					r_callbacks[bind.keyevent];
 
 				if (event.callback != 0)
 					event.callback();
-
 			}
 		}
 	}
