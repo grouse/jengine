@@ -66,26 +66,6 @@ int Engine::init() {
 	for (auto it = systems.begin(); it != systems.end(); it++)
 		(*it)->init();
 
-	// Create the player object
-	// TODO: implement InputSystem so that player initialisation can be
-	// handled outside of the engine class
-	player = objects->pushEntity(new Entity(100.0f, 100.0f, 0.0f));
-
-	// Creates a 32x32 pixels wide/high square with origin in center.
-	objects->attachComponent(player, new Shape({
-		-16.0f, -16.0f, 0.0f,
-		16.0f, -16.0f, 0.0f,
-		16.0f, 16.0f, 0.0f,
-		-16.0f, 16.0f, 0.0f		
-	}));
-
-	// Creates velocity component with acceleration of 1000, deacceleration of 
-	// 2 and max speed of 400, units are pixels/second
-	objects->attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
-
-	objects->attachComponent(player, new Collision(CollisionResponse::rigid_body));;
-	objects->attachComponent(player, new Texture("assets/ship.png"));
-	objects->attachComponent(player, new Health(100.0f));
 
 	// Load the entities defined in data/entities file into objects
 	// TODO: move out of engine class
@@ -112,6 +92,7 @@ void Engine::handleInput(SDL_Event& e) {
 	// Player has moved mouse, hardcoded behaviour is to rotate the player's shape
 	// to face the mouse at all times.
 	// TODO: implement InputSystem to move out of engine class
+	/**
 	if (e.type == SDL_MOUSEMOTION) {
 		Shape* s = (Shape*) player->components[ComponentId::SHAPE];
 	
@@ -218,10 +199,12 @@ void Engine::handleInput(SDL_Event& e) {
 			
 				break;
 		}
-	}
+	}**/
 }
 
 void Engine::update(float dt) {
+	delta_time = dt;
+
 	// Apply thrust in the direction determined by which keys (WASD) are
 	// pressed.
 	// TODO: Shouldn't be here, should be in handleInput. Will be stay until
@@ -283,4 +266,8 @@ void Engine::quit() {
 
 bool Engine::isRunning() {
 	return run;
+}
+
+float Engine::deltaTime() {
+	return delta_time;
 }

@@ -16,12 +16,13 @@ InputSystem::InputSystem(Engine* e, GameObjects* o) :
 InputSystem::~InputSystem() {}
 
 void InputSystem::init() {
-	key_binds["Space"] = KeyBind("Space", SDLK_SPACE, "Fire");
+	key_binds["Space"] = KeyBind("Space", "Fire");
 	
-	key_binds["W"] = KeyBind("W", SDLK_w, "MoveForward");
-	key_binds["A"] = KeyBind("A", SDLK_a, "MoveLeft");
-	key_binds["S"] = KeyBind("S", SDLK_s, "MoveBack");
-	key_binds["D"] = KeyBind("D", SDLK_d, "MoveRight");
+	axis_binds["W"] = AxisBind("W", "MoveForward", -1.0f);
+	axis_binds["S"] = AxisBind("S", "MoveForward", 1.0f);
+
+	axis_binds["A"] = AxisBind("A", "MoveRight", -1.0f);
+	axis_binds["D"] = AxisBind("D", "MoveRight", 1.0f);
 }
 
 void InputSystem::update(float dt) {
@@ -33,23 +34,28 @@ void InputSystem::update(float dt) {
 			const char* key = SDL_GetKeyName(e.key.keysym.sym);
 
 			if (key_binds.find(key) != key_binds.end()) {
-				KeyBind bind = key_binds[key];
+				KeyBind kbind = key_binds[key];
+				KeyEvent kevent = key_callbacks[kbind.keyevent];
 
-				KeyEvent event = (e.type == SDL_KEYDOWN) ?
-					p_callbacks[bind.keyevent] : 
-					r_callbacks[bind.keyevent];
+				if (kevent.callback != 0 && kevent.type == e.type)
+					kevent.callback();
+			}
 
-				if (event.callback != 0)
-					event.callback();
+			if (axis_binds.find(key) != axis_binds.end()) {
+				AxisBind abind = axis_binds[key];
+				AxisEvent aevent = axis_callbacks[abind.axisevent];
+
+				if (aevent.callback != 0)
+					aevent.callback(abind.scale);
 			}
 		}
 	}
 }
 
-void InputSystem::registerKeyEvent(const char* key, int t, void (*callback)()) {
-	if (t == KEY_PRESSED) {
-		p_callbacks[key] = KeyEvent(key, t, callback);
-	} else {
-		r_callbacks[key] = KeyEvent(key, t, callback);
-	}
+void InputSystem::bindAction(const char* key, int t, void (*callback)()) {
+	key_callbacks[key] = KeyEvent(key, t, callback);
+}
+
+void InputSystem::bindAxis(const char* axis, void (*callback)(float)) {
+	axis_callbacks[axis] = AxisEvent(axis, callback);
 }

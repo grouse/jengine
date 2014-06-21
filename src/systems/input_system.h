@@ -26,8 +26,8 @@ struct CharCmp {
 };
 
 enum KeyEventType {
-	KEY_PRESSED = 0,
-	KEY_RELEASED = 1
+	KEY_PRESSED = SDL_KEYDOWN,
+	KEY_RELEASED = SDL_KEYUP
 };
 
 struct KeyEvent {
@@ -48,30 +48,63 @@ struct KeyEvent {
 	}
 };
 
+struct AxisEvent {
+	const char* axisevent;
+	void (*callback)(float);
+
+	AxisEvent(const char* event, void (*fptr)(float)) {
+		axisevent = event;
+		callback = fptr;
+	}
+
+	AxisEvent() {
+		axisevent = 0;
+		callback = 0;
+	}
+};
+
 struct KeyBind {
 	const char* keyname;
-	char keycode;
 	const char* keyevent;
 
-	KeyBind(const char* name, char code, const char* event) {
+	KeyBind(const char* name, const char* event) {
 		keyname = name;
-		keycode = code;
 		keyevent = event;
 	}
 
 	KeyBind() {
 		keyname = 0;
-		keycode = 0;
 		keyevent = 0;
 	}
 };
 
+struct AxisBind {
+	const char* axisname;
+	const char* axisevent;
+	float scale;
+
+	AxisBind(const char* name, const char* event, float s) {
+		axisname = name;
+		axisevent = event;
+		scale = s;
+	}
+
+	AxisBind() {
+		axisname = 0;
+		axisevent = 0;
+		scale = 0;
+	}
+};
+
+
 // See file comments for class details
 class InputSystem : public System {
 	
-	std::map<const char*, KeyEvent, CharCmp> p_callbacks;
-	std::map<const char*, KeyEvent, CharCmp> r_callbacks;
+	std::map<const char*, KeyEvent, CharCmp> key_callbacks;
+	std::map<const char*, AxisEvent, CharCmp> axis_callbacks;
+	
 	std::map<const char*, KeyBind, CharCmp> key_binds;
+	std::map<const char*, AxisBind, CharCmp> axis_binds;
 
 	SDL_Event e;
 
@@ -85,7 +118,8 @@ public:
 	// Polls SDL for events and triggers the corresponding callback
 	virtual void update(float dt);
 
-	void registerKeyEvent(const char*, int, void (*)());
+	void bindAction(const char*, int, void (*)());
+	void bindAxis(const char*, void(*)(float));
 
 
 };

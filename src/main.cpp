@@ -14,6 +14,8 @@
 #include <SDL2/SDL.h>
 
 #include "core/engine.h"
+#include "core/entity.h"
+#include "core/component.h"
 
 #include "systems/collision_system.h"
 #include "systems/health_system.h"
@@ -23,26 +25,33 @@
 #include "systems/audio_system.h"
 #include "systems/input_system.h"
 
+#include "components/shape.h"
+#include "components/velocity.h"
+#include "components/collision.h"
+#include "components/texture.h"
+#include "components/health.h"
+
+GameObjects objects;
+Engine engine(&objects);
+	
+InputSystem input(&engine, &objects);
+LifeTimeSystem life_time(&engine, &objects);
+MovementSystem movement(&engine, &objects);
+CollisionSystem collision(&engine, &objects);
+HealthSystem health(&engine, &objects);
+RenderSystem render(&engine, &objects);
+AudioSystem audio(&engine, &objects);
+
+Entity* player;
 void player_fire();
 
-void player_move_forward();
-void player_move_left();
-void player_move_back();
-void player_move_right();
+void player_move_forward(float);
+void player_move_right(float);
+
+void init_player();
 
 int main(int argc, char* argv[]) {
-	GameObjects objects; 
-	Engine engine(&objects);
-
-	// set up the engine with systems
-	InputSystem input(&engine, &objects);
-	LifeTimeSystem life_time(&engine, &objects);
-	MovementSystem movement(&engine, &objects);
-	CollisionSystem collision(&engine, &objects);
-	HealthSystem health(&engine, &objects);
-	RenderSystem render(&engine, &objects);
-	AudioSystem audio(&engine, &objects);
-	
+	// set up the engine with systems	
 	engine.attachSystem(&input);
 	engine.attachSystem(&life_time);
 	engine.attachSystem(&movement);
@@ -51,17 +60,10 @@ int main(int argc, char* argv[]) {
 	engine.attachSystem(&render);
 	engine.attachSystem(&audio);
 
-	input.registerKeyEvent("Fire", KEY_PRESSED, &player_fire);
-	
-	input.registerKeyEvent("MoveForward", KEY_PRESSED, &player_move_forward);
-	input.registerKeyEvent("MoveLeft", KEY_PRESSED, &player_move_left);
-	input.registerKeyEvent("MoveBack", KEY_PRESSED, &player_move_back);
-	input.registerKeyEvent("MoveRight", KEY_PRESSED, &player_move_right);
-	
-
-
 	if (engine.init() != 0)
 		return -1;
+	
+	init_player();
 	
 	Uint32 old_time, current_time;
 	current_time = SDL_GetTicks();
@@ -86,18 +88,45 @@ void player_fire() {
 	std::cout << "FIRE" << std::endl;
 
 }
-void player_move_forward() {
-	std::cout << "MovingForward" << std::endl;
+void player_move_forward(float value) {
+	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
+
+	glm::vec3 thrust(0.0f, value, 0.0f);
+	v->vec3 += thrust*v->acceleration*engine.deltaTime();	
 }
 
-void player_move_left() {
-	std::cout << "MovingLeft" << std::endl;
+void player_move_right(float value) {
+	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
+
+	glm::vec3 thrust(value, 0.0f, 0.0f);
+	v->vec3 += thrust*v->acceleration*engine.deltaTime();	
 }
 
-void player_move_back() {
-	std::cout << "MovingBack" << std::endl;
-}
+void init_player() {
+	// bind appropriate key and axis events to player functions
+	input.bindAction("Fire", KEY_PRESSED, &player_fire);
+	
+	input.bindAxis("MoveForward", &player_move_forward);
+	input.bindAxis("MoveRight", &player_move_right);
 
-void player_move_right() {
-	std::cout << "MovingRight" << std::endl;
+	// Create the player object
+	// TODO: implement InputSystem so that player initialisation can be
+	// handled outside of the engine class
+	player = objects.pushEntity(new Entity(100.0f, 100.0f, 0.0f));
+
+	// Creates a 32x32 pixels wide/high square with origin in center.
+	objects.attachComponent(player, new Shape({
+		-16.0f, -16.0f, 0.0f,
+		16.0f, -16.0f, 0.0f,
+		16.0f, 16.0f, 0.0f,
+		-16.0f, 16.0f, 0.0f		
+	}));
+
+	// Creates velocity component with acceleration of 1000, deacceleration of 
+	// 2 and max speed of 400, units are pixels/second
+	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
+
+	objects.attachComponent(player, new Collision(CollisionResponse::rigid_body));;
+	objects.attachComponent(player, new Texture("assets/ship.png"));
+	objects.attachComponent(player, new Health(100.0f));
 }

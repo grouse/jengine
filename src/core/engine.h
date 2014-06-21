@@ -103,11 +103,18 @@ class Engine {
 		// 			SomeOperation();
 		bool isRunning();
 
+		// Returns the delta_time variable
+		float deltaTime();
+
 	private:
 		// Flag set to true in Engine::init() and is set to false
 		// by calling Engine::quit(). Intended usage is for the
 		// condition in the game loop from which the engine is run.
 		bool run = false;
+
+		// Updated by Engine::update and used by various parts of the
+		// program to access the time since last frame update.
+		float delta_time = 0.0f;
 
 		// Pointer to GameObjects, which contains all entities 
 		// and components.
@@ -117,13 +124,6 @@ class Engine {
 		// Engine::attachSystem(System*) and iterated over by
 		// Engine::update(float);
 		std::list<System*> systems;
-
-		// Pointer to the player object of the game
-		Entity* player;
-
-		// Input flags to determine which direction to apply thrust 
-		// to the player object.
-		bool input_w = false, input_s = false, input_a = false, input_d = false;
 };
 
 #endif // ENGINE_H
