@@ -118,7 +118,19 @@ public:
 	// Polls SDL for events and triggers the corresponding callback
 	virtual void update(float dt);
 
+	// Bind a keyboard event to a callback, parameters are:
+	// 
+	// const char* 		keyboard event, eg. "Fire"
+	// int				key event type, eg. KEY_PRESSED or KEY_RELEASED
+	// void (*)() 		function pointer to call upon keyevent occurance
 	void bindAction(const char*, int, void (*)());
+
+	// Bind an axis to a callback function, the axis can be
+	// bound to keys and will then pass the maximum scale value
+	// to the callback function. Parameters are:
+	//
+	// const char* 		axis event, eg. "MoveForward", or "MouseX"
+	// void(*)(float)	function pointer to call upon axis event occurance.
 	void bindAxis(const char*, void(*)(float));
 
 
