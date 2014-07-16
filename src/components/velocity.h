@@ -31,6 +31,7 @@ class Velocity : public Component {
 
 		glm::vec3 vec3; // velocity
 		float acceleration, deacceleration, max_speed;
+		float accelerateForward = 0.0f, accelerateSide = 0.0f;
 
 };
 

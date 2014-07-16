@@ -44,9 +44,10 @@ void InputSystem::update(float dt) {
 			if (axis_binds.find(key) != axis_binds.end()) {
 				AxisBind abind = axis_binds[key];
 				AxisEvent aevent = axis_callbacks[abind.axisevent];
-
-				if (aevent.callback != 0)
-					aevent.callback(abind.scale);
+				
+				float value = (e.type == KEY_PRESSED) ? abind.scale : 0;
+				if (aevent.callback != 0) 
+					aevent.callback(value);
 			}
 		}
 	}

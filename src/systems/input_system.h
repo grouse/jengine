@@ -34,32 +34,38 @@ struct KeyEvent {
 	const char* keyevent;
 	int type;
 	void (*callback)();
+	bool dispatched;
 
 	KeyEvent(const char* event, int t, void (*fptr)()) {
 		keyevent = event;
 		type = t;
 		callback = fptr;
+		dispatched = false;
 	}
 
 	KeyEvent() {
 		keyevent = 0;
 		type = 0;
 		callback = 0;
+		dispatched = false;
 	}
 };
 
 struct AxisEvent {
 	const char* axisevent;
 	void (*callback)(float);
+	bool dispatched;
 
 	AxisEvent(const char* event, void (*fptr)(float)) {
 		axisevent = event;
 		callback = fptr;
+		dispatched = false;
 	}
 
 	AxisEvent() {
 		axisevent = 0;
 		callback = 0;
+		dispatched = false;
 	}
 };
 

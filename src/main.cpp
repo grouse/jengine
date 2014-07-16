@@ -20,7 +20,7 @@
 #include "systems/collision_system.h"
 #include "systems/health_system.h"
 #include "systems/life_time_system.h"
-#include "systems/movement_system.h"
+#include "systems/physics_system.h"
 #include "systems/render_system.h"
 #include "systems/audio_system.h"
 #include "systems/input_system.h"
@@ -36,7 +36,7 @@ Engine engine(&objects);
 	
 InputSystem input(&engine, &objects);
 LifeTimeSystem life_time(&engine, &objects);
-MovementSystem movement(&engine, &objects);
+PhysicsSystem physics(&engine, &objects);
 CollisionSystem collision(&engine, &objects);
 HealthSystem health(&engine, &objects);
 RenderSystem render(&engine, &objects);
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
 	// set up the engine with systems	
 	engine.attachSystem(&input);
 	engine.attachSystem(&life_time);
-	engine.attachSystem(&movement);
+	engine.attachSystem(&physics);
 	engine.attachSystem(&collision);
 	engine.attachSystem(&health);
 	engine.attachSystem(&render);
@@ -90,16 +90,12 @@ void player_fire() {
 }
 void player_move_forward(float value) {
 	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
-
-	glm::vec3 thrust(0.0f, value, 0.0f);
-	v->vec3 += thrust*v->acceleration*engine.deltaTime();	
+	v->accelerateForward = value;
 }
 
 void player_move_right(float value) {
 	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
-
-	glm::vec3 thrust(value, 0.0f, 0.0f);
-	v->vec3 += thrust*v->acceleration*engine.deltaTime();	
+	v->accelerateSide = value;
 }
 
 void init_player() {
@@ -124,7 +120,7 @@ void init_player() {
 
 	// Creates velocity component with acceleration of 1000, deacceleration of 
 	// 2 and max speed of 400, units are pixels/second
-	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 1000.0f, 2.0f, 400.0f));
+	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 500.0f, 500.0f, 1000.0f));
 
 	objects.attachComponent(player, new Collision(CollisionResponse::rigid_body));;
 	objects.attachComponent(player, new Texture("assets/ship.png"));
