@@ -11,6 +11,7 @@
 
 #include <iostream>
 
+#include <glm/glm.hpp>
 #include <SDL2/SDL.h>
 
 #include "core/engine.h"
@@ -30,6 +31,10 @@
 #include "components/collision.h"
 #include "components/texture.h"
 #include "components/health.h"
+#include "components/life_time.h"
+#include "components/damage.h"
+
+static const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348;
 
 GameObjects objects;
 Engine engine(&objects);
@@ -103,7 +108,42 @@ void game_reset() {
 }
 
 void player_fire() {
-	std::cout << "FIRE" << std::endl;
+	// The rotation of the projectile should be equal to that of the player's
+	glm::vec3 rotation = glm::rotateZ(glm::vec3(1.0f, 0.0f, 0.0f), (float)(((Shape*) player->components[ComponentId::SHAPE])->rotation - PI/2.0f));
+	// Spawn the projectile infront of the player
+	// TODO: Implement an anchor system with coordinates relative to player's center
+	glm::vec3 pos = player->pos + rotation*25.0f;
+
+	Entity* projectile = objects.pushEntity(new Entity(pos));
+		
+	// 8x8 square
+	Shape* p_shape = new Shape({
+		-4.0f, -4.0f, 0.0f,
+		4.0f, -4.0f, 0.0f,
+		4.0f, 4.0f, 0.0f,
+		-4.0f, 4.0f, 0.0f		
+	});
+
+	// Rotate the projectile's shape to fit the rotation of the player
+	p_shape->rotate(((Shape*) player->components[ComponentId::SHAPE])->rotation);
+	objects.attachComponent(projectile, p_shape);
+
+	// The direction of the projectile's velocity should be same as the projectile's rotation
+	Velocity* p_vel = new Velocity(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 100.0f);
+	Velocity* player_vel = (Velocity*) player->components[ComponentId::VELOCITY];
+
+	p_vel->vec3 = 1000.0f*rotation + player_vel->vec3;
+
+	objects.attachComponent(projectile, p_vel);
+	
+
+
+	objects.attachComponent(projectile, new Collision(CollisionResponse::projectile));
+	objects.attachComponent(projectile, new Texture("assets/projectile.png"));
+	objects.attachComponent(projectile, new Damage(40.0f));
+	
+	// In case the projectile doesn't hit anything, destroy projectile after 300 seconds.
+	objects.attachComponent(projectile, new LifeTime(300));
 }
 
 void player_move_forward(float value) {

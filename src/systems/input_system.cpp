@@ -29,6 +29,10 @@ void InputSystem::init() {
 
 	axis_binds["Q"] = AxisBind("Q", "Turn", -1.0f);
 	axis_binds["E"] = AxisBind("E", "Turn", 1.0f);
+	
+	axis_binds["Left"] = AxisBind("Left", "Turn", -1.0f);
+	axis_binds["Right"] = AxisBind("Right", "Turn", 1.0f);
+
 }
 
 void InputSystem::update(float dt) {

@@ -84,69 +84,7 @@ void Engine::attachSystem(System* s) {
 // update function. Input events will then be thrown by registering call back 
 // function pointers.
 void Engine::handleInput(SDL_Event& e) {
-	// Thrown when any action resulting in program quit is done,
-	// e.g. user clicks on close button.
-	if (e.type == SDL_QUIT)
-		quit();
-
-	// Player has moved mouse, hardcoded behaviour is to rotate the player's shape
-	// to face the mouse at all times.
-	// TODO: implement InputSystem to move out of engine class
-	/**
-	if (e.type == SDL_MOUSEMOTION) {
-		Shape* s = (Shape*) player->components[ComponentId::SHAPE];
-	
-		glm::vec3 mouse = glm::vec3(e.motion.x, e.motion.y, 0.0f);
-		glm::vec3 direction = mouse - player->pos;
-		
-		float angle = atan2(direction.y, direction.x);
-		s->setRotation(angle + PI/2); 
-	}	
-
-	if (e.type == SDL_KEYDOWN) {
-		switch (e.key.keysym.sym) {
-			case SDLK_w: 	
-				input_w = true;
-				break;
-
-			case SDLK_s:
-				input_s = true;
-				break;
-
-			case SDLK_a:
-				input_a = true;
-				break;
-
-			case SDLK_d:
-				input_d = true;
-				break;
-		}
-	}
-
-	if (e.type == SDL_KEYUP) {
-		switch (e.key.keysym.sym) {
-			case SDLK_p:
-				screenshot(0, 0, 1280, 720, "screenshot.bmp");
-				break;
-
-			case SDLK_w:
-				input_w = false;
-				break;
-
-			case SDLK_s:
-				input_s = false;
-				break;
-
-			case SDLK_a:
-				input_a = false;
-				break;
-
-			case SDLK_d:
-				input_d = false;
-				break;
-
-			// Spawn static target with collision and health component
-			case SDLK_y: 
+/**
 				Entity* t20;
 
 				// The target is spawned slightly away from the player
@@ -162,40 +100,12 @@ void Engine::handleInput(SDL_Event& e) {
 			
 				objects->attachComponent(t20, new Collision(CollisionResponse::static_body));
 				objects->attachComponent(t20, new Health(100.0f));
+			// Spawn static target with collision and health component
+			case SDLK_y: 
 				break;
 
 			// Shoot projectile originating from player with same rotation as the player's shape
 			case SDLK_f: 
-
-				// The rotation of the projectile should be equal to that of the player's
-				glm::vec3 rotation = glm::rotateZ(glm::vec3(1.0f, 0.0f, 0.0f), (float)(((Shape*) player->components[ComponentId::SHAPE])->rotation - PI/2.0f));
-				// Spawn the projectile infront of the player
-				// TODO: Implement an anchor system with coordinates relative to player's center
-				glm::vec3 pos = player->pos + rotation*25.0f;
-
-				Entity* projectile = objects->pushEntity(new Entity(pos));
-					
-				// 8x8 square
-				Shape* p_shape = new Shape({
-					-4.0f, -4.0f, 0.0f,
-					4.0f, -4.0f, 0.0f,
-					4.0f, 4.0f, 0.0f,
-					-4.0f, 4.0f, 0.0f		
-				});
-
-				// Rotate the projectile's shape to fit the rotation of the player
-				p_shape->rotate(((Shape*) player->components[ComponentId::SHAPE])->rotation);
-				objects->attachComponent(projectile, p_shape);
-
-				// The direction of the projectile's velocity should be same as the projectile's rotation
-				objects->attachComponent(projectile, new Velocity(rotation.x*1000, rotation.y*1000, 0.0f, 1.0f, 0.0f, 100.0f));
-
-				objects->attachComponent(projectile, new Collision(CollisionResponse::projectile));
-				objects->attachComponent(projectile, new Texture("assets/projectile.png"));
-				objects->attachComponent(projectile, new Damage(40.0f));
-				
-				// In case the projectile doesn't hit anything, destroy projectile after 300 seconds.
-				objects->attachComponent(projectile, new LifeTime(300));
 			
 				break;
 		}
