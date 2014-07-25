@@ -17,6 +17,7 @@
 #include "core/game_objects.h"
 
 #include "components/velocity.h"
+#include "components/shape.h"
 
 class PhysicsSystem : public System {
 public:
@@ -26,6 +27,8 @@ public:
 	virtual void init();
 
 	virtual void update(float dt);
+
+	void addRotation(Entity*, float);
 };
 
 #endif

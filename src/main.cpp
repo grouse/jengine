@@ -42,11 +42,22 @@ HealthSystem health(&engine, &objects);
 RenderSystem render(&engine, &objects);
 AudioSystem audio(&engine, &objects);
 
+void game_reset();
+
 Entity* player;
+
+float player_turn_at_rate = 5.0f;
+
+float player_acceleration = 750.f;
+float player_deacceleration = 750.f;
+float player_max_speed = 1000.0f;
+
 void player_fire();
 
 void player_move_forward(float);
 void player_move_right(float);
+
+void player_turn(float);
 
 void init_player();
 
@@ -64,6 +75,8 @@ int main(int argc, char* argv[]) {
 		return -1;
 	
 	init_player();
+
+	input.bindAction("Reset", KEY_RELEASED, &game_reset);
 	
 	Uint32 old_time, current_time;
 	current_time = SDL_GetTicks();
@@ -84,10 +97,15 @@ int main(int argc, char* argv[]) {
 	return 0;
 }
 
+void game_reset() {
+	player->pos = glm::vec3(0.0f, 0.0f, 0.0f);
+	((Shape*) player->components[ComponentId::SHAPE])->setRotation(0.0f);
+}
+
 void player_fire() {
 	std::cout << "FIRE" << std::endl;
-
 }
+
 void player_move_forward(float value) {
 	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
 	v->accelerateForward = value;
@@ -98,12 +116,17 @@ void player_move_right(float value) {
 	v->accelerateSide = value;
 }
 
+void player_turn(float value) {
+	physics.addRotation(player, value*player_turn_at_rate);
+}
+
 void init_player() {
 	// bind appropriate key and axis events to player functions
 	input.bindAction("Fire", KEY_PRESSED, &player_fire);
 	
 	input.bindAxis("MoveForward", &player_move_forward);
 	input.bindAxis("MoveRight", &player_move_right);
+	input.bindAxis("Turn", &player_turn);
 
 	// Create the player object
 	// TODO: implement InputSystem so that player initialisation can be
@@ -120,7 +143,7 @@ void init_player() {
 
 	// Creates velocity component with acceleration of 1000, deacceleration of 
 	// 2 and max speed of 400, units are pixels/second
-	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, 500.0f, 500.0f, 1000.0f));
+	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, player_acceleration, player_deacceleration, player_max_speed));
 
 	objects.attachComponent(player, new Collision(CollisionResponse::rigid_body));;
 	objects.attachComponent(player, new Texture("assets/ship.png"));

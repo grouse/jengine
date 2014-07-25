@@ -37,6 +37,7 @@ class Shape : public Component {
 		void setRotation(double);
 
 		float rotation;					// current rotation of shape
+		float rotationRate = 0.0f;
 		std::vector<float> vertices;	// the vertices of the shape
 };
 

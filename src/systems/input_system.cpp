@@ -16,6 +16,9 @@ InputSystem::InputSystem(Engine* e, GameObjects* o) :
 InputSystem::~InputSystem() {}
 
 void InputSystem::init() {
+	key_binds["P"] = KeyBind("P", "Reset");
+	
+	
 	key_binds["Space"] = KeyBind("Space", "Fire");
 	
 	axis_binds["W"] = AxisBind("W", "MoveForward", -1.0f);
@@ -23,6 +26,9 @@ void InputSystem::init() {
 
 	axis_binds["A"] = AxisBind("A", "MoveRight", -1.0f);
 	axis_binds["D"] = AxisBind("D", "MoveRight", 1.0f);
+
+	axis_binds["Q"] = AxisBind("Q", "Turn", -1.0f);
+	axis_binds["E"] = AxisBind("E", "Turn", 1.0f);
 }
 
 void InputSystem::update(float dt) {

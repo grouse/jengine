@@ -17,6 +17,14 @@ void PhysicsSystem::init() {
 }
 
 void PhysicsSystem::update(float dt) {
+		
+	for (auto it = objects->components[ComponentId::SHAPE].begin(); it != objects->components[ComponentId::SHAPE].end(); it++) {
+		Shape* s = (Shape*)(*it);
+		s->rotate(s->rotationRate*dt);
+	}
+
+
+	// (De)accelerate entities and update positions
 	for (auto it = objects->components[ComponentId::VELOCITY].begin(); it != objects->components[ComponentId::VELOCITY].end(); it++) {
 
 		Velocity* v = (Velocity*) (*it);
@@ -41,4 +49,13 @@ void PhysicsSystem::update(float dt) {
 
 		e->pos += v->vec3 * dt;
 	}
+
+}
+
+void PhysicsSystem::addRotation(Entity* e, float rate) {
+	if (e->components[ComponentId::SHAPE] == 0)
+		return;
+	
+	Shape* s = (Shape*) e->components[ComponentId::SHAPE];
+	s->rotationRate = rate;
 }
