@@ -64,10 +64,6 @@ class Engine {
 		// 			system->init()
 		int init();
 
-		// Switch-cases the passed SDL_Event and determines what
-		// logic to execute.
-		void handleInput(SDL_Event&);
-
 		// Attaches a system to the engine.
 		//
 		// The function is equivalent to:
