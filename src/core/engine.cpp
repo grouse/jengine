@@ -19,7 +19,7 @@ int Engine::init() {
 	// Initialise SDL with Video and Audio
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
 		std::cerr << SDL_GetError() << "\n";
-	}
+	}	
 
 	// initialise the attached systems. 
 	// TODO: implement a configuration/settings class

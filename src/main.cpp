@@ -63,6 +63,7 @@ void player_move_forward(float);
 void player_move_right(float);
 
 void player_turn(float);
+void player_turn_at(float);
 
 void init_player();
 
@@ -160,6 +161,11 @@ void player_turn(float value) {
 	physics.addRotation(player, value*player_turn_at_rate);
 }
 
+void player_turn_at(float value) {
+	Shape* s = (Shape*) player->components[ComponentId::SHAPE];
+	s->rotate(value*player_turn_at_rate*engine.deltaTime());
+}
+
 void init_player() {
 	// bind appropriate key and axis events to player functions
 	input.bindAction("Fire", KEY_PRESSED, &player_fire);
@@ -167,6 +173,7 @@ void init_player() {
 	input.bindAxis("MoveForward", &player_move_forward);
 	input.bindAxis("MoveRight", &player_move_right);
 	input.bindAxis("Turn", &player_turn);
+	input.bindAxis("TurnAt", &player_turn_at);
 
 	// Create the player object
 	// TODO: implement InputSystem so that player initialisation can be

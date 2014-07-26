@@ -16,6 +16,8 @@ InputSystem::InputSystem(Engine* e, GameObjects* o) :
 InputSystem::~InputSystem() {}
 
 void InputSystem::init() {
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+
 	key_binds["P"] = KeyBind("P", "Reset");
 	
 	
@@ -32,6 +34,8 @@ void InputSystem::init() {
 	
 	axis_binds["Left"] = AxisBind("Left", "Turn", -1.0f);
 	axis_binds["Right"] = AxisBind("Right", "Turn", 1.0f);
+
+	axis_binds["MouseX"] = AxisBind("MouseX", "TurnAt", 1.0f);
 
 }
 
@@ -58,6 +62,24 @@ void InputSystem::update(float dt) {
 				float value = (e.type == KEY_PRESSED) ? abind.scale : 0;
 				if (aevent.callback != 0) 
 					aevent.callback(value);
+			}
+		}
+
+		if (e.type == SDL_MOUSEMOTION) {
+			if (axis_binds.find("MouseX") != axis_binds.end()) {
+				AxisBind abind = axis_binds["MouseX"];
+				AxisEvent aevent = axis_callbacks[abind.axisevent];
+
+				if (aevent.callback != 0)
+					aevent.callback(e.motion.xrel*abind.scale);
+			}
+			
+			if (axis_binds.find("MouseY") != axis_binds.end()) {
+				AxisBind abind = axis_binds["MouseY"];
+				AxisEvent aevent = axis_callbacks[abind.axisevent];
+
+				if (aevent.callback != 0)
+					aevent.callback(e.motion.yrel*abind.scale);
 			}
 		}
 	}
