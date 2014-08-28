@@ -71,7 +71,7 @@ void InputSystem::update(float dt) {
 				AxisEvent aevent = axis_callbacks[abind.axisevent];
 
 				if (aevent.callback != 0)
-					aevent.callback(e.motion.xrel*abind.scale);
+					aevent.callback((float)e.motion.xrel*abind.scale);
 			}
 			
 			if (axis_binds.find("MouseY") != axis_binds.end()) {
@@ -79,7 +79,7 @@ void InputSystem::update(float dt) {
 				AxisEvent aevent = axis_callbacks[abind.axisevent];
 
 				if (aevent.callback != 0)
-					aevent.callback(e.motion.yrel*abind.scale);
+					aevent.callback((float)e.motion.yrel*abind.scale);
 			}
 		}
 	}

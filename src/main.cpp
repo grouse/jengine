@@ -162,6 +162,7 @@ void player_turn(float value) {
 }
 
 void player_turn_at(float value) {
+	std::cout << value << std::endl;
 	Shape* s = (Shape*) player->components[ComponentId::SHAPE];
 	s->rotate(value*player_turn_at_rate*engine.deltaTime());
 }

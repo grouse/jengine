@@ -75,6 +75,8 @@ void Shape::rotate(double angle) {
 	vertices[10] = yr;
 
 	rotation += angle;
+	if (rotation >= 6.28318531 || rotation <= -6.28318531)
+		rotation = 0;
 }
 
 void Shape::setRotation(double angle) {
