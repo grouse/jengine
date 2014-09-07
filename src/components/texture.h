@@ -24,6 +24,7 @@ class Texture : public Component {
 	public:
 		// Load texture from paramter file name
 		Texture(const char*, std::initializer_list<float>);
+		Texture(const char*, float*, unsigned int);
 		virtual ~Texture();
 
 		// Returns true if Entity has a shape 

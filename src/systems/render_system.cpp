@@ -74,7 +74,7 @@ void RenderSystem::init() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glOrtho(0.0f, w, h, 0.0f, -1.0f, 1.0f);
+	glOrtho(0.0f, w/2.0f, h/2.0f, 0.0f, -1.0f, 1.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

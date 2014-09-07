@@ -17,6 +17,7 @@
 #include "core/engine.h"
 #include "core/entity.h"
 #include "core/component.h"
+#include "core/level.h"
 
 #include "systems/collision_system.h"
 #include "systems/health_system.h"
@@ -81,6 +82,8 @@ int main(int argc, char* argv[]) {
 		return -1;
 	
 	init_player();
+
+	Level::load("data/map", &objects);
 
 	input.bindAction("Reset", KEY_RELEASED, &game_reset);
 	
