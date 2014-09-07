@@ -142,9 +142,9 @@ void player_fire() {
 	objects.attachComponent(projectile, new Collision(CollisionResponse::projectile));
 	objects.attachComponent(projectile, new Texture("assets/projectile.png", {
 		0.0f, 0.0f, 
-		0.5f, 0.0f, 
-		0.5f, 1.0f, 
-		0.0f, 1.0f	
+		8.0f, 0.0f, 
+		8.0f, 8.0f, 
+		0.0f, 8.0f	
 	}));
 
 	objects.attachComponent(projectile, new Damage(40.0f));
@@ -202,9 +202,9 @@ void init_player() {
 
 	objects.attachComponent(player, new Texture("assets/ship.tiled.png", {
 		0.0f, 0.0f,
-		0.5f, 0.0f,
-		0.5f, 1.0f,
-		0.0f, 1.0f
+		32.0f, 0.0f,
+		32.0f, 32.0f,
+		0.0f, 32.0f
 	}));
 	
 	objects.attachComponent(player, new Health(100.0f));

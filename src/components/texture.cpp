@@ -38,6 +38,12 @@ Texture::Texture(const char* filename, std::initializer_list<float> texcoords) :
 
 	// unbind texture for cleanliness
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	for (int i = 0; i < uv.size(); i++) {
+		uv[i] = uv[i] / width;
+		uv[i+1] = uv[i+1] / height;
+		i++;
+	}
 }
 
 Texture::~Texture() {
