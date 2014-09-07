@@ -114,7 +114,7 @@ void RenderSystem::update(float dt) {
 
 			// Pass the default UV coordinates
 			// TODO: Replace with UV in VBO
-			glTexCoordPointer(2, GL_FLOAT, 0, uv);
+			glTexCoordPointer(2, GL_FLOAT, 0, t->uv.data());
 
 			// Draw the shape with texture
 			glDrawArrays(GL_QUADS, 0, 4);

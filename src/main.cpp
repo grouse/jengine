@@ -140,7 +140,13 @@ void player_fire() {
 
 
 	objects.attachComponent(projectile, new Collision(CollisionResponse::projectile));
-	objects.attachComponent(projectile, new Texture("assets/projectile.png"));
+	objects.attachComponent(projectile, new Texture("assets/projectile.png", {
+		0.0f, 0.0f, 
+		0.5f, 0.0f, 
+		0.5f, 1.0f, 
+		0.0f, 1.0f	
+	}));
+
 	objects.attachComponent(projectile, new Damage(40.0f));
 	
 	// In case the projectile doesn't hit anything, destroy projectile after 300 seconds.
@@ -162,7 +168,6 @@ void player_turn(float value) {
 }
 
 void player_turn_at(float value) {
-	std::cout << value << std::endl;
 	Shape* s = (Shape*) player->components[ComponentId::SHAPE];
 	s->rotate(value*player_turn_at_rate*engine.deltaTime());
 }
@@ -194,6 +199,13 @@ void init_player() {
 	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, player_acceleration, player_deacceleration, player_max_speed));
 
 	objects.attachComponent(player, new Collision(CollisionResponse::rigid_body));;
-	objects.attachComponent(player, new Texture("assets/ship.png"));
+
+	objects.attachComponent(player, new Texture("assets/ship.tiled.png", {
+		0.0f, 0.0f,
+		0.5f, 0.0f,
+		0.5f, 1.0f,
+		0.0f, 1.0f
+	}));
+	
 	objects.attachComponent(player, new Health(100.0f));
 }

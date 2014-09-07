@@ -72,7 +72,7 @@ void load_tex(Entity* e, GameObjects* objects, std::stringstream& s) {
 	std::string filename;
 
 	s >> filename;
-	objects->attachComponent(e, new Texture(filename.c_str()));
+	//objects->attachComponent(e, new Texture(filename.c_str()));
 
 	std::cout << "Loaded texture component!\n\tfilename: " << filename << "\n\n";
 }
