@@ -1,5 +1,8 @@
-cookie-attack
-jengine
+JEngine
+*Makefile
+*CMakeCache.txt
+*cmake_install.cmake
+*CMakeFiles/
 *.swp
 *.o
-obj/
+*.a
