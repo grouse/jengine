@@ -17,6 +17,7 @@
 #include "core/engine.h"
 #include "core/entity.h"
 #include "core/component.h"
+#include "core/level.h"
 
 #include "systems/collision_system.h"
 #include "systems/health_system.h"
@@ -83,6 +84,8 @@ int main(int argc, char* argv[]) {
 	
 	init_player();
 
+	Level::load("data/map", &objects);
+
 	input.bindAction("Reset", KEY_RELEASED, &game_reset);
 	
 	Uint32 old_time, current_time;
@@ -141,7 +144,13 @@ void player_fire() {
 
 
 	objects.attachComponent(projectile, new Collision(CollisionResponse::projectile));
-	objects.attachComponent(projectile, new Texture("assets/projectile.png"));
+	objects.attachComponent(projectile, new Texture("assets/projectile.png", {
+		0.0f, 0.0f, 
+		8.0f, 0.0f, 
+		8.0f, 8.0f, 
+		0.0f, 8.0f	
+	}));
+
 	objects.attachComponent(projectile, new Damage(40.0f));
 	
 	// In case the projectile doesn't hit anything, destroy projectile after 300 seconds.
@@ -195,6 +204,13 @@ void init_player() {
 	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, player_acceleration, player_deacceleration, player_max_speed));
 
 	objects.attachComponent(player, new Collision(CollisionResponse::rigid_body));;
-	objects.attachComponent(player, new Texture("assets/ship.png"));
+
+	objects.attachComponent(player, new Texture("assets/ship.tiled.png", {
+		0.0f, 0.0f,
+		32.0f, 0.0f,
+		32.0f, 32.0f,
+		0.0f, 32.0f
+	}));
+	
 	objects.attachComponent(player, new Health(100.0f));
 }

@@ -74,7 +74,7 @@ void RenderSystem::init() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glOrtho(0.0f, w, h, 0.0f, -1.0f, 1.0f);
+	glOrtho(0.0f, w/2.0f, h/2.0f, 0.0f, -1.0f, 1.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -114,7 +114,7 @@ void RenderSystem::update(float dt) {
 
 			// Pass the default UV coordinates
 			// TODO: Replace with UV in VBO
-			glTexCoordPointer(2, GL_FLOAT, 0, uv);
+			glTexCoordPointer(2, GL_FLOAT, 0, t->uv.data());
 
 			// Draw the shape with texture
 			glDrawArrays(GL_QUADS, 0, 4);

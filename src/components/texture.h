@@ -10,6 +10,9 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include <initializer_list>
+#include <vector>
+
 #include <stb_image.h>
 #include <SDL2/SDL_opengl.h>
 
@@ -20,7 +23,8 @@
 class Texture : public Component {
 	public:
 		// Load texture from paramter file name
-		Texture(const char*);
+		Texture(const char*, std::initializer_list<float>);
+		Texture(const char*, float*, unsigned int);
 		virtual ~Texture();
 
 		// Returns true if Entity has a shape 
@@ -31,6 +35,8 @@ class Texture : public Component {
 		GLuint GLtex;			// Texture OpenGL id
 		int width, height;		// Texture dimensions
 		int components;			// Texture components (eg. RGBA)
+		
+		std::vector<float> uv;
 };
 
 #endif

@@ -70,9 +70,17 @@ void Level::load(const char* filename, GameObjects* objects) {
 
 void load_tex(Entity* e, GameObjects* objects, std::stringstream& s) {
 	std::string filename;
+	unsigned int n;
+
 
 	s >> filename;
-	objects->attachComponent(e, new Texture(filename.c_str()));
+	s >> n;
+
+	float texcoords[n];
+	for (int i = 0; i < n; i++)
+		s >> texcoords[i];
+	
+	objects->attachComponent(e, new Texture(filename.c_str(), texcoords, n));
 
 	std::cout << "Loaded texture component!\n\tfilename: " << filename << "\n\n";
 }
