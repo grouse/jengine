@@ -25,6 +25,7 @@ enum ComponentId {
 	DAMAGE, 
 	HEALTH,
 	AUDIO,
+    PHYSICS_BODY,
 	NUM_TYPES
 };
 

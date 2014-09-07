@@ -7,8 +7,10 @@
 
 #include "physics_system.h"
 
-PhysicsSystem::PhysicsSystem(Engine* e, GameObjects* o) :
-   System(e, o) {}
+PhysicsSystem::PhysicsSystem(Engine* e, GameObjects* o,glm::vec3 g) :
+   System(e, o) {
+    this->gravity = g;
+}
 
 PhysicsSystem::~PhysicsSystem() {}
 
@@ -23,9 +25,8 @@ void PhysicsSystem::update(float dt) {
 		s->rotate(s->rotationRate*dt);
 	}
 
-
 	// (De)accelerate entities and update positions
-	for (auto it = objects->components[ComponentId::VELOCITY].begin(); it != objects->components[ComponentId::VELOCITY].end(); it++) {
+    for (auto it = objects->components[ComponentId::VELOCITY].begin(); it != objects->components[ComponentId::VELOCITY].end(); it++) {
 
 		Velocity* v = (Velocity*) (*it);
 		Entity* e = v->owner;
@@ -44,11 +45,16 @@ void PhysicsSystem::update(float dt) {
 			if (glm::length(v->vec3 - deaccel) < glm::length(v->vec3))
 				new_velocity = v->vec3 - deaccel;
 		}
+        if(v->owner->components[ComponentId::PHYSICS_BODY]){
+            new_velocity +=gravity*dt;
+        }
+
 
 		v->vec3 = new_velocity;
 
 		e->pos += v->vec3 * dt;
 	}
+
 
 }
 

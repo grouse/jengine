@@ -21,7 +21,7 @@
 
 class PhysicsSystem : public System {
 public:
-	PhysicsSystem(Engine*, GameObjects*);
+    PhysicsSystem(Engine*, GameObjects*, glm::vec3);
 	virtual ~PhysicsSystem();
 
 	virtual void init();
@@ -29,6 +29,8 @@ public:
 	virtual void update(float dt);
 
 	void addRotation(Entity*, float);
+private:
+    glm::vec3 gravity;
 };
 
 #endif

@@ -7,6 +7,8 @@ set(COMPONENT_SOURCE_FILES
 	health.cpp
 	life_time.h
 	life_time.cpp
+        physics_body.h
+        physics_body.cpp
 	shape.h
 	shape.cpp
 	texture.h

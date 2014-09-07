@@ -33,6 +33,7 @@
 #include "components/health.h"
 #include "components/life_time.h"
 #include "components/damage.h"
+#include "components/physics_body.h"
 
 static const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348;
 
@@ -41,7 +42,7 @@ Engine engine(&objects);
 	
 InputSystem input(&engine, &objects);
 LifeTimeSystem life_time(&engine, &objects);
-PhysicsSystem physics(&engine, &objects);
+PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,800.0f,0.0f));
 CollisionSystem collision(&engine, &objects);
 HealthSystem health(&engine, &objects);
 RenderSystem render(&engine, &objects);
@@ -187,6 +188,7 @@ void init_player() {
 		16.0f, 16.0f, 0.0f,
 		-16.0f, 16.0f, 0.0f		
 	}));
+    objects.attachComponent(player, new PhysicsBody(true));
 
 	// Creates velocity component with acceleration of 1000, deacceleration of 
 	// 2 and max speed of 400, units are pixels/second
