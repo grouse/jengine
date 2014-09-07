@@ -6,3 +6,7 @@ JEngine
 *.swp
 *.o
 *.a
+jengine.config
+jengine.creator
+jengine.files
+jengine.includes
