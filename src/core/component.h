@@ -38,9 +38,6 @@ public:
 
 	const unsigned int type; 	// Component id, set by child class constructor 
 	Entity* owner; 				// The entity to which the component is attached
-
-	// Checks whether the entity meets the component's dependencies for attachment
-	virtual bool canAttach(Entity&) = 0;
 };
 
 #endif

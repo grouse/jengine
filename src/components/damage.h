@@ -19,10 +19,6 @@ class Damage : public Component {
 		Damage(float);
 		virtual ~Damage();
 		
-		// Returns true, Damage currently does not depend
-		// on any other component
-		virtual bool canAttach(Entity&);
-
 		// The damage to inflict upon the other entity when
 		// triggerd
 		float damage;

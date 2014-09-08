@@ -18,10 +18,6 @@ class Health : public Component {
 		Health(float);
 		virtual ~Health();
 
-		// Returns true, the component currently does
-		// not depend on any other component
-		virtual bool canAttach(Entity&);
-		
 		// The health of the entity, when it reaches 0
 		// the entity is cleaned up and deleted
 		float health;

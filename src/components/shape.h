@@ -25,10 +25,6 @@ class Shape : public Component {
 
 		virtual ~Shape();
 
-		// Returns true, Shape currently does not
-		// depend on any other component
-		virtual bool canAttach(Entity&);
-
 		// Rotates the shape by param radians 
 		void rotate(double);
 

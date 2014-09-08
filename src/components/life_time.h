@@ -19,10 +19,6 @@ class LifeTime : public Component {
 		LifeTime(float);
 		virtual ~LifeTime();
 
-		// Returns true, LifeTime currently does not
-		// depend on any other component
-		virtual bool canAttach(Entity&);
-
 		// Time in seconds until the parent entity should
 		// be discarded 
 		float remaining;

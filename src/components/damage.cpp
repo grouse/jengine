@@ -11,7 +11,3 @@ Damage::Damage(float dmg) :
 }
 
 Damage::~Damage() {}
-
-bool Damage::canAttach(Entity& e) {
-	return true;
-}

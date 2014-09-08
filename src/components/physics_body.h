@@ -8,7 +8,6 @@ class PhysicsBody : public Component{
 public:
     PhysicsBody(bool);
     virtual ~PhysicsBody();
-    bool canAttach(Entity&);
 
     bool gravity;
 };

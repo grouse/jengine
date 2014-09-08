@@ -5,7 +5,3 @@ PhysicsBody::PhysicsBody(bool gravity) : Component(ComponentId::PHYSICS_BODY) {
 }
 
 PhysicsBody::~PhysicsBody() {}
-
-bool PhysicsBody::canAttach(Entity& e) {
-    return true;
-}

@@ -14,16 +14,6 @@ Collision::Collision(void (*response)(Entity*, Entity*, glm::vec3, GameObjects*)
 
 Collision::~Collision() {}
 
-// For now, the collision component depends on the shape
-// component
-//
-// TODO: The collision component should be able to have
-// several different collision meshes - axis aligned 
-// bounding box, bounding box, and complex (shape)
-bool Collision::canAttach(Entity& e) {
-	return (e.components[ComponentId::SHAPE] != 0);
-}
-
 namespace CollisionResponse {
 	void rigid_body(Entity* e1, Entity* e2, glm::vec3 overlap, GameObjects* objects) {
 		// Move entity so that it no longer overlaps

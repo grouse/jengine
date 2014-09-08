@@ -31,10 +31,6 @@ class Collision : public Component {
 		Collision(void (*response)(Entity*, Entity*, glm::vec3, GameObjects*));
 		virtual ~Collision();
 
-		// Returns true if Entity has an attach Shape
-		// component
-		virtual bool canAttach(Entity&);
-
 		// The attached collision response, called by
 		// CollisionSystem if a collision is detected
 		//

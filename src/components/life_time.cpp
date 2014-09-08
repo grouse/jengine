@@ -11,7 +11,3 @@ LifeTime::LifeTime(float t) :
 }
 
 LifeTime::~LifeTime() {}
-
-bool LifeTime::canAttach(Entity& e) {
-	return true;
-}	

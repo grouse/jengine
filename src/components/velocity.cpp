@@ -17,7 +17,3 @@ Velocity::Velocity(float x, float y, float z, float acceleration, float deaccele
 }
 
 Velocity::~Velocity() {}
-
-bool Velocity::canAttach(Entity& e) {
-	return true;
-}

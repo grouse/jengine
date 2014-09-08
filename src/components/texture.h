@@ -27,10 +27,6 @@ class Texture : public Component {
 		Texture(const char*, float*, unsigned int);
 		virtual ~Texture();
 
-		// Returns true if Entity has a shape 
-		// component attached to it.
-		virtual bool canAttach(Entity&);
-
 		const char* filename;	// Texture file
 		GLuint GLtex;			// Texture OpenGL id
 		int width, height;		// Texture dimensions

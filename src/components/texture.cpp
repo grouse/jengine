@@ -86,7 +86,3 @@ Texture::Texture(const char* filename, float* texcoords, unsigned int n) :
 Texture::~Texture() {
 	glDeleteTextures(1, &GLtex);
 }
-
-bool Texture::canAttach(Entity& e) {
-	return (e.components[ComponentId::SHAPE] != 0);
-}

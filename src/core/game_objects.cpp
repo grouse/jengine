@@ -31,12 +31,6 @@ Entity* GameObjects::pushEntity(Entity* e) {
 }
 
 Component* GameObjects::attachComponent(Entity* e, Component* c) {
-	// Returns false if the entity does not meet the component's dependencies
-	if (!c->canAttach(*e)) {
-		std::cout << "Failed to attach component: " << c->type << " to entity: " << e << "\n";
-		return 0;
-	}
-
 	components[c->type].push_back(c); 	// add to component list
 	e->attach(c->type, c);				// attach to entity
 	c->owner = e;						// set owner of component

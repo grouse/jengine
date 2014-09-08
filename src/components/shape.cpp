@@ -24,10 +24,6 @@ Shape::Shape(float* v, unsigned int size) :
 
 Shape::~Shape() {}
 
-bool Shape::canAttach(Entity& e) {
-	return true;
-}
-
 // Rotate the shape by radians
 // TODO: Switch out logic in favour of GLM
 void Shape::rotate(double angle) {

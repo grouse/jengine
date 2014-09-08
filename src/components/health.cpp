@@ -10,7 +10,3 @@ Health::Health(float hp) : Component(ComponentId::HEALTH) {
 }
 
 Health::~Health() {}
-
-bool Health::canAttach(Entity& e) {
-	return true;
-}
