@@ -29,22 +29,24 @@ namespace CollisionResponse {
 		// Move entity so that it no longer overlaps
 		// TODO: tunneling occurs in certain scenarios, 
 		// investigation and fixing is necessary
-		e1->pos -= overlap;
+		e1->pos += overlap;
 
 		// If the parent entity has a velocity this should be
 		// decreased
 		// TODO: Implement friction and "bounce-factor" 
-		if (e1->components[ComponentId::VELOCITY] != 0) {
+		/**if (e1->components[ComponentId::VELOCITY] != 0) {
 			Velocity* v = (Velocity*) e1->components[ComponentId::VELOCITY];
 			
 			v->vec3 *= 0.75;
-		}
+		}**/
 	}
 
 	// Currently, static body just mean the entities are 
 	// immovable, which is currently implemented by not doing
 	// anything in its collision response
-	void static_body(Entity* e1, Entity* e2, glm::vec3 overlap, GameObjects* objects) {}
+	void static_body(Entity* e1, Entity* e2, glm::vec3 overlap, GameObjects* objects) {
+		e2->pos -= overlap;	
+	}
 
 	void projectile(Entity* e1, Entity* e2, glm::vec3 overlap, GameObjects* objects) {
 

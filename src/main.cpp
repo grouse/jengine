@@ -1,4 +1,5 @@
 // Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+// 
 //
 // file: main.cpp
 // author: Jesper Stefansson
@@ -184,7 +185,7 @@ void init_player() {
 	
 	input.bindAxis("MoveForward", &player_move_forward);
 	input.bindAxis("MoveRight", &player_move_right);
-	//input.bindAxis("Turn", &player_turn);
+	input.bindAxis("Turn", &player_turn);
 	//input.bindAxis("TurnAt", &player_turn_at);
 
 	// Create the player object
