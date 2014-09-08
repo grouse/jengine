@@ -47,18 +47,23 @@ void CollisionSystem::update(float dt) {
 
 			// Calculate 4 axes from the shape vectors, only 2 axes per shape is used
 			// as the engine currently only fully supports squares
-			glm::vec3 axes[4];
-			axes[0] = glm::normalize(a[1] - a[0]);
+			glm::vec3 axes[8];
+			axes[0] = glm::normalize(a[0] - a[1]);
 			axes[1] = glm::normalize(a[1] - a[2]);
-			axes[2] = glm::normalize(b[0] - b[3]);
-			axes[3] = glm::normalize(b[0] - b[1]);
+			axes[2] = glm::normalize(a[2] - a[3]);
+			axes[3] = glm::normalize(a[3] - a[0]);
+			
+			axes[4] = glm::normalize(b[0] - b[1]);
+			axes[5] = glm::normalize(b[1] - b[2]);
+			axes[6] = glm::normalize(b[2] - b[3]);
+			axes[7] = glm::normalize(b[3] - b[0]);
 
 			bool collision = true;
 
 			float overlapScalar = 1000.0f; 
 			glm::vec3 overlapVec = glm::vec3(0.0f);
 
-			for (unsigned int i = 0; i < 4 && collision; i++) {
+			for (unsigned int i = 0; i < 8 && collision; i++) {
 				// Get the normal of the axis
 				glm::vec3 axis = perp(axes[i]);
 
@@ -84,8 +89,11 @@ void CollisionSystem::update(float dt) {
 
 			// If a collision is detected, we call the attached collision response function
 			if (collision) {
-				c1->response(e1, e2, overlapScalar*overlapVec, objects);
-				c2->response(e2, e1, overlapScalar*overlapVec, objects);
+				glm::vec3 direction = glm::normalize(e1->pos - e2->pos);
+				glm::vec3 displacement = overlapScalar*direction*overlapVec;
+				
+				c1->response(e1, e2, -1.0f*displacement, objects);
+				c2->response(e2, e1, displacement, objects);
 			}
 		}
 	}
@@ -123,7 +131,7 @@ bool CollisionSystem::overlaps(glm::vec3 a, glm::vec3 b) {
 
 float CollisionSystem::getOverlap(glm::vec3 a, glm::vec3 b) {
 	float overlap;
-	
+	/**	
 	// Is true if a is to the right of b or b to the right of a,
 	// but not if a is fully inside b or vice versa
 	if (a.y >= b.x && a.x <= b.x || b.y >= a.x && b.x <= a.x) {
@@ -136,7 +144,15 @@ float CollisionSystem::getOverlap(glm::vec3 a, glm::vec3 b) {
 		float overlapL = b.x - a.x;
 
 		overlap = (overlapR < overlapL) ? overlapR : overlapL;
-	}
+	}**/
+
+
+	float x = (a.x >= b.x) ? a.x : b.x;
+	float y = (a.y <= b.y) ? a.y : b.y;
+	float max = (x >= y) ? x : y;
+	float min = (x >= y) ? y : x;
+
+	overlap = max-min;
 
 	return overlap;
 }
@@ -152,5 +168,5 @@ bool CollisionSystem::contains(float n, glm::vec3 r) {
 }
 
 glm::vec3 CollisionSystem::perp(glm::vec3 v) {
-	return glm::vec3(v.y, -v.x, 0.0f);
+	return glm::vec3(v.y, v.x, 0.0f);
 }

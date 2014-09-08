@@ -1,4 +1,5 @@
 // Copyright (c) 2014 Jesper Stefansson. All rights reserved.
+// 
 //
 // file: main.cpp
 // author: Jesper Stefansson
@@ -43,7 +44,7 @@ Engine engine(&objects);
 	
 InputSystem input(&engine, &objects);
 LifeTimeSystem life_time(&engine, &objects);
-PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,800.0f,0.0f));
+PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,0.0f,0.0f));
 CollisionSystem collision(&engine, &objects);
 HealthSystem health(&engine, &objects);
 RenderSystem render(&engine, &objects);
@@ -56,7 +57,7 @@ Entity* player;
 float player_turn_at_rate = 5.0f;
 
 float player_acceleration = 750.f;
-float player_deacceleration = 750.f;
+float player_deacceleration = 0.f;
 float player_max_speed = 1000.0f;
 
 void player_fire();
@@ -159,12 +160,14 @@ void player_fire() {
 
 void player_move_forward(float value) {
 	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
-	v->accelerateForward = value;
+	v->vec3.y = value*100.0f;
+	//v->accelerateForward = value;
 }
 
 void player_move_right(float value) {
 	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
-	v->accelerateSide = value;
+	v->vec3.x = value*100.0f;
+	//v->accelerateSide = value;
 }
 
 void player_turn(float value) {
@@ -183,7 +186,7 @@ void init_player() {
 	input.bindAxis("MoveForward", &player_move_forward);
 	input.bindAxis("MoveRight", &player_move_right);
 	input.bindAxis("Turn", &player_turn);
-	input.bindAxis("TurnAt", &player_turn_at);
+	//input.bindAxis("TurnAt", &player_turn_at);
 
 	// Create the player object
 	// TODO: implement InputSystem so that player initialisation can be
