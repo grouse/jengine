@@ -90,10 +90,15 @@ void CollisionSystem::update(float dt) {
 			// If a collision is detected, we call the attached collision response function
 			if (collision) {
 				glm::vec3 direction = glm::normalize(e1->pos - e2->pos);
-				glm::vec3 displacement = overlapScalar*direction*overlapVec;
-				
-				c1->response(e1, e2, -1.0f*displacement, objects);
-				c2->response(e2, e1, displacement, objects);
+				glm::vec3 displacement = overlapScalar*overlapVec;
+
+				if (glm::dot(direction, overlapVec) < 0.0f) {
+					c1->response(e1, e2, -displacement, objects);
+					c2->response(e2, e1, displacement, objects);
+				} else {
+					c1->response(e1, e2, displacement, objects);
+					c2->response(e2, e1, -displacement, objects);
+				}
 			}
 		}
 	}
@@ -130,31 +135,12 @@ bool CollisionSystem::overlaps(glm::vec3 a, glm::vec3 b) {
 }
 
 float CollisionSystem::getOverlap(glm::vec3 a, glm::vec3 b) {
-	float overlap;
-	/**	
-	// Is true if a is to the right of b or b to the right of a,
-	// but not if a is fully inside b or vice versa
-	if (a.y >= b.x && a.x <= b.x || b.y >= a.x && b.x <= a.x) {
-		float overlapR = a.y - b.x;
-		float overlapL = b.y - a.x;
-
-		overlap = (overlapR < overlapL) ? overlapR : overlapL;
-	} else {
-		float overlapR = b.y - a.y;
-		float overlapL = b.x - a.x;
-
-		overlap = (overlapR < overlapL) ? overlapR : overlapL;
-	}**/
-
-
 	float x = (a.x >= b.x) ? a.x : b.x;
 	float y = (a.y <= b.y) ? a.y : b.y;
 	float max = (x >= y) ? x : y;
 	float min = (x >= y) ? y : x;
 
-	overlap = max-min;
-
-	return overlap;
+	return max-min;
 }
 
 bool CollisionSystem::contains(float n, glm::vec3 r) {
