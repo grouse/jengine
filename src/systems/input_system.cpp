@@ -21,7 +21,8 @@ void InputSystem::init() {
 	key_binds["P"] = KeyBind("P", "Reset");
 	
 	
-	key_binds["Space"] = KeyBind("Space", "Fire");
+	key_binds["Space"] = KeyBind("Space", "Jump");
+	key_binds["F"] = KeyBind("F", "Fire");
 	
 	axis_binds["W"] = AxisBind("W", "MoveForward", -1.0f);
 	axis_binds["S"] = AxisBind("S", "MoveForward", 1.0f);

@@ -44,7 +44,7 @@ Engine engine(&objects);
 	
 InputSystem input(&engine, &objects);
 LifeTimeSystem life_time(&engine, &objects);
-PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,0.0f,0.0f));
+PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,500.0f,0.0f));
 CollisionSystem collision(&engine, &objects);
 HealthSystem health(&engine, &objects);
 RenderSystem render(&engine, &objects);
@@ -61,6 +61,7 @@ float player_deacceleration = 0.f;
 float player_max_speed = 1000.0f;
 
 void player_fire();
+void player_jump();
 
 void player_move_forward(float);
 void player_move_right(float);
@@ -111,6 +112,11 @@ int main(int argc, char* argv[]) {
 void game_reset() {
 	player->pos = glm::vec3(0.0f, 0.0f, 0.0f);
 	((Shape*) player->components[ComponentId::SHAPE])->setRotation(0.0f);
+}
+
+void player_jump() {
+	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
+	v->vec3.y = -200.0f;
 }
 
 void player_fire() {
@@ -182,10 +188,11 @@ void player_turn_at(float value) {
 void init_player() {
 	// bind appropriate key and axis events to player functions
 	input.bindAction("Fire", KEY_PRESSED, &player_fire);
+	input.bindAction("Jump", KEY_PRESSED, &player_jump);
 	
-	input.bindAxis("MoveForward", &player_move_forward);
+	//input.bindAxis("MoveForward", &player_move_forward);
 	input.bindAxis("MoveRight", &player_move_right);
-	input.bindAxis("Turn", &player_turn);
+	//input.bindAxis("Turn", &player_turn);
 	//input.bindAxis("TurnAt", &player_turn_at);
 
 	// Create the player object
