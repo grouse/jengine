@@ -44,7 +44,7 @@ Engine engine(&objects);
 	
 InputSystem input(&engine, &objects);
 LifeTimeSystem life_time(&engine, &objects);
-PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,500.0f,0.0f));
+PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,0.0f,0.0f));
 CollisionSystem collision(&engine, &objects);
 HealthSystem health(&engine, &objects);
 RenderSystem render(&engine, &objects);
@@ -111,17 +111,17 @@ int main(int argc, char* argv[]) {
 
 void game_reset() {
 	player->pos = glm::vec3(0.0f, 0.0f, 0.0f);
-	((Shape*) player->components[ComponentId::SHAPE])->setRotation(0.0f);
+	((Shape*) player->components[EComponentType::SHAPE])->setRotation(0.0f);
 }
 
 void player_jump() {
-	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
+	Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
 	v->vec3.y = -200.0f;
 }
 
 void player_fire() {
 	// The rotation of the projectile should be equal to that of the player's
-	glm::vec3 rotation = glm::rotateZ(glm::vec3(1.0f, 0.0f, 0.0f), (float)(((Shape*) player->components[ComponentId::SHAPE])->rotation - PI/2.0f));
+	glm::vec3 rotation = glm::rotateZ(glm::vec3(1.0f, 0.0f, 0.0f), (float)(((Shape*) player->components[EComponentType::SHAPE])->rotation - PI/2.0f));
 	// Spawn the projectile infront of the player
 	// TODO: Implement an anchor system with coordinates relative to player's center
 	glm::vec3 pos = player->pos + rotation*25.0f;
@@ -137,12 +137,12 @@ void player_fire() {
 	});
 
 	// Rotate the projectile's shape to fit the rotation of the player
-	p_shape->rotate(((Shape*) player->components[ComponentId::SHAPE])->rotation);
+	p_shape->rotate(((Shape*) player->components[EComponentType::SHAPE])->rotation);
 	objects.attachComponent(projectile, p_shape);
 
 	// The direction of the projectile's velocity should be same as the projectile's rotation
 	Velocity* p_vel = new Velocity(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 100.0f);
-	Velocity* player_vel = (Velocity*) player->components[ComponentId::VELOCITY];
+	Velocity* player_vel = (Velocity*) player->components[EComponentType::VELOCITY];
 
 	p_vel->vec3 = 1000.0f*rotation + player_vel->vec3;
 
@@ -165,13 +165,13 @@ void player_fire() {
 }
 
 void player_move_forward(float value) {
-	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
+	Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
 	v->vec3.y = value*100.0f;
 	//v->accelerateForward = value;
 }
 
 void player_move_right(float value) {
-	Velocity* v = (Velocity*) player->components[ComponentId::VELOCITY];
+	Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
 	v->vec3.x = value*100.0f;
 	//v->accelerateSide = value;
 }
@@ -181,7 +181,7 @@ void player_turn(float value) {
 }
 
 void player_turn_at(float value) {
-	Shape* s = (Shape*) player->components[ComponentId::SHAPE];
+	Shape* s = (Shape*) player->components[EComponentType::SHAPE];
 	s->rotate(value*player_turn_at_rate*engine.deltaTime());
 }
 
@@ -190,9 +190,9 @@ void init_player() {
 	input.bindAction("Fire", KEY_PRESSED, &player_fire);
 	input.bindAction("Jump", KEY_PRESSED, &player_jump);
 	
-	//input.bindAxis("MoveForward", &player_move_forward);
+	input.bindAxis("MoveForward", &player_move_forward);
 	input.bindAxis("MoveRight", &player_move_right);
-	//input.bindAxis("Turn", &player_turn);
+	input.bindAxis("Turn", &player_turn);
 	//input.bindAxis("TurnAt", &player_turn_at);
 
 	// Create the player object

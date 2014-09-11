@@ -36,7 +36,7 @@ class Entity {
 
 		// Array of component pointers, which are 0 if no
 		// component of a specified type is attached.
-		Component* components[ComponentId::NUM_TYPES];
+		Component* components[EComponentType::NUM_TYPES];
 };
 
 #endif

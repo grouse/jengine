@@ -6,7 +6,7 @@
 
 class PhysicsBody : public Component{
 public:
-    PhysicsBody(bool);
+    PhysicsBody(bool gravity);
     virtual ~PhysicsBody();
 
     bool gravity;

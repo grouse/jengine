@@ -8,15 +8,15 @@
 #include <math.h>
 #include <iostream>
 
-Shape::Shape(std::initializer_list<float> v) : 
-	Component(ComponentId::SHAPE),
+Shape::Shape(std::initializer_list<float> v) :
+   	Component(EComponentType::SHAPE),	
 	vertices(v)	{
 
 	rotation = 0;
 }
 
 Shape::Shape(float* v, unsigned int size) :
-	Component(ComponentId::SHAPE),
+   	Component(EComponentType::SHAPE),	
 	vertices(v, v + size) {
 
 		rotation = 0;

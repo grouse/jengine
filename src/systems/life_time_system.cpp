@@ -15,7 +15,7 @@ void LifeTimeSystem::init() {
 }
 
 void LifeTimeSystem::update(float dt) {
-	for (auto it = objects->components[ComponentId::LIFETIME].begin(); it != objects->components[ComponentId::LIFETIME].end(); it++) {
+	for (auto it = objects->components[EComponentType::LIFETIME].begin(); it != objects->components[EComponentType::LIFETIME].end(); it++) {
 		LifeTime* c = (LifeTime*) (*it);
 
 		c->remaining -= dt;

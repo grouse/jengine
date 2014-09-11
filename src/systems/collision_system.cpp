@@ -18,18 +18,18 @@ void CollisionSystem::init() {
 
 void CollisionSystem::update(float dt) {
 
-	for (auto it = objects->components[ComponentId::COLLISION].begin(); it != objects->components[ComponentId::COLLISION].end(); it++) {
+	for (auto it = objects->components[EComponentType::COLLISION].begin(); it != objects->components[EComponentType::COLLISION].end(); it++) {
 		auto jt = it;
 		
-		for (jt++; jt != objects->components[ComponentId::COLLISION].end(); jt++) {
+		for (jt++; jt != objects->components[EComponentType::COLLISION].end(); jt++) {
 			Collision* c1 = (Collision*) (*it);
 			Collision* c2 = (Collision*) (*jt);
 
 			Entity* e1 = c1->owner;
 			Entity* e2 = c2->owner;
 
-			Shape* s1 = (Shape*) (e1->components[ComponentId::SHAPE]);
-			Shape* s2 = (Shape*) (e2->components[ComponentId::SHAPE]);
+			Shape* s1 = (Shape*) (e1->components[EComponentType::SHAPE]);
+			Shape* s2 = (Shape*) (e2->components[EComponentType::SHAPE]);
 			
 			// Transform s1 vectors to e1 position and save them in an array of glm::vec3
 			glm::vec3 a[4];
@@ -65,7 +65,7 @@ void CollisionSystem::update(float dt) {
 
 			for (unsigned int i = 0; i < 8 && collision; i++) {
 				// Get the normal of the axis
-				glm::vec3 axis = perp(axes[i]);
+				glm::vec3 axis = axes[i];
 
 				// Project the shape vectors onto the axis, project only returns the
 				// min and max values of these projections as the final projection
@@ -150,9 +150,9 @@ bool CollisionSystem::contains(float n, glm::vec3 r) {
 		b = r.x;
 	}
 
-	return (n >= a && n <= b);
+	return (n > a && n < b);
 }
 
 glm::vec3 CollisionSystem::perp(glm::vec3 v) {
-	return glm::vec3(v.y, v.x, 0.0f);
+	return glm::vec3(v.y, -v.x, 0.0f);
 }

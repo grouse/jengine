@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-Collision::Collision(void (*response)(Entity*, Entity*, glm::vec3, GameObjects*)) : 
-	Component(ComponentId::COLLISION)	{
+Collision::Collision(void (*response)(Entity*, Entity*, glm::vec3, GameObjects*)) :
+	Component(EComponentType::COLLISION) {
 	this->response = response;
 }
 
@@ -43,9 +43,9 @@ namespace CollisionResponse {
 		// If the relevant entities contain damage and health 
 		// components, health will be deducted from the target
 		// based upon the source's damage component
-		if (e1->components[ComponentId::DAMAGE] != 0 && e2->components[ComponentId::HEALTH] != 0) {
-			Damage* d = (Damage*) e1->components[ComponentId::DAMAGE];
-			Health* h = (Health*) e2->components[ComponentId::HEALTH];
+		if (e1->components[EComponentType::DAMAGE] != 0 && e2->components[EComponentType::HEALTH] != 0) {
+			Damage* d = (Damage*) e1->components[EComponentType::DAMAGE];
+			Health* h = (Health*) e2->components[EComponentType::HEALTH];
 
 			h->health -= d->damage;
 			std::cout << "DAMAGE! " << d->damage << "\nRemaining health: " << h->health << "\n";

@@ -17,7 +17,7 @@ void HealthSystem::init() {
 }
 
 void HealthSystem::update(float dt) {
-	for (auto it = objects->components[ComponentId::HEALTH].begin(); it != objects->components[ComponentId::HEALTH].end(); it++) {
+	for (auto it = objects->components[EComponentType::HEALTH].begin(); it != objects->components[EComponentType::HEALTH].end(); it++) {
 		Health* h = (Health*) (*it);
 		
 		if (h->health <= 0) 

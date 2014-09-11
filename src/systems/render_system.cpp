@@ -88,7 +88,7 @@ void RenderSystem::update(float dt) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	for (auto it = objects->components[ComponentId::SHAPE].begin(); it != objects->components[ComponentId::SHAPE].end(); it++) {
+	for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
 		Shape* s = (Shape*) (*it);
 		Entity* e = s->owner;
 
@@ -106,8 +106,8 @@ void RenderSystem::update(float dt) {
 		
 		// If the entity has a texture we should bind the texture in OpenGL
 		// and pass the UV coordinates
-		if (e->components[ComponentId::TEXTURE] != 0) {
-			Texture* t = (Texture*) e->components[ComponentId::TEXTURE];
+		if (e->components[EComponentType::TEXTURE] != 0) {
+			Texture* t = (Texture*) e->components[EComponentType::TEXTURE];
 
 			// Bind texture
 			glBindTexture(GL_TEXTURE_2D, t->GLtex);

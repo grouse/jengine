@@ -11,7 +11,7 @@ GameObjects::GameObjects() {}
 
 GameObjects::~GameObjects() {
 	// Deallocate components
-	for (unsigned int i = 0; i < ComponentId::NUM_TYPES; i++)
+	for (unsigned int i = 0; i < EComponentType::NUM_TYPES; i++)
 		for (auto it  = components[i].begin(); it != components[i].end(); it++) 
 			delete (*it);
 
@@ -44,7 +44,7 @@ void GameObjects::processTrash() {
 		Entity* e = (*it);
 		
 		// Iterate over all components of entity and delete them
-		for (unsigned int i = 0; i < ComponentId::NUM_TYPES; i++) {
+		for (unsigned int i = 0; i < EComponentType::NUM_TYPES; i++) {
 			if (e->components[i] != 0) {
 				components[i].remove(e->components[i]);
 			

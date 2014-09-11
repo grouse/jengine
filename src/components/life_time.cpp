@@ -6,7 +6,7 @@
 #include "life_time.h"
 
 LifeTime::LifeTime(float t) : 
-	Component(ComponentId::LIFETIME) {
+	Component(EComponentType::LIFETIME) {
 	remaining = t;
 }
 

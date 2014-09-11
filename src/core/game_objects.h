@@ -42,7 +42,7 @@ class GameObjects {
 		
 		// List of all attached components, grouped into the 
 		// component ids for easy access
-		std::list<Component*> components[ComponentId::NUM_TYPES];
+		std::list<Component*> components[EComponentType::NUM_TYPES];
 
 		// List of all attached entities
 		std::list<Entity*> entities;

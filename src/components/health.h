@@ -15,7 +15,7 @@
 // See file comments for class details
 class Health : public Component {
 	public:
-		Health(float);
+		Health(float hp);
 		virtual ~Health();
 
 		// The health of the entity, when it reaches 0

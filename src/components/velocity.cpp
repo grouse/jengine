@@ -8,7 +8,7 @@
 #include <iostream>
 
 Velocity::Velocity(float x, float y, float z, float acceleration, float deacceleration, float max_speed) : 
-	Component(ComponentId::VELOCITY), 
+   	Component(EComponentType::VELOCITY),	
 	vec3(x, y, z) {
 	
 	this->acceleration = acceleration;

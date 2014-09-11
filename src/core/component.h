@@ -16,27 +16,26 @@
 
 class Entity;
 
-enum ComponentId {
-	VELOCITY = 0,
-	SHAPE,
-	TEXTURE,
-	COLLISION,
-	LIFETIME,
-	DAMAGE, 
-	HEALTH,
-	AUDIO,
-    PHYSICS_BODY,
+enum EComponentType {
+	VELOCITY 		= 0,
+	SHAPE			= 1,
+	TEXTURE			= 2,
+	COLLISION		= 3,
+	LIFETIME		= 4,
+	DAMAGE			= 5, 
+	HEALTH			= 6,
+	AUDIO			= 7,
+    PHYSICS_BODY	= 8,
 	NUM_TYPES
 };
 
 // See file comments for class details
 class Component {
 public:
-	// Initialise the component type variable
-	Component(unsigned int id) : type(id) {};
+	Component(int t) { type = t;};
 	virtual ~Component() {}
 
-	const unsigned int type; 	// Component id, set by child class constructor 
+	int type;
 	Entity* owner; 				// The entity to which the component is attached
 };
 

@@ -5,7 +5,8 @@
 
 #include "health.h"
 
-Health::Health(float hp) : Component(ComponentId::HEALTH) {
+Health::Health(float hp) : 
+	Component(EComponentType::HEALTH) {
 	this->health = hp;
 }
 

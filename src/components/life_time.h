@@ -16,7 +16,7 @@
 		// See file comments for class details
 class LifeTime : public Component {
 	public:
-		LifeTime(float);
+		LifeTime(float time);
 		virtual ~LifeTime();
 
 		// Time in seconds until the parent entity should

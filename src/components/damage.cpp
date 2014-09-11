@@ -6,7 +6,7 @@
 #include "damage.h"
 
 Damage::Damage(float dmg) : 
-	Component(ComponentId::DAMAGE) {
+	Component(EComponentType::DAMAGE) {
 	this->damage = dmg;
 }
 

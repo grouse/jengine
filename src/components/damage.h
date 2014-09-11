@@ -16,7 +16,7 @@
 // See file comments for class details
 class Damage : public Component {
 	public:
-		Damage(float);
+		Damage(float damage);
 		virtual ~Damage();
 		
 		// The damage to inflict upon the other entity when

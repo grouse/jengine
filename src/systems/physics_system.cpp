@@ -20,13 +20,13 @@ void PhysicsSystem::init() {
 
 void PhysicsSystem::update(float dt) {
 		
-	for (auto it = objects->components[ComponentId::SHAPE].begin(); it != objects->components[ComponentId::SHAPE].end(); it++) {
+	for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
 		Shape* s = (Shape*)(*it);
 		s->rotate(s->rotationRate*dt);
 	}
 
 	// (De)accelerate entities and update positions
-    for (auto it = objects->components[ComponentId::VELOCITY].begin(); it != objects->components[ComponentId::VELOCITY].end(); it++) {
+    for (auto it = objects->components[EComponentType::VELOCITY].begin(); it != objects->components[EComponentType::VELOCITY].end(); it++) {
 
 		Velocity* v = (Velocity*) (*it);
 		Entity* e = v->owner;
@@ -45,7 +45,7 @@ void PhysicsSystem::update(float dt) {
 			if (glm::length(v->vec3 - deaccel) < glm::length(v->vec3))
 				new_velocity = v->vec3 - deaccel;
 		}
-        if(v->owner->components[ComponentId::PHYSICS_BODY]){
+        if(v->owner->components[EComponentType::PHYSICS_BODY]){
             new_velocity +=gravity*dt;
         }
 
@@ -59,9 +59,9 @@ void PhysicsSystem::update(float dt) {
 }
 
 void PhysicsSystem::addRotation(Entity* e, float rate) {
-	if (e->components[ComponentId::SHAPE] == 0)
+	if (e->components[EComponentType::SHAPE] == 0)
 		return;
 	
-	Shape* s = (Shape*) e->components[ComponentId::SHAPE];
+	Shape* s = (Shape*) e->components[EComponentType::SHAPE];
 	s->rotationRate = rate;
 }

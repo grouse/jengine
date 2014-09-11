@@ -8,7 +8,7 @@
 #include <iostream>
 
 Texture::Texture(const char* filename, std::initializer_list<float> texcoords) : 
-	Component(ComponentId::TEXTURE),  
+   	Component(EComponentType::TEXTURE),	
 	uv(texcoords) {
 	
 	// Load pixeldata, width, height, and components from file
@@ -46,7 +46,7 @@ Texture::Texture(const char* filename, std::initializer_list<float> texcoords) :
 }
 
 Texture::Texture(const char* filename, float* texcoords, unsigned int n) :
-	Component(ComponentId::TEXTURE),
+   	Component(EComponentType::TEXTURE),	
 	uv(texcoords, texcoords + n) {
 	
 	// Load pixeldata, width, height, and components from file
