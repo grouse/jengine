@@ -11,8 +11,9 @@
 #define RENDER_SYSTEM_H
 
 #include <SDL2/SDL_opengl.h>
-
 #include <SDL2/SDL.h>
+
+#include <glm/glm.hpp>
 
 #include "core/entity.h"
 #include "core/component.h"
@@ -40,6 +41,8 @@ class RenderSystem : public System {
 		// with standard UV
 		virtual void update(float);
 
+
+		glm::vec3 camera;
 	private:
 		SDL_Window* window;			// The main application window
 		SDL_GLContext glcontext;	// OpenGL context

@@ -51,6 +51,8 @@ RenderSystem render(&engine, &objects);
 AudioSystem audio(&engine, &objects);
 
 void game_reset();
+void game_movecamera_x(float);
+void game_movecamera_y(float);
 
 Entity* player;
 
@@ -89,6 +91,8 @@ int main(int argc, char* argv[]) {
 	Level::load("data/map", &objects);
 
 	input.bindAction("Reset", KEY_RELEASED, &game_reset);
+	input.bindAxis("CameraX", &game_movecamera_x);
+	input.bindAxis("CameraY", &game_movecamera_y);
 	
 	Uint32 old_time, current_time;
 	current_time = SDL_GetTicks();
@@ -112,6 +116,14 @@ int main(int argc, char* argv[]) {
 void game_reset() {
 	player->pos = glm::vec3(0.0f, 0.0f, 0.0f);
 	((Shape*) player->components[EComponentType::SHAPE])->setRotation(0.0f);
+}
+
+void game_movecamera_x(float value) {
+	render.camera.x += value*5.0f;
+}
+
+void game_movecamera_y(float value ) {
+	render.camera.y += value*5.0f;
 }
 
 void player_jump() {

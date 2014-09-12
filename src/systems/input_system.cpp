@@ -33,8 +33,10 @@ void InputSystem::init() {
 	axis_binds["Q"] = AxisBind("Q", "Turn", -1.0f);
 	axis_binds["E"] = AxisBind("E", "Turn", 1.0f);
 	
-	axis_binds["Left"] = AxisBind("Left", "Turn", -1.0f);
-	axis_binds["Right"] = AxisBind("Right", "Turn", 1.0f);
+	axis_binds["Left"] = AxisBind("Left", "CameraX", 1.0f);
+	axis_binds["Right"] = AxisBind("Right", "CameraX", -1.0f);
+	axis_binds["Up"] = AxisBind("Up", "CameraY", 1.0f);
+	axis_binds["Down"] = AxisBind("Down", "CameraY", -1.0f);
 
 	axis_binds["MouseX"] = AxisBind("MouseX", "TurnAt", 1.0f);
 

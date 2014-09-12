@@ -22,6 +22,8 @@ RenderSystem::RenderSystem(Engine* e, GameObjects* o) :
 
 	uv[6] = 0.0f;
 	uv[7] = 1.0f;
+
+	camera = glm::vec3(0.0f);
 }
 
 RenderSystem::~RenderSystem() {
@@ -87,12 +89,14 @@ void RenderSystem::update(float dt) {
 	// Start by clearing the screen
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
+	glLoadIdentity();
+	glTranslatef(-camera.x, -camera.y, -camera.z);
+
 	for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
 		Shape* s = (Shape*) (*it);
 		Entity* e = s->owner;
 
-		glLoadIdentity();
 
 		// Translate to entity position
 		glTranslatef(e->pos.x, e->pos.y, e->pos.z);
