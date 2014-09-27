@@ -5,25 +5,12 @@
 
 #include "entity.h"
 
-Entity::Entity(glm::vec3 vec) : pos(vec) {
-	// Set all pointers to 0
-	for (unsigned int i = 0; i < EComponentType::NUM_TYPES; i++) 
-		components[i] = 0;
+EntitySystem::~EntitySystem() {
+	for (int i = 0; i < MAX_ENTITY; i++)
+		delete entities[i];
 }
 
-Entity::Entity(float x, float y, float z) : pos(x, y, z) {
-	// Set all pointers to 0
-	for (unsigned int i = 0; i < EComponentType::NUM_TYPES; i++) 
-		components[i] = 0;
-}
-
-Entity::~Entity() {}
-
-int Entity::attach(unsigned int type, Component* c) {
-	// Entity already has a component of same type attached
-	if (components[type] != 0)
-		return -1;
-	
-	components[type] = c;
-	return 0;	
+unsigned int EntitySystem::createEntity() {
+	entities[next] = new Entity(next);
+	return ++next;
 }
