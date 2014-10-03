@@ -6,8 +6,9 @@
 
 #include "engine.h"
 
-Engine::Engine(EntityManager* entities) {
-	this->entities = entities;
+Engine engine;
+
+Engine::Engine() {
 }
 
 Engine::~Engine() {
@@ -26,7 +27,6 @@ int Engine::init() {
 }
 
 void Engine::update(float dt) {
-	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
 	delta_time = dt;
 }
 

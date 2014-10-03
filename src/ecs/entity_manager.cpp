@@ -1,5 +1,7 @@
 #include "entity_manager.h"
 
+EntityManager entities;
+
 Entity* EntityManager::createEntity() {
 	entities[next].id = next;
 	return &entities[next++];

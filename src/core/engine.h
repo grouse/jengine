@@ -23,8 +23,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
-#include "ecs/entity_manager.h"
-
 #include <iostream>
 #include <list>
 #include <vector>
@@ -32,9 +30,19 @@
 
 // See file comments for class details
 class Engine {
+		// Flag set to true in Engine::init() and is set to false
+		// by calling Engine::quit(). Intended usage is for the
+		// condition in the game loop from which the engine is run.
+		bool run = false;
+
+		// Updated by Engine::update and used by various parts of the
+		// program to access the time since last frame update.
+		float delta_time = 0.0f;
+
+
 	public:
 		// Saves the GameObjects pointer 	
-		Engine(EntityManager*);
+		Engine();
 
 		// Deallocates all attached systems and call SDL_Quit()
 		//
@@ -83,18 +91,8 @@ class Engine {
 
 		// Returns the delta_time variable
 		float deltaTime();
-
-	private:
-		// Flag set to true in Engine::init() and is set to false
-		// by calling Engine::quit(). Intended usage is for the
-		// condition in the game loop from which the engine is run.
-		bool run = false;
-
-		// Updated by Engine::update and used by various parts of the
-		// program to access the time since last frame update.
-		float delta_time = 0.0f;
-
-		EntityManager* entities;
 };
+
+extern Engine engine;
 
 #endif // ENGINE_H

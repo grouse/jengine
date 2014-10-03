@@ -18,11 +18,9 @@
 #include "core/engine.h"
 
 #include "ecs/components.hpp"
-#include "ecs/component_manager.hpp"
+#include "ecs/component_manager.h"
 #include "ecs/entity_manager.h"
 
-EntityManager entities;
-Engine engine(&entities);
 Entity* player;
 	
 void game_reset();
@@ -185,19 +183,19 @@ void init_player() {
 
 	player = entities.createEntity();
 
-	entities.components.physics_body.attachTo(player->id, PhysicsBody());
-	entities.components.movement.attachTo(player->id, Movement());
-	entities.components.texture.attachTo(player->id, Texture());
-	entities.components.position.attachTo(player->id, glm::vec3(0.0f, 0.0f, 0.0f));
+	components.physics_body.attachTo(player->id, PhysicsBody());
+	components.movement.attachTo(player->id, Movement());
+	components.texture.attachTo(player->id, Texture());
+	components.position.attachTo(player->id, glm::vec3(0.0f, 0.0f, 0.0f));
 
-	entities.components.collision.attachTo(player->id, Collision(Mesh({
+	components.collision.attachTo(player->id, Collision(Mesh({
 		-16.0f, -16.0f, 0.0f,
 		16.0f, -16.0f, 0.0f,
 		16.0f, 16.0f, 0.0f,
 		-16.0f, 16.0f, 0.0f		
 	})));
 
-	entities.components.mesh.attachTo(player->id, Mesh({
+	components.mesh.attachTo(player->id, Mesh({
 		-16.0f, -16.0f, 0.0f,
 		16.0f, -16.0f, 0.0f,
 		16.0f, 16.0f, 0.0f,

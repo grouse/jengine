@@ -1,6 +1,7 @@
 set(ECS_SOURCE_FILES 
-	component_manager.hpp
 	components.hpp
+	component_manager.h
+	component_manager.cpp
 	entity_manager.h
 	entity_manager.cpp
 )

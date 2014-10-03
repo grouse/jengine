@@ -12,20 +12,10 @@
 #include <glm/glm.hpp>
 
 #include "ecs/components.hpp"
-#include "ecs/component_manager.hpp"
+#include "ecs/component_manager.h"
 
 struct Entity {
 	unsigned int id = 0;
-};
-
-
-struct ComponentManagers { 
-	ComponentManager<Mesh> mesh;
-	ComponentManager<Collision> collision;
-	ComponentManager<Movement> movement;
-	ComponentManager<PhysicsBody> physics_body;
-	ComponentManager<Texture> texture;
-	ComponentManager<glm::vec3> position;;
 };
 
 class EntityManager {
@@ -33,10 +23,10 @@ class EntityManager {
 	Entity entities[MAX_ENTITY];
 
 public:
-	ComponentManagers components;
-
 	Entity* createEntity();
 	void removeEntity(Entity*);
 };
+
+extern EntityManager entities;
 
 #endif
