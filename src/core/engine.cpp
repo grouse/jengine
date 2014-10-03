@@ -6,7 +6,8 @@
 
 #include "engine.h"
 
-Engine::Engine() {
+Engine::Engine(EntityManager* entities) {
+	this->entities = entities;
 }
 
 Engine::~Engine() {

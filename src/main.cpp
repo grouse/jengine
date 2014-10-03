@@ -21,15 +21,14 @@
 #include "ecs/component_manager.hpp"
 #include "ecs/entity_manager.h"
 
-static const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348;
-
-Engine engine;
+EntityManager entities;
+Engine engine(&entities);
+Entity* player;
 	
 void game_reset();
 void game_movecamera_x(float);
 void game_movecamera_y(float);
 
-Entity* player;
 
 float player_turn_at_rate = 5.0f;
 
@@ -184,32 +183,24 @@ void init_player() {
 	//input.bindAxis("Turn", &player_turn);
 	//input.bindAxis("TurnAt", &player_turn_at);
 
-	// Create the player object
-	// TODO: implement InputSystem so that player initialisation can be
-	// handled outside of the engine class
-	/**player = objects.pushEntity(new Entity(100.0f, 100.0f, 0.0f));
+	player = entities.createEntity();
 
-	// Creates a 32x32 pixels wide/high square with origin in center.
-	objects.attachComponent(player, new Shape({
+	entities.components.physics_body.attachTo(player->id, PhysicsBody());
+	entities.components.movement.attachTo(player->id, Movement());
+	entities.components.texture.attachTo(player->id, Texture());
+	entities.components.position.attachTo(player->id, glm::vec3(0.0f, 0.0f, 0.0f));
+
+	entities.components.collision.attachTo(player->id, Collision(Mesh({
+		-16.0f, -16.0f, 0.0f,
+		16.0f, -16.0f, 0.0f,
+		16.0f, 16.0f, 0.0f,
+		-16.0f, 16.0f, 0.0f		
+	})));
+
+	entities.components.mesh.attachTo(player->id, Mesh({
 		-16.0f, -16.0f, 0.0f,
 		16.0f, -16.0f, 0.0f,
 		16.0f, 16.0f, 0.0f,
 		-16.0f, 16.0f, 0.0f		
 	}));
-    objects.attachComponent(player, new PhysicsBody(true));
-
-	// Creates velocity component with acceleration of 1000, deacceleration of 
-	// 2 and max speed of 400, units are pixels/second
-	objects.attachComponent(player, new Velocity(0.0f, 0.0f, 0.0f, player_acceleration, player_deacceleration, player_max_speed));
-
-	objects.attachComponent(player, new Collision(CollisionResponse::rigid_body));;
-
-	objects.attachComponent(player, new Texture("assets/ship.tiled.png", {
-		0.0f, 0.0f,
-		32.0f, 0.0f,
-		32.0f, 32.0f,
-		0.0f, 32.0f
-	}));
-	
-	objects.attachComponent(player, new Health(100.0f));**/
 }

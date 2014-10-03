@@ -9,6 +9,8 @@
 #define MAX_COMPONENT (250)
 #endif
 
+#include <glm/glm.hpp>
+
 #include "ecs/components.hpp"
 #include "ecs/component_manager.hpp"
 
@@ -23,6 +25,7 @@ struct ComponentManagers {
 	ComponentManager<Movement> movement;
 	ComponentManager<PhysicsBody> physics_body;
 	ComponentManager<Texture> texture;
+	ComponentManager<glm::vec3> position;;
 };
 
 class EntityManager {

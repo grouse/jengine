@@ -14,6 +14,7 @@ void EntityManager::removeEntity(Entity* e) {
 	components.movement.removeFrom(id);
 	components.physics_body.removeFrom(id);
 	components.texture.removeFrom(id);
+	components.position.removeFrom(id);
 
 	next--;
 	if (e->id == next)

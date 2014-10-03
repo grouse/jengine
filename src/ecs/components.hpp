@@ -1,25 +1,17 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 
+#include <vector>
+#include <initializer_list>
+
 #include <glm/glm.hpp>
 
 struct Mesh {
-	unsigned int vertices_size;
-	glm::vec3* vertices;
+	std::vector<float> vertices;
 
-	Mesh() {
-		vertices = NULL;
-	};
-
-	Mesh(unsigned int size) {
-		vertices_size = size;
-		vertices = new glm::vec3[size];
-	};
-
-	~Mesh() {
-	   	if (vertices != NULL)	
-			delete [] vertices;
-	};
+	Mesh() {};
+	Mesh(std::initializer_list<float> il) : vertices(il) {};
+	Mesh(float* verts, unsigned int n) : vertices(verts, verts + n)	{};
 };
 
 struct Collision {
@@ -27,9 +19,7 @@ struct Collision {
 	Mesh bounding_box;				// bounding box, keep axis aligned until collision then rotate
 
 	Collision() {};
-
-	Collision(unsigned int vertices) : 
-		bounding_box(vertices) {};
+	Collision(Mesh m) : bounding_box(m) {};
 };
 
 struct Movement {
@@ -38,6 +28,7 @@ struct Movement {
 };
 
 struct PhysicsBody {
+	bool gravity = true;
 	float friction = 0.0f; 			// =0: constant, >0: factor of velocity lost
 	float bounce = 1.0f;			// <1: -accelerate, =1: constant, >1: accelerate
 };
@@ -47,6 +38,5 @@ struct Texture {
 	unsigned int width, height;		// Texture dimensions
 	int components;					// Pixel components, eg. RGBA
 };
-
 
 #endif

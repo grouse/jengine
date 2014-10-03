@@ -23,6 +23,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
+#include "ecs/entity_manager.h"
+
 #include <iostream>
 #include <list>
 #include <vector>
@@ -32,7 +34,7 @@
 class Engine {
 	public:
 		// Saves the GameObjects pointer 	
-		Engine();
+		Engine(EntityManager*);
 
 		// Deallocates all attached systems and call SDL_Quit()
 		//
@@ -40,7 +42,7 @@ class Engine {
 		// 		for (system : systems)
 		// 			delete system;
 		// 		SDL_Quit();
-		virtual ~Engine();
+		~Engine();
 
 		// Initialises SDL and the attached systems
 		//
@@ -91,6 +93,8 @@ class Engine {
 		// Updated by Engine::update and used by various parts of the
 		// program to access the time since last frame update.
 		float delta_time = 0.0f;
+
+		EntityManager* entities;
 };
 
 #endif // ENGINE_H
