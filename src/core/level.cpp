@@ -12,7 +12,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
+/*
 // Component loaders
 static void load_tex(Entity*, GameObjects*, std::stringstream&); // Texture loader
 static void load_vel(Entity*, GameObjects*, std::stringstream&); // Velocity loader
@@ -170,4 +170,4 @@ void load_shp(Entity* e, GameObjects* objects, std::stringstream& s) {
 	
 	std::cout << "Loaded shape component!\n";
 
-}
+} */

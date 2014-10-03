@@ -27,26 +27,12 @@
 #include <list>
 #include <vector>
 
-#include "core/entity.h"
-#include "core/component.h"
-#include "core/game_objects.h"
-#include "core/level.h"
-#include "core/system.h"
-
-#include "components/shape.h"
-#include "components/velocity.h"
-#include "components/collision.h"
-#include "components/life_time.h"
-#include "components/texture.h"
-#include "components/health.h"
-#include "components/damage.h"
-
 
 // See file comments for class details
 class Engine {
 	public:
 		// Saves the GameObjects pointer 	
-		Engine(GameObjects*);
+		Engine();
 
 		// Deallocates all attached systems and call SDL_Quit()
 		//
@@ -63,12 +49,6 @@ class Engine {
 		// 		for (system : systems)
 		// 			system->init()
 		int init();
-
-		// Attaches a system to the engine.
-		//
-		// The function is equivalent to:
-		// 		systems.push_back(system);
-		void attachSystem(System*);
 
 		// Iterates over the attached system and calls its update
 		// function. Also calls the processTrash function of
@@ -111,15 +91,6 @@ class Engine {
 		// Updated by Engine::update and used by various parts of the
 		// program to access the time since last frame update.
 		float delta_time = 0.0f;
-
-		// Pointer to GameObjects, which contains all entities 
-		// and components.
-		GameObjects* objects;
-
-		// List container for the attached systems. Added to by
-		// Engine::attachSystem(System*) and iterated over by
-		// Engine::update(float);
-		std::list<System*> systems;
 };
 
 #endif // ENGINE_H

@@ -32,18 +32,18 @@ void CollisionSystem::update(float dt) {
 			Shape* s2 = (Shape*) (e2->components[EComponentType::SHAPE]);
 			
 			// Transform s1 vectors to e1 position and save them in an array of glm::vec3
-			glm::vec3 a[4];
-			a[0] = glm::vec3(s1->vertices[0], s1->vertices[1], 0.0f) + e1->pos;		// upper-left corner
-			a[1] = glm::vec3(s1->vertices[3], s1->vertices[4], 0.0f) + e1->pos;		// upper-right corner
-			a[2] = glm::vec3(s1->vertices[6], s1->vertices[7], 0.0f) + e1->pos;		// bottom-right corner
-			a[3] = glm::vec3(s1->vertices[9], s1->vertices[10], 0.0f) + e1->pos;	// bottom-left corner
-
-			// Transform s2 vectors to e2 position and save them in an array of glm::vec3
-			glm::vec3 b[4];
-			b[0] = glm::vec3(s2->vertices[0], s2->vertices[1], 0.0f) + e2->pos;		// upper-left corner
-			b[1] = glm::vec3(s2->vertices[3], s2->vertices[4], 0.0f) + e2->pos;		// upper-right corner
-			b[2] = glm::vec3(s2->vertices[6], s2->vertices[7], 0.0f) + e2->pos;		// bottom-right corner
-			b[3] = glm::vec3(s2->vertices[9], s2->vertices[10], 0.0f) + e2->pos;	// bottom-left corner
+			Vector a[4];
+			a[0] = s1->vertices[0] + e1->pos;		// upper-left corner
+			a[1] = s1->vertices[1] + e1->pos;		// upper-right corner
+			a[2] = s1->vertices[2] + e1->pos;		// bottom-right corner
+			a[3] = s1->vertices[3] + e1->pos;		// bottom-left corner
+			
+			// Transform s2 vectors to e2 position and save them in local array
+			Vector b[4];
+			b[0] = s2->vertices[0] + e2->pos;		// upper-left corner
+			b[1] = s2->vertices[1] + e2->pos;		// upper-right corner
+			b[2] = s2->vertices[2] + e2->pos;		// bottom-right corner
+			b[3] = s2->vertices[3] + e2->pos;		// bottom-left corner
 
 			// Calculate 4 axes from the shape vectors, only 2 axes per shape is used
 			// as the engine currently only fully supports squares

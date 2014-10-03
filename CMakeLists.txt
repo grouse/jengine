@@ -11,9 +11,8 @@ include_directories(lib)
 include_directories(lib/stb)
 include_directories(src)
 
+add_subdirectory(src/ecs)
 add_subdirectory(src/core)
-add_subdirectory(src/components)
-add_subdirectory(src/systems)
 
 
 add_executable(${PROJECT_NAME} lib/stb/stb_image.c src/main.cpp)
@@ -33,4 +32,4 @@ include_directories(${SDLMIXERINCLUDE_DIR})
 set(LIBS ${LIBS} ${SDLMIXER_LIBRARY})
 
 
-target_link_libraries(${PROJECT_NAME} ${LIBS} SYSTEMS)
+target_link_libraries(${PROJECT_NAME} ${LIBS} CORE)

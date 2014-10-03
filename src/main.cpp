@@ -16,40 +16,15 @@
 #include <SDL2/SDL.h>
 
 #include "core/engine.h"
-#include "core/entity.h"
-#include "core/component.h"
-#include "core/level.h"
 
-#include "systems/collision_system.h"
-#include "systems/health_system.h"
-#include "systems/life_time_system.h"
-#include "systems/physics_system.h"
-#include "systems/render_system.h"
-#include "systems/audio_system.h"
-#include "systems/input_system.h"
-
-#include "components/shape.h"
-#include "components/velocity.h"
-#include "components/collision.h"
-#include "components/texture.h"
-#include "components/health.h"
-#include "components/life_time.h"
-#include "components/damage.h"
-#include "components/physics_body.h"
+#include "ecs/components.hpp"
+#include "ecs/component_manager.hpp"
+#include "ecs/entity_manager.h"
 
 static const double PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348;
 
-GameObjects objects;
-Engine engine(&objects);
+Engine engine;
 	
-InputSystem input(&engine, &objects);
-LifeTimeSystem life_time(&engine, &objects);
-PhysicsSystem physics(&engine, &objects,glm::vec3(0.0f,0.0f,0.0f));
-CollisionSystem collision(&engine, &objects);
-HealthSystem health(&engine, &objects);
-RenderSystem render(&engine, &objects);
-AudioSystem audio(&engine, &objects);
-
 void game_reset();
 void game_movecamera_x(float);
 void game_movecamera_y(float);
@@ -74,25 +49,16 @@ void player_turn_at(float);
 void init_player();
 
 int main(int argc, char* argv[]) {
-	// set up the engine with systems	
-	engine.attachSystem(&input);
-	engine.attachSystem(&life_time);
-	engine.attachSystem(&physics);
-	engine.attachSystem(&collision);
-	engine.attachSystem(&health);
-	engine.attachSystem(&render);
-	engine.attachSystem(&audio);
-
 	if (engine.init() != 0)
 		return -1;
 	
 	init_player();
 
-	Level::load("data/map", &objects);
+	//Level::load("data/map", &objects);
 
-	input.bindAction("Reset", KEY_RELEASED, &game_reset);
-	input.bindAxis("CameraX", &game_movecamera_x);
-	input.bindAxis("CameraY", &game_movecamera_y);
+	//input.bindAction("Reset", KEY_RELEASED, &game_reset);
+	//input.bindAxis("CameraX", &game_movecamera_x);
+	//input.bindAxis("CameraY", &game_movecamera_y);
 	
 	Uint32 old_time, current_time;
 	current_time = SDL_GetTicks();
@@ -114,25 +80,31 @@ int main(int argc, char* argv[]) {
 }
 
 void game_reset() {
-	player->pos = glm::vec3(0.0f, 0.0f, 0.0f);
-	((Shape*) player->components[EComponentType::SHAPE])->setRotation(0.0f);
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//player->pos = glm::vec3(0.0f, 0.0f, 0.0f);
+	//((Shape*) player->components[EComponentType::SHAPE])->setRotation(0.0f);
 }
 
 void game_movecamera_x(float value) {
-	render.camera.x += value*5.0f;
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//render.camera.x += value*5.0f;
 }
 
 void game_movecamera_y(float value ) {
-	render.camera.y += value*5.0f;
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//render.camera.y += value*5.0f;
 }
 
 void player_jump() {
-	Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
-	v->vec3.y = -200.0f;
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
+	//v->vec3.y = -200.0f;
 }
 
 void player_fire() {
-	// The rotation of the projectile should be equal to that of the player's
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	/**
+	 * // The rotation of the projectile should be equal to that of the player's
 	glm::vec3 rotation = glm::rotateZ(glm::vec3(1.0f, 0.0f, 0.0f), (float)(((Shape*) player->components[EComponentType::SHAPE])->rotation - PI/2.0f));
 	// Spawn the projectile infront of the player
 	// TODO: Implement an anchor system with coordinates relative to player's center
@@ -173,44 +145,49 @@ void player_fire() {
 	objects.attachComponent(projectile, new Damage(40.0f));
 	
 	// In case the projectile doesn't hit anything, destroy projectile after 300 seconds.
-	objects.attachComponent(projectile, new LifeTime(300));
+	objects.attachComponent(projectile, new LifeTime(300));**/
 }
 
 void player_move_forward(float value) {
-	Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
-	v->vec3.y = value*100.0f;
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
+//	v->vec3.y = value*100.0f;
 	//v->accelerateForward = value;
 }
 
 void player_move_right(float value) {
-	Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
-	v->vec3.x = value*100.0f;
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
+	//v->vec3.x = value*100.0f;
 	//v->accelerateSide = value;
 }
 
 void player_turn(float value) {
-	physics.addRotation(player, value*player_turn_at_rate);
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//physics.addRotation(player, value*player_turn_at_rate);
 }
 
 void player_turn_at(float value) {
-	Shape* s = (Shape*) player->components[EComponentType::SHAPE];
-	s->rotate(value*player_turn_at_rate*engine.deltaTime());
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
+	//Shape* s = (Shape*) player->components[EComponentType::SHAPE];
+	//s->rotate(value*player_turn_at_rate*engine.deltaTime());
 }
 
 void init_player() {
+	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
 	// bind appropriate key and axis events to player functions
-	input.bindAction("Fire", KEY_PRESSED, &player_fire);
-	input.bindAction("Jump", KEY_PRESSED, &player_jump);
+	//input.bindAction("Fire", KEY_PRESSED, &player_fire);
+	//input.bindAction("Jump", KEY_PRESSED, &player_jump);
 	
-	input.bindAxis("MoveForward", &player_move_forward);
-	input.bindAxis("MoveRight", &player_move_right);
-	input.bindAxis("Turn", &player_turn);
+	//input.bindAxis("MoveForward", &player_move_forward);
+	//input.bindAxis("MoveRight", &player_move_right);
+	//input.bindAxis("Turn", &player_turn);
 	//input.bindAxis("TurnAt", &player_turn_at);
 
 	// Create the player object
 	// TODO: implement InputSystem so that player initialisation can be
 	// handled outside of the engine class
-	player = objects.pushEntity(new Entity(100.0f, 100.0f, 0.0f));
+	/**player = objects.pushEntity(new Entity(100.0f, 100.0f, 0.0f));
 
 	// Creates a 32x32 pixels wide/high square with origin in center.
 	objects.attachComponent(player, new Shape({
@@ -234,5 +211,5 @@ void init_player() {
 		0.0f, 32.0f
 	}));
 	
-	objects.attachComponent(player, new Health(100.0f));
+	objects.attachComponent(player, new Health(100.0f));**/
 }
