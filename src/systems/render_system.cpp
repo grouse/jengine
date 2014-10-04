@@ -7,24 +7,7 @@
 
 #include <iostream>
 
-RenderSystem::RenderSystem(Engine* e, GameObjects* o) :
-   System(e, o) {
-	// Define the standard UV coordinates
-	// TODO: Move UV into vertex data
-	uv[0] = 0.0f;
-	uv[1] = 0.0f;
-
-	uv[2] = 1.0f;
-	uv[3] = 0.0f;
-
-	uv[4] = 1.0f;
-	uv[5] = 1.0f;
-
-	uv[6] = 0.0f;
-	uv[7] = 1.0f;
-
-	camera = glm::vec3(0.0f);
-}
+RenderSystem::RenderSystem() {}
 
 RenderSystem::~RenderSystem() {
 	SDL_DestroyWindow(window);
@@ -69,20 +52,17 @@ void RenderSystem::init() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	// Set OpenGL viewport
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	glOrtho(0.0f, w/2.0f, h/2.0f, 0.0f, -1.0f, 1.0f);
+	glOrtho(0.0f, w, h, 0.0f, -1.0f, 1.0f);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-
-	initialised = true;
 }
 
 void RenderSystem::update(float dt) {
@@ -92,8 +72,21 @@ void RenderSystem::update(float dt) {
 
 	glLoadIdentity();
 	glTranslatef(-camera.x, -camera.y, -camera.z);
+	
+	for (unsigned int i = 0; i < components.mesh.next; i++) {
+		unsigned int entity = components.mesh.cmp_ent_id[i];
+		Position* p = components.position.getCmpFrom(entity);;
 
-	for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
+		glTranslatef(p->x, p->y, p->z);
+
+		glVertexPointer(3, GL_FLOAT, 0, components.mesh[i].vertices.data());
+		glColor3f(255, 255, 255);
+		glDrawArrays(GL_QUADS, 0, 4);
+		
+		glTranslatef(-p->x, -p->y, -p->z);
+	}
+
+	/**for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
 		Shape* s = (Shape*) (*it);
 		Entity* e = s->owner;
 
@@ -134,7 +127,7 @@ void RenderSystem::update(float dt) {
 
 		// Translate back to (0, 0, 0)
 		glTranslatef(-e->pos.x, -e->pos.y, -e->pos.z);
-	}
+	}**/
 	
 	// Flip the framebuffers
 	SDL_GL_SwapWindow(window);

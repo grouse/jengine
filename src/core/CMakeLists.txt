@@ -1,4 +1,6 @@
-set(CORE_SOURCE_FILES 
+set(CORE_SOURCE_FILES
+	globals.h
+	globals.cpp	
 	level.h
 	level.cpp
 	engine.h
@@ -6,4 +8,4 @@ set(CORE_SOURCE_FILES
 )
 
 add_library(CORE ${CORE_SOURCE_FILES})
-target_link_libraries(CORE ECS)
+target_link_libraries(CORE SYSTEMS)

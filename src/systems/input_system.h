@@ -15,9 +15,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "core/engine.h"
-#include "core/system.h"
-#include "core/game_objects.h"
+#include "core/globals.h"
 
 struct CharCmp {
 	bool operator()(char const* a, char const* b) {
@@ -104,7 +102,7 @@ struct AxisBind {
 
 
 // See file comments for class details
-class InputSystem : public System {
+class InputSystem  {
 	
 	std::map<const char*, KeyEvent, CharCmp> key_callbacks;
 	std::map<const char*, AxisEvent, CharCmp> axis_callbacks;
@@ -115,14 +113,11 @@ class InputSystem : public System {
 	SDL_Event e;
 
 public:
-	InputSystem(Engine*, GameObjects*);
-	virtual ~InputSystem();
-
 	// Initialises the input bindings
 	virtual void init();
 
 	// Polls SDL for events and triggers the corresponding callback
-	virtual void update(float dt);
+	void update();
 
 	// Bind a keyboard event to a callback, parameters are:
 	// 

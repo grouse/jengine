@@ -7,20 +7,25 @@
 
 #include "physics_system.h"
 
-PhysicsSystem::PhysicsSystem(Engine* e, GameObjects* o,glm::vec3 g) :
-   System(e, o) {
-    this->gravity = g;
-}
 
-PhysicsSystem::~PhysicsSystem() {}
-
-void PhysicsSystem::init() {
-	initialised = true;
+void PhysicsSystem::init(glm::vec3 gravity) {
+	this->gravity = gravity;
 }
 
 void PhysicsSystem::update(float dt) {
+
+	for (unsigned int i = 0; i < components.movement.next; i++) {
+		unsigned int entity = components.movement.cmp_ent_id[i];
 		
-	for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
+		Movement* movement = components.movement.getCmpFrom(entity);
+		Position* position = components.position.getCmpFrom(entity);
+
+		position->x += movement->velocity.x*dt;
+		position->y += movement->velocity.y*dt;
+		position->z += movement->velocity.z*dt;
+	}
+		
+	/**for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
 		Shape* s = (Shape*)(*it);
 		s->rotate(s->rotationRate*dt);
 	}
@@ -53,15 +58,15 @@ void PhysicsSystem::update(float dt) {
 		v->vec3 = new_velocity;
 
 		e->pos += v->vec3 * dt;
-	}
+	}**/
 
 
 }
 
-void PhysicsSystem::addRotation(Entity* e, float rate) {
+/**void PhysicsSystem::addRotation(Entity* e, float rate) {
 	if (e->components[EComponentType::SHAPE] == 0)
 		return;
 	
 	Shape* s = (Shape*) e->components[EComponentType::SHAPE];
 	s->rotationRate = rate;
-}
+}**/

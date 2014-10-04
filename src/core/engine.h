@@ -23,9 +23,14 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
+#include <glm/glm.hpp>
+
 #include <iostream>
-#include <list>
-#include <vector>
+
+#include "core/globals.h"
+#include "systems/render_system.h"
+#include "systems/input_system.h"
+#include "systems/physics_system.h"
 
 
 // See file comments for class details
@@ -91,6 +96,10 @@ class Engine {
 
 		// Returns the delta_time variable
 		float deltaTime();
+
+		InputSystem input;
+		RenderSystem render;
+		PhysicsSystem physics;
 };
 
 extern Engine engine;

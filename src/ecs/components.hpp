@@ -6,12 +6,13 @@
 
 #include <glm/glm.hpp>
 
+#include <iostream>
+
 struct Mesh {
-	std::vector<float> vertices;
+	std::vector<float> vertices;;
 
 	Mesh() {};
-	Mesh(std::initializer_list<float> il) : vertices(il) {};
-	Mesh(float* verts, unsigned int n) : vertices(verts, verts + n)	{};
+	Mesh(float* verts, unsigned int n) : vertices(verts, verts+n) {};
 };
 
 struct Collision {
@@ -19,7 +20,10 @@ struct Collision {
 	Mesh bounding_box;				// bounding box, keep axis aligned until collision then rotate
 
 	Collision() {};
-	Collision(Mesh m) : bounding_box(m) {};
+	
+	Collision(Mesh m) {
+		bounding_box = m;
+	};
 };
 
 struct Movement {
@@ -37,6 +41,10 @@ struct Texture {
 	unsigned int texture_id;		// Texture id as represented in RenderSystem
 	unsigned int width, height;		// Texture dimensions
 	int components;					// Pixel components, eg. RGBA
+};
+
+struct Position {
+	float x, y, z;
 };
 
 #endif

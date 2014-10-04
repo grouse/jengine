@@ -3,8 +3,8 @@
 EntityManager entities;
 
 Entity* EntityManager::createEntity() {
-	entities[next].id = next;
-	return &entities[next++];
+	data[next].id = next;
+	return &data[next++];
 };
 
 void EntityManager::removeEntity(Entity* e) {
@@ -22,5 +22,5 @@ void EntityManager::removeEntity(Entity* e) {
 	if (e->id == next)
 		return;
 
-	entities[id].id = entities[next].id;
+	data[id].id = data[next].id;
 };

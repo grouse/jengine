@@ -10,11 +10,6 @@
 #include <iostream>
 #include <cstring>
 
-InputSystem::InputSystem(Engine* e, GameObjects* o) : 
-	System(e, o) {}
-
-InputSystem::~InputSystem() {}
-
 void InputSystem::init() {
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
@@ -39,13 +34,12 @@ void InputSystem::init() {
 	axis_binds["Down"] = AxisBind("Down", "CameraY", -1.0f);
 
 	axis_binds["MouseX"] = AxisBind("MouseX", "TurnAt", 1.0f);
-
 }
 
-void InputSystem::update(float dt) {
+void InputSystem::update() {
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT)
-			engine->quit();
+			GameState::running = false;
 
 		if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP) {
 			const char* key = SDL_GetKeyName(e.key.keysym.sym);

@@ -15,6 +15,8 @@
 #include <glm/glm.hpp>
 #include <SDL2/SDL.h>
 
+
+#include "core/globals.h"
 #include "core/engine.h"
 
 #include "ecs/components.hpp"
@@ -62,7 +64,7 @@ int main(int argc, char* argv[]) {
 
 	float dt;
 
-	while (engine.isRunning()) {
+	while (GameState::running) {
 		old_time = current_time;
 		current_time = SDL_GetTicks();
 
@@ -93,9 +95,7 @@ void game_movecamera_y(float value ) {
 }
 
 void player_jump() {
-	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
-	//Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
-	//v->vec3.y = -200.0f;
+	components.movement.getCmpFrom(player->id)->velocity.y = -200.0f;
 }
 
 void player_fire() {
@@ -146,17 +146,11 @@ void player_fire() {
 }
 
 void player_move_forward(float value) {
-	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
-	//Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
-//	v->vec3.y = value*100.0f;
-	//v->accelerateForward = value;
+	components.movement.getCmpFrom(player->id)->velocity.y = value*100.0f;
 }
 
 void player_move_right(float value) {
-	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
-	//Velocity* v = (Velocity*) player->components[EComponentType::VELOCITY];
-	//v->vec3.x = value*100.0f;
-	//v->accelerateSide = value;
+	components.movement.getCmpFrom(player->id)->velocity.x = value*100.0f;
 }
 
 void player_turn(float value) {
@@ -171,34 +165,36 @@ void player_turn_at(float value) {
 }
 
 void init_player() {
-	std::cout << "FIXME: stub at " << __func__ << " in " <<  __FILE__ ":" << __LINE__ << std::endl;
 	// bind appropriate key and axis events to player functions
 	//input.bindAction("Fire", KEY_PRESSED, &player_fire);
 	//input.bindAction("Jump", KEY_PRESSED, &player_jump);
 	
-	//input.bindAxis("MoveForward", &player_move_forward);
-	//input.bindAxis("MoveRight", &player_move_right);
-	//input.bindAxis("Turn", &player_turn);
-	//input.bindAxis("TurnAt", &player_turn_at);
+	engine.input.bindAxis("MoveForward", &player_move_forward);
+	engine.input.bindAxis("MoveRight", &player_move_right);
+	//engine.input.bindAxis("Turn", &player_turn);
+	//engine.input.bindAxis("TurnAt", &player_turn_at);
 
 	player = entities.createEntity();
 
-	components.physics_body.attachTo(player->id, PhysicsBody());
+	PhysicsBody physics;
+	components.physics_body.attachTo(player->id, physics);
 	components.movement.attachTo(player->id, Movement());
 	components.texture.attachTo(player->id, Texture());
-	components.position.attachTo(player->id, glm::vec3(0.0f, 0.0f, 0.0f));
+	components.position.attachTo(player->id, Position{0.0f, 0.0f, 0.0f});
 
-	components.collision.attachTo(player->id, Collision(Mesh({
+/**	components.collision.attachTo(player->id, Collision(Mesh({
 		-16.0f, -16.0f, 0.0f,
 		16.0f, -16.0f, 0.0f,
 		16.0f, 16.0f, 0.0f,
 		-16.0f, 16.0f, 0.0f		
-	})));
+	})));**/
 
-	components.mesh.attachTo(player->id, Mesh({
+	float verts[] = {
 		-16.0f, -16.0f, 0.0f,
 		16.0f, -16.0f, 0.0f,
 		16.0f, 16.0f, 0.0f,
 		-16.0f, 16.0f, 0.0f		
-	}));
+	};
+
+	components.mesh.attachTo(player->id, Mesh(verts, 12));
 }

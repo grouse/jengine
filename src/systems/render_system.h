@@ -10,44 +10,40 @@
 #ifndef RENDER_SYSTEM_H
 #define RENDER_SYSTEM_H
 
+#include <vector>
+
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL.h>
 
 #include <glm/glm.hpp>
 
-#include "core/entity.h"
-#include "core/component.h"
-#include "core/system.h"
-#include "core/game_objects.h"
-
-#include "components/shape.h"
-#include "components/texture.h"
+#include "ecs/components.hpp"
+#include "ecs/component_manager.h"
+#include "ecs/entity_manager.h"
 
 // See file comments for class details
-class RenderSystem : public System {
+class RenderSystem {
 	public:
-		RenderSystem(Engine*, GameObjects*);
+		RenderSystem();
 
 		// Destroys the SDL window and OpenGL context
-		virtual ~RenderSystem();
+		~RenderSystem();
 
 		// Creates the SDL window, OpenGL context with
 		// the appropriate initialisations
-		virtual void init();
+		void init();
 
 		// Renders the entities with an attached Shape 
 		// component, if entity also has a Texture 
 		// component the texture is applied to the shape
 		// with standard UV
-		virtual void update(float);
+		void update(float);
 
 
-		glm::vec3 camera;
+		glm::vec3 camera = glm::vec3(0.0f, 0.0f, 0.0f);
 	private:
 		SDL_Window* window;			// The main application window
 		SDL_GLContext glcontext;	// OpenGL context
-
-		float uv[8];				// standard UV, to be replaced in future
 };
 
 #endif

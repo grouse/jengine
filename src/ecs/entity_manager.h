@@ -11,6 +11,8 @@
 
 #include <glm/glm.hpp>
 
+#include "core/globals.h"
+
 #include "ecs/components.hpp"
 #include "ecs/component_manager.h"
 
@@ -20,7 +22,7 @@ struct Entity {
 
 class EntityManager {
 	unsigned int next = 0;
-	Entity entities[MAX_ENTITY];
+	Entity data[MAX_ENTITY];
 
 public:
 	Entity* createEntity();

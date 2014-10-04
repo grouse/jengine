@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 set(PROJECT_NAME JEngine)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++11")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 project(${PROJECT_NAME})
@@ -12,6 +12,7 @@ include_directories(lib/stb)
 include_directories(src)
 
 add_subdirectory(src/ecs)
+add_subdirectory(src/systems)
 add_subdirectory(src/core)
 
 

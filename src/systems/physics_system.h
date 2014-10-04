@@ -11,26 +11,18 @@
 
 #include <glm/glm.hpp>
 
-#include "core/entity.h"
-#include "core/component.h"
-#include "core/system.h"
-#include "core/game_objects.h"
+#include "ecs/components.hpp"
+#include "ecs/component_manager.h"
+#include "ecs/entity_manager.h"
 
-#include "components/velocity.h"
-#include "components/shape.h"
+class PhysicsSystem {
+    glm::vec3 gravity;
 
-class PhysicsSystem : public System {
 public:
-    PhysicsSystem(Engine*, GameObjects*, glm::vec3);
-	virtual ~PhysicsSystem();
-
-	virtual void init();
-
+	void init(glm::vec3);
 	virtual void update(float dt);
 
-	void addRotation(Entity*, float);
-private:
-    glm::vec3 gravity;
+	//void addRotation(Entity*, float);
 };
 
 #endif
