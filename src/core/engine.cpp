@@ -23,7 +23,7 @@ int Engine::init() {
 	}
 
 	input.init();
-	physics.init(glm::vec3(0.0f, 0.0f, 0.0f));
+	physics.init(glm::vec3(0.0f, 100.0f, 0.0f));
 	render.init();
 
 	GameState::running = true;	

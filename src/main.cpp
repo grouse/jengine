@@ -177,6 +177,8 @@ void init_player() {
 	player = entities.createEntity();
 
 	PhysicsBody physics;
+	physics.gravity = false;
+
 	components.physics_body.attachTo(player->id, physics);
 	components.movement.attachTo(player->id, Movement());
 	components.texture.attachTo(player->id, Texture());

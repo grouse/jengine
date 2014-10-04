@@ -24,6 +24,17 @@ void PhysicsSystem::update(float dt) {
 		position->y += movement->velocity.y*dt;
 		position->z += movement->velocity.z*dt;
 	}
+
+	for (unsigned int i = 0; i < components.physics_body.next; i++) {
+		PhysicsBody* physics = &components.physics_body[i];
+		if (physics->gravity) {
+			unsigned int entity = components.physics_body.cmp_ent_id[i];
+			Movement* movement = components.movement.getCmpFrom(entity);
+
+			movement->velocity += gravity*dt;
+		}
+
+	}
 		
 	/**for (auto it = objects->components[EComponentType::SHAPE].begin(); it != objects->components[EComponentType::SHAPE].end(); it++) {
 		Shape* s = (Shape*)(*it);
